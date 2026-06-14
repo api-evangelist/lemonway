@@ -1,0 +1,283 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "lemonway": "https://lemonway.com/schemas/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Wallet": {
+      "@id": "lemonway:Wallet",
+      "@context": {
+        "id": {
+          "@id": "lemonway:walletId",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "schema:email",
+          "@type": "xsd:string"
+        },
+        "firstName": {
+          "@id": "schema:givenName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "schema:familyName",
+          "@type": "xsd:string"
+        },
+        "balance": {
+          "@id": "lemonway:balance",
+          "@type": "xsd:decimal"
+        },
+        "currency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "lemonway:walletStatus",
+          "@type": "xsd:integer"
+        },
+        "iban": {
+          "@id": "lemonway:iban",
+          "@type": "xsd:string"
+        },
+        "bic": {
+          "@id": "lemonway:bic",
+          "@type": "xsd:string"
+        },
+        "kycLevel": {
+          "@id": "lemonway:kycLevel",
+          "@type": "xsd:integer"
+        },
+        "createdDate": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "updatedDate": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+    "MoneyIn": {
+      "@id": "lemonway:MoneyIn",
+      "@context": {
+        "id": {
+          "@id": "lemonway:transactionId",
+          "@type": "xsd:string"
+        },
+        "walletId": {
+          "@id": "lemonway:wallet",
+          "@type": "xsd:string"
+        },
+        "amount": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "currency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "lemonway:transactionStatus",
+          "@type": "xsd:integer"
+        },
+        "paymentMethod": {
+          "@id": "lemonway:paymentMethod",
+          "@type": "xsd:string"
+        },
+        "message": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "created": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "updated": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+    "MoneyOut": {
+      "@id": "lemonway:MoneyOut",
+      "@context": {
+        "id": {
+          "@id": "lemonway:transactionId",
+          "@type": "xsd:string"
+        },
+        "walletId": {
+          "@id": "lemonway:wallet",
+          "@type": "xsd:string"
+        },
+        "amount": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "currency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "iban": {
+          "@id": "lemonway:destinationIban",
+          "@type": "xsd:string"
+        },
+        "bic": {
+          "@id": "lemonway:destinationBic",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "lemonway:transactionStatus",
+          "@type": "xsd:integer"
+        },
+        "message": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "created": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "updated": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+    "P2PTransfer": {
+      "@id": "lemonway:P2PTransfer",
+      "@context": {
+        "id": {
+          "@id": "lemonway:transferId",
+          "@type": "xsd:string"
+        },
+        "debitWalletId": {
+          "@id": "lemonway:debitWallet",
+          "@type": "xsd:string"
+        },
+        "creditWalletId": {
+          "@id": "lemonway:creditWallet",
+          "@type": "xsd:string"
+        },
+        "amount": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "currency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "message": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "lemonway:transferStatus",
+          "@type": "xsd:integer"
+        },
+        "created": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+    "KYCDocument": {
+      "@id": "lemonway:KYCDocument",
+      "@context": {
+        "id": {
+          "@id": "lemonway:documentId",
+          "@type": "xsd:string"
+        },
+        "walletId": {
+          "@id": "lemonway:wallet",
+          "@type": "xsd:string"
+        },
+        "type": {
+          "@id": "lemonway:documentType",
+          "@type": "xsd:integer"
+        },
+        "status": {
+          "@id": "lemonway:documentStatus",
+          "@type": "xsd:integer"
+        },
+        "comment": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "created": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "updated": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+    "IBANAccount": {
+      "@id": "lemonway:IBANAccount",
+      "@context": {
+        "id": {
+          "@id": "lemonway:ibanAccountId",
+          "@type": "xsd:string"
+        },
+        "walletId": {
+          "@id": "lemonway:wallet",
+          "@type": "xsd:string"
+        },
+        "iban": {
+          "@id": "lemonway:iban",
+          "@type": "xsd:string"
+        },
+        "bic": {
+          "@id": "lemonway:bic",
+          "@type": "xsd:string"
+        },
+        "holderName": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "lemonway:ibanStatus",
+          "@type": "xsd:integer"
+        },
+        "created": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+    "PaymentCard": {
+      "@id": "lemonway:PaymentCard",
+      "@context": {
+        "id": {
+          "@id": "lemonway:cardId",
+          "@type": "xsd:string"
+        },
+        "walletId": {
+          "@id": "lemonway:wallet",
+          "@type": "xsd:string"
+        },
+        "maskedPan": {
+          "@id": "lemonway:maskedPan",
+          "@type": "xsd:string"
+        },
+        "brand": {
+          "@id": "lemonway:cardBrand",
+          "@type": "xsd:string"
+        },
+        "expiryDate": {
+          "@id": "lemonway:cardExpiry",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "lemonway:cardStatus",
+          "@type": "xsd:integer"
+        },
+        "created": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}
