@@ -1,0 +1,88 @@
+name: Lemonway Pricing Plans
+description: Lemonway offers pricing tailored to the size and needs of each marketplace, with per-transaction fees and optional monthly service fees. Contact Lemonway for a custom quote based on volume and flow complexity.
+url: https://www.lemonway.com/en/pricing
+created: '2026-06-13'
+modified: '2026-06-13'
+plans:
+  - name: Starter Pack
+    description: Entry-level marketplace payment solution suitable for new and growing marketplaces, including pay-in, KYC, and pay-out capabilities.
+    url: https://www.lemonway.com/en/pricing
+    setupFee:
+      amount: 5490
+      currency: EUR
+    monthlyFee:
+      amount: 840
+      currency: EUR
+    features:
+      - Pay-in via card, bank transfer, and alternative payment methods
+      - KYC/KYB identity verification
+      - Pay-out to European bank accounts
+      - IBAN wallet creation and management
+      - P2P transfers
+      - Dashboard access for transaction monitoring
+      - Webhook notifications
+      - Sandbox test environment
+      - Expert integration support
+    transactionFees:
+      - method: Card payments
+        rate: '1.10%'
+        flatFee:
+          amount: 0.25
+          currency: EUR
+      - method: Bank transfers and direct debit
+        rate: '0.30%'
+        flatFee:
+          amount: 0.40
+          currency: EUR
+      - method: Virtual IBAN
+        monthlyFee:
+          amount: 250
+          currency: EUR
+        perTransaction:
+          amount: 0.15
+          currency: EUR
+      - method: PayPal
+        rate: '0.40%'
+        note: Plus PayPal fees
+      - method: Pay by Bank
+        monthlyFee:
+          amount: 150
+          currency: EUR
+        perTransaction:
+          amount: 0.15
+          currency: EUR
+      - method: Chargeback fee
+        flatFee:
+          amount: 35
+          currency: EUR
+      - method: Individual account maintenance
+        perAccount:
+          amount: 0.40
+          currency: EUR
+          period: monthly
+      - method: Legal entity account maintenance
+        perAccount:
+          amount: 0.80
+          currency: EUR
+          period: monthly
+      - method: Pay-out Europe
+        flatFee:
+          amount: 0.50
+          currency: EUR
+      - method: Pay-out International
+        flatFee:
+          amount: 9.00
+          currency: EUR
+  - name: Custom Offer
+    description: Tailored pricing for large marketplaces with high volumes or complex payment flows, including volume-based discounts and dedicated support.
+    url: https://www.lemonway.com/en/pricing
+    minimumAnnualVolume:
+      amount: 7000000
+      currency: EUR
+    features:
+      - All Starter Pack features
+      - Volume-based discounts on transaction fees
+      - Dedicated account management
+      - Custom compliance and integration support
+      - Modular offering (payout, KYC, account management only)
+      - Tailored SLA agreements

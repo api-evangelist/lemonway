@@ -1,0 +1,21 @@
+name: Lemonway API Rate Limits
+description: Lemonway publishes aggregate platform capacity metrics but does not publicly document per-client rate limits. The platform reports handling 150 million API calls per month with an average response time of 678 ms and 3,500 transactions per hour on average. Contact Lemonway for specific rate limit thresholds applicable to your integration.
+url: https://www.lemonway.com/en/developers
+created: '2026-06-13'
+modified: '2026-06-13'
+platformMetrics:
+  monthlyCallCapacity: 150000000
+  averageResponseTimeMs: 678
+  averageTransactionsPerHour: 3500
+  uptime: '99.9%'
+rateLimits:
+  - scope: Platform capacity
+    description: Lemonway processes up to 150 million API calls per month across all clients. Individual client limits are not publicly disclosed and are determined by agreement.
+    publiclyDocumented: false
+    contactRequired: true
+    contactUrl: https://support.lemonway.com/hc/en-us
+notes:
+  - Lemonway does not publish per-client rate limit documentation publicly.
+  - IP whitelisting is required before production API access is granted.
+  - A test/sandbox environment is available for integration testing without production rate limit concerns.
+  - For production throughput requirements beyond standard thresholds, contact Lemonway sales or support.

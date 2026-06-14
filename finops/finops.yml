@@ -1,0 +1,73 @@
+name: Lemonway FinOps
+description: Financial operations reference for Lemonway marketplace payment API costs, covering per-transaction fees, account maintenance costs, monthly service charges, and chargeback exposure for marketplace operators.
+url: https://www.lemonway.com/en/pricing
+created: '2026-06-13'
+modified: '2026-06-13'
+currency: EUR
+costDrivers:
+  - category: Pay-In Fees
+    description: Fees charged per successful inbound payment transaction
+    items:
+      - name: Card payment (Visa, Mastercard, CB)
+        model: percentage_plus_flat
+        rate: 1.10
+        flatFee: 0.25
+        notes: Includes 3D Secure v2; pre-authorization and multi-capture supported
+      - name: Bank transfer / SEPA direct debit
+        model: percentage_plus_flat
+        rate: 0.30
+        flatFee: 0.40
+      - name: Virtual IBAN (dedicated)
+        model: monthly_plus_per_transaction
+        monthlyFee: 250.00
+        perTransactionFee: 0.15
+      - name: PayPal
+        model: percentage_plus_external
+        rate: 0.40
+        notes: Additional PayPal platform fees apply on top
+      - name: Pay by Bank
+        model: monthly_plus_per_transaction
+        monthlyFee: 150.00
+        perTransactionFee: 0.15
+      - name: Apple Pay / Google Pay
+        notes: Included within card payment fee structure
+  - category: Account Maintenance Fees
+    description: Monthly fees per active payment account (wallet) on the platform
+    items:
+      - name: Individual account
+        model: per_account_monthly
+        fee: 0.40
+      - name: Legal entity account
+        model: per_account_monthly
+        fee: 0.80
+  - category: Pay-Out Fees
+    description: Fees charged per outbound payment to bank accounts
+    items:
+      - name: European bank transfer (SEPA)
+        model: flat
+        fee: 0.50
+      - name: International bank transfer
+        model: flat
+        fee: 9.00
+  - category: Dispute and Chargeback Fees
+    description: Fees incurred when a cardholder disputes a transaction
+    items:
+      - name: Chargeback processing fee
+        model: flat
+        fee: 35.00
+        notes: Per chargeback event regardless of outcome
+  - category: Platform Setup
+    description: One-time and recurring platform access fees (Starter Pack)
+    items:
+      - name: Starter Pack setup fee
+        model: one_time
+        fee: 5490.00
+      - name: Starter Pack monthly support fee
+        model: monthly
+        fee: 840.00
+costOptimizationTips:
+  - Negotiate volume discounts for annual transaction volumes exceeding EUR 7 million
+  - Use SEPA bank transfer (0.30% + EUR 0.40) instead of card (1.10% + EUR 0.25) where buyer acceptance allows, to reduce pay-in costs at higher transaction values
+  - Minimize chargebacks through fraud screening and strong 3D Secure v2 enforcement to avoid EUR 35 per chargeback fees
+  - Consolidate payouts to reduce per-transfer fees on European (EUR 0.50) and especially international (EUR 9.00) transfers
+  - Use the modular offering (payout + KYC + account management only) if full pay-in infrastructure is not required, potentially reducing costs
