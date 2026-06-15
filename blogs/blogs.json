@@ -4,11 +4,15 @@
     {
       "source": "https://www.lemonway.com/en/blog",
       "feed_url": "https://www.lemonway.com/en/blog",
-      "title": "Lemonway Blog",
+      "title": "",
       "saved": 0,
-      "method": "html"
+      "method": "none"
+    },
+    {
+      "source": "https://support.lemonway.com/hc/en-us",
+      "error": "HTTPError"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-13T00:00:00Z"
+  "fetched": "2026-06-14T20:42:17Z"
 }
