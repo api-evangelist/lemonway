@@ -1,6 +1,6 @@
 name: Lemonway
 description: Lemonway is a European payment institution regulated by the French ACPR (registration 16568) since 2012, providing REST APIs for marketplace payments including IBAN wallet creation, bank transfers, card payments, KYC/KYB verification, P2P transfers, and crowdfunding platform payment flows. Trusted by over 1,400 marketplaces across Europe.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -19,7 +19,7 @@ tags:
 apis:
   - name: Lemonway API
     description: REST API for marketplace payment infrastructure including pay-in, pay-out, wallet management, KYC/KYB onboarding, P2P transfers, and regulatory compliance for European marketplaces.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://documentation.lemonway.com/reference/lemonway-api
     baseURL: https://api.lemonway.com
     tags:
@@ -53,7 +53,7 @@ apis:
         email: ''
   - name: Lemonway Onboarding API
     description: REST API for online KYC/KYB onboarding flows, enabling marketplace operators to collect identity verification, document uploads, and account creation for both individual and legal entity account holders.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://documentation.lemonway.com/reference/lemonway-api
     baseURL: https://api.lemonway.com
     tags:
