@@ -72,6 +72,10 @@ apis:
         url: https://support.lemonway.com/hc/en-us
         email: ''
 common:
+  - type: VulnerabilityDisclosure
+    url: security/lemonway-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/lemonway-domain-security.yml
   - type: Website
     url: https://www.lemonway.com/en
   - type: Developers
