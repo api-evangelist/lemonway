@@ -91,3 +91,21 @@ plans:
       - Custom compliance and integration support
       - Modular offering (payout, KYC, account management only)
       - Tailored SLA agreements
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Starter Pack
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Custom Offer
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
