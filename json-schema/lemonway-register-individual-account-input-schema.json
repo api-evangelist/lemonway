@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/lemonway/main/json-schema/lemonway-register-individual-account-input-schema.json",
+  "title": "RegisterIndividualAccountInput",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/RegisterIndividualAccountInput",
+  "required": [
+    "accountId",
+    "email",
+    "firstName",
+    "lastName",
+    "nationality",
+    "payerOrBeneficiary"
+  ],
+  "type": "object",
+  "properties": {
+    "accountId": {
+      "description": "Payment account ID that you use to identify the customer.Choose your unique number.<br /><b>Note:</b> If you plan to credit payments accounts  by fund transfer, please use short alphanumeric payment account identifiers (max 20 char.). \r\nYour customers will have to write their payment account identifier in the transfer label/comment, a label of more that 20 characters could be cut when passing the the banking system.",
+      "maxLength": 100,
+      "minLength": 1,
+      "type": "string"
+    },
+    "email": {
+      "description": "Unique Email",
+      "maxLength": 256,
+      "minLength": 6,
+      "pattern": "^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+      "type": "string"
+    },
+    "title": {
+      "description": "Client title",
+      "maxLength": 1,
+      "minLength": 1,
+      "pattern": "^(M|F|J|U)$",
+      "type": "string"
+    },
+    "firstName": {
+      "description": "Client first name",
+      "maxLength": 256,
+      "minLength": 2,
+      "type": "string"
+    },
+    "lastName": {
+      "description": "Client last name",
+      "maxLength": 256,
+      "minLength": 2,
+      "type": "string"
+    },
+    "adresse": {
+      "$ref": "#/$defs/Address"
+    },
+    "birth": {
+      "$ref": "#/$defs/Birth"
+    },
+    "nationality": {
+      "description": "Client nationality, using ISO 3166-1 alpha-3 format\r\nPlease separate multiple nationalities with a comma",
+      "maxLength": 19,
+      "minLength": 0,
+      "type": "string"
+    },
+    "phoneNumber": {
+      "description": "Phone number with MSISDN format: international number with country code without \"00\" neither \"+\".",
+      "maxLength": 30,
+      "minLength": 6,
+      "pattern": "^\\d{6,30}$",
+      "type": "string"
+    },
+    "mobileNumber": {
+      "description": "Mobile phone number with MSISDN format: international number with country code without \"00\" neither \"+\". \r\nThis will be used by default when eletronically signing documents.",
+      "maxLength": 30,
+      "minLength": 6,
+      "pattern": "^\\d{6,30}$",
+      "type": "string"
+    },
+    "isDebtor": {
+      "description": "For crowdfunding/loan platforms, indicates if the wallet is created for a debtor.",
+      "type": "boolean"
+    },
+    "payerOrBeneficiary": {
+      "format": "int32",
+      "description": "Indicates if the payment account is created for a Payer or a Beneficiary.\r\n1: Payer (default)\r\n2: Beneficiary",
+      "maximum": 2,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "isOneTimeCustomerAccount": {
+      "description": "Indicates if the payment account is for a one-time customer. \r\nIf yes, the payment account will be created with status 14, allowing only one payment. \r\nThe maximum amount will be defined with Lemonway.",
+      "type": "boolean"
+    },
+    "isTechnicalAccount": {
+      "description": "**Note:** This option is available depending on your contract\r\nTrue, in case this option is enabled in your contract.\r\nOtherwise it will be considered a Client Wallet.",
+      "type": "boolean"
+    },
+    "isUltimateBeneficialOwner": {
+      "description": "",
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "Address": {
+      "required": [
+        "country"
+      ],
+      "type": "object",
+      "properties": {
+        "street": {
+          "description": "Client number and street",
+          "maxLength": 256,
+          "minLength": 0,
+          "type": "string"
+        },
+        "postCode": {
+          "description": "Client Postcode/ZIP",
+          "maxLength": 10,
+          "minLength": 0,
+          "type": "string"
+        },
+        "city": {
+          "description": "Client city",
+          "maxLength": 140,
+          "minLength": 0,
+          "type": "string"
+        },
+        "country": {
+          "description": "Client country using ISO 3166-1 alpha-3",
+          "maxLength": 3,
+          "minLength": 3,
+          "type": "string"
+        }
+      }
+    },
+    "Birth": {
+      "required": [
+        "date"
+      ],
+      "type": "object",
+      "properties": {
+        "date": {
+          "description": "Client Date of Birth",
+          "pattern": "^[12]\\d{3}\\/(0[1-9]|1[0-2])\\/(0[1-9]|[12]\\d|3[01])$",
+          "type": "string"
+        },
+        "city": {
+          "description": "Client City of Birth",
+          "maxLength": 140,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Country": {
+          "description": "Client Country of Birth, using ISO 3166-1 alpha-3. Three-letter country code, for example: FRA (France), GBR (United Kingdom of Great Britain and Northern Ireland)",
+          "maxLength": 3,
+          "minLength": 3,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,628 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/lemonway/main/json-schema/lemonway-get-account-response-schema.json",
+  "title": "GetAccountResponse",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/GetAccountResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "onboardingId": {
+      "type": "string"
+    },
+    "identity": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/IndividualIdentity"
+        },
+        {
+          "$ref": "#/$defs/LegalEntityIdentity"
+        }
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Profile"
+      }
+    },
+    "information": {
+      "$ref": "#/$defs/IndividualInformation"
+    },
+    "type": {
+      "type": "string"
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Document"
+      }
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "legalRepresentative": {
+      "$ref": "#/$defs/IndividualInformation"
+    },
+    "ubos": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/IndividualInformation"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "onboardingId",
+    "identity",
+    "status",
+    "profiles",
+    "information",
+    "type",
+    "documents",
+    "updatedAt",
+    "createdAt",
+    "legalRepresentative"
+  ],
+  "$defs": {
+    "AccountFinancialSituation": {
+      "type": "object",
+      "properties": {
+        "annualRevenue": {
+          "type": "string"
+        },
+        "estimatedWealth": {
+          "type": "string"
+        },
+        "isIFITax": {
+          "type": "boolean"
+        },
+        "taxCode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "annualRevenue",
+        "estimatedWealth",
+        "isIFITax",
+        "taxCode"
+      ]
+    },
+    "Document": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "downloadUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "type",
+        "name",
+        "downloadUrl"
+      ]
+    },
+    "FinancialSupport": {
+      "type": "object",
+      "properties": {
+        "visaApplicantRole": {
+          "type": "string",
+          "enum": [
+            "STUDENT",
+            "JOB_SEEKER"
+          ]
+        },
+        "isPayer": {
+          "type": "boolean"
+        },
+        "payerRelationship": {
+          "$ref": "#/$defs/PayerRelationship"
+        },
+        "financialSituation": {
+          "$ref": "#/$defs/PayerFinancialSituation"
+        }
+      },
+      "required": [
+        "visaApplicantRole",
+        "isPayer",
+        "payerRelationship",
+        "financialSituation"
+      ]
+    },
+    "IndividualIdentity": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "birthDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "birthCountry": {
+          "type": "string"
+        },
+        "residenceCountry": {
+          "type": "string"
+        },
+        "nationalities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "birthDate",
+        "birthCountry",
+        "residenceCountry",
+        "nationalities"
+      ]
+    },
+    "IndividualInformation": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "otherName": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "birthCity": {
+          "type": "string"
+        },
+        "birthProvince": {
+          "type": "string"
+        },
+        "birthCountry": {
+          "type": "string"
+        },
+        "nationalities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "taxCode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "streetComplementaryInfo": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "province": {
+          "type": "string"
+        },
+        "pep": {
+          "type": "object"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "closeToPep": {
+          "type": "object"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "legalCapacity": {
+          "$ref": "#/$defs/LegalCapacity"
+        },
+        "professionalSituation": {
+          "type": "object"
+        },
+        "financialSituation": {
+          "$ref": "#/$defs/AccountFinancialSituation"
+        },
+        "originOfFunds": {
+          "type": "object"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "boardMemberPositions": {
+                "type": "array"
+              },
+              "role": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Project"
+          }
+        },
+        "documents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Document"
+          }
+        },
+        "financialSupport": {
+          "$ref": "#/$defs/FinancialSupport"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName",
+        "otherName",
+        "birthDate",
+        "birthCity",
+        "birthProvince",
+        "birthCountry",
+        "nationalities",
+        "email",
+        "phone",
+        "taxCode",
+        "city",
+        "country",
+        "street",
+        "streetComplementaryInfo",
+        "postalCode",
+        "province",
+        "pep",
+        "startDate",
+        "endDate",
+        "closeToPep",
+        "fullName",
+        "legalCapacity",
+        "professionalSituation",
+        "financialSituation",
+        "originOfFunds",
+        "roles",
+        "projects",
+        "documents",
+        "financialSupport"
+      ]
+    },
+    "LegalCapacity": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "MINOR_EMANCIPATED",
+            "MINOR_NOT_EMANCIPATED",
+            "LEGAL_AGE_AND_CAPACITY",
+            "PROTECTED_ADULT"
+          ],
+          "description": "Legal capacity options: LEGAL_AGE_AND_CAPACITY, PROTECTED_ADULT, MINOR_EMANCIPATED, MINOR_NOT_EMANCIPATED"
+        },
+        "protectionType": {
+          "type": "string",
+          "enum": [
+            "SAFEGUARDING_OF_JUSTICE",
+            "CURATORSHIP",
+            "GUARDIANSHIP",
+            "OTHER"
+          ]
+        },
+        "otherProtectionType": {
+          "type": "string",
+          "description": "Must specify other protection type"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "LegalEntityIdentity": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "COMPANY",
+            "ASSOCIATION",
+            "SOLE_TRADER"
+          ]
+        },
+        "registrationNumber": {
+          "type": "string"
+        },
+        "registrationCountry": {
+          "type": "string"
+        },
+        "registrationDate": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "registrationNumber",
+        "registrationCountry",
+        "registrationDate"
+      ]
+    },
+    "OriginOfFunds": {
+      "type": "object",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "INCOME",
+              "REAL_ESTATE_PROPERTIES",
+              "SAVINGS_ACCUMULATED_OVER_SEVERAL_YEARS",
+              "DONATION_OR_INHERITANCE",
+              "SALE_OF_A_STOCK_PORTFOLIO",
+              "TRANSFER_OF_COMPANY_SHARES",
+              "WINNING_FROM_GAMES_OR_CONTESTS",
+              "SURRENDER_OF_A_CAPITALIZATION_CONTRACT_OR_LIFE_INSURANCE_POLICY",
+              "SALE_OF_MOVABLE_ASSETS_GOODWILL_INTELLECTUAL_PROPERTY_RIGHTS",
+              "SALE_OF_CURRENCY_GOLD_OR_CRYPTOCURRENCIES",
+              "FINANCIAL_INVESTMENTS",
+              "OTHER_OPERATIONS"
+            ]
+          }
+        },
+        "other": {
+          "type": "string",
+          "description": "Description of other origin of funds"
+        }
+      },
+      "required": [
+        "sources"
+      ]
+    },
+    "PayerFinancialSituation": {
+      "type": "object",
+      "properties": {
+        "annualRevenue": {
+          "type": "string",
+          "enum": [
+            "FIRST_TIER",
+            "SECOND_TIER",
+            "THIRD_TIER",
+            "FOURTH_TIER",
+            "FIFTH_TIER",
+            "SIXTH_TIER"
+          ],
+          "description": "6 tiers format in Euro. \n\n•FIRST_TIER: 0 - 100K€\n\n•SECOND_TIER: 100K€ - 200K€\n\n•THIRD_TIER: 500K€ - 1.5M€\n\n•FOURTH_TIER: 1.5M€ - 5M€\n\n•FIFTH_TIER: 5M€ - 20M€ \n\n•SIXTH_TIER: 20M€ - 100M€"
+        },
+        "estimatedWealth": {
+          "type": "string",
+          "enum": [
+            "FIRST_TIER",
+            "SECOND_TIER",
+            "THIRD_TIER",
+            "FOURTH_TIER",
+            "FIFTH_TIER",
+            "SIXTH_TIER",
+            "SEVENTH_TIER"
+          ],
+          "description": "7 tiers format in Euro \n\n•FIRST_TIER: 0 - 100K€\n\n•SECOND_TIER: 100K€ - 200K€\n\n•THIRD_TIER: 500K€ - 1.5M€\n\n•FOURTH_TIER: 1.5M€ - 5M€\n\n•FIFTH_TIER: 5M€ - 20M€\n\n•SIXTH_TIER: 20M€ - 100M€\n\n•SEVENTH_TIER: >100M€"
+        },
+        "originOfFunds": {
+          "$ref": "#/$defs/OriginOfFunds"
+        }
+      },
+      "required": [
+        "annualRevenue",
+        "estimatedWealth",
+        "originOfFunds"
+      ]
+    },
+    "PayerRelationship": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "type": "string",
+          "enum": [
+            "MOTHER_FATHER",
+            "RELATIVES",
+            "SIBLINGS",
+            "GRAND_PARENTS",
+            "HUSBAND_WIFE",
+            "LIFE_PARTNER",
+            "OTHER"
+          ]
+        },
+        "other": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "link"
+      ]
+    },
+    "Profile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "DONOR",
+            "PROJECT_HOLDER",
+            "LENDER",
+            "INVESTOR",
+            "CREDITOR",
+            "DEBTOR",
+            "BUYER",
+            "MERCHANT",
+            "SELLER",
+            "OPERATOR",
+            "CONTENT_EDITOR",
+            "OTHER_OPERATOR",
+            "VISA_APPLICANT",
+            "PAYER"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/ProfileStatus"
+        },
+        "wallets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Wallet"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "status"
+      ]
+    },
+    "ProfileStatus": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "ACCEPTED",
+            "AWAITING_INFORMATION",
+            "CREATION_IN_PROGRESS",
+            "DENIED",
+            "IDENTITY_VERIFICATION_IN_PROGRESS",
+            "IDENTITY_VERIFICATION_ABANDONED",
+            "IDENTITY_VERIFICATION_ERROR",
+            "INFORMATION_COLLECTION_IN_PROGRESS",
+            "REJECTED",
+            "UNDER_ANALYSIS"
+          ]
+        },
+        "subStatus": {
+          "type": "string",
+          "enum": [
+            "REGULATORY_REASON",
+            "ONBOARDING_REJECTED"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "subStatus"
+      ]
+    },
+    "Project": {
+      "type": "object",
+      "properties": {
+        "projectType": {
+          "type": "string"
+        },
+        "weddingRelation": {
+          "type": "string"
+        },
+        "beneficiaryFirstName": {
+          "type": "string"
+        },
+        "beneficiaryLastName": {
+          "type": "string"
+        },
+        "beneficiaryBirthDate": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectType",
+        "weddingRelation",
+        "beneficiaryFirstName",
+        "beneficiaryLastName",
+        "beneficiaryBirthDate",
+        "description",
+        "website"
+      ]
+    },
+    "Wallet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "internalId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "PAYMENT_ACCOUNT",
+            "TECHNICAL"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "internalId",
+        "type"
+      ]
+    }
+  }
+}

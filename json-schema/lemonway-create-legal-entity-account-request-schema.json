@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/lemonway/main/json-schema/lemonway-create-legal-entity-account-request-schema.json",
+  "title": "CreateLegalEntityAccountRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateLegalEntityAccountRequest",
+  "type": "object",
+  "properties": {
+    "activity": {
+      "type": "string",
+      "enum": [
+        "CROWDFUNDING_MONEYPOT",
+        "CROWDFUNDING_DONATION",
+        "MARKETPLACE_B2B",
+        "MARKETPLACE_B2C",
+        "MARKETPLACE_C2C",
+        "CROWDEQUITY",
+        "CROWDLENDING",
+        "VALUE_ADDED_SERVICE",
+        "INVOICE_TRADING",
+        "MARKETPLACE_B2C_C2C",
+        "VISA_ACCOUNT_APPLICATION",
+        "SALARY_ADVANCE"
+      ],
+      "description": "Activity code or category for the legal entity (e.g., type of business)"
+    },
+    "legalEntity": {
+      "$ref": "#/$defs/LegalEntity"
+    },
+    "legalRepresentative": {
+      "$ref": "#/$defs/LegalRepresentative"
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "DONOR",
+        "PROJECT_HOLDER",
+        "LENDER",
+        "INVESTOR",
+        "CREDITOR",
+        "DEBTOR",
+        "BUYER",
+        "MERCHANT",
+        "SELLER",
+        "OPERATOR",
+        "CONTENT_EDITOR",
+        "OTHER_OPERATOR",
+        "VISA_APPLICANT",
+        "PAYER"
+      ],
+      "description": "User profile type"
+    },
+    "walletId": {
+      "type": "string",
+      "description": "Wallet identifier"
+    }
+  },
+  "required": [
+    "legalEntity",
+    "legalRepresentative",
+    "profile"
+  ],
+  "$defs": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "Country of residence (ISO 2-letter code)"
+        }
+      },
+      "required": [
+        "country"
+      ]
+    },
+    "LegalEntity": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full legal name of the entity."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "COMPANY",
+            "ASSOCIATION",
+            "SOLE_TRADER"
+          ],
+          "description": "Legal form/type of the entity."
+        },
+        "registrationNumber": {
+          "type": "string",
+          "description": "Official company registration number"
+        },
+        "registrationDate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "Date of legal registration (ISO 8601 format)"
+        },
+        "address": {
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "registrationDate"
+      ],
+      "description": "Details about the legal entity (see nested bodyParams)"
+    },
+    "LegalRepresentative": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "Representative’s first name"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Representative’s last name"
+        },
+        "birthDate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "Date of birth (ISO 8601 format)"
+        },
+        "birthCountry": {
+          "type": "string",
+          "description": "Country of birth (ISO 2-letter code)"
+        },
+        "nationalities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of nationality codes (ISO 2-letter)"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the legal representative"
+        },
+        "address": {
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName",
+        "birthDate",
+        "birthCountry",
+        "nationalities",
+        "email",
+        "address"
+      ],
+      "description": "Information about the entity’s legal representative (see nested bodyParams)."
+    }
+  }
+}

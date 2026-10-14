@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/lemonway/main/json-schema/lemonway-create-individual-account-request-schema.json",
+  "title": "CreateIndividualAccountRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateIndividualAccountRequest",
+  "type": "object",
+  "properties": {
+    "activity": {
+      "type": "string",
+      "enum": [
+        "CROWDFUNDING_MONEYPOT",
+        "CROWDFUNDING_DONATION",
+        "MARKETPLACE_B2B",
+        "MARKETPLACE_B2C",
+        "MARKETPLACE_C2C",
+        "CROWDEQUITY",
+        "CROWDLENDING",
+        "VALUE_ADDED_SERVICE",
+        "INVOICE_TRADING",
+        "MARKETPLACE_B2C_C2C",
+        "VISA_ACCOUNT_APPLICATION",
+        "SALARY_ADVANCE"
+      ],
+      "description": "ActivityType"
+    },
+    "individual": {
+      "$ref": "#/$defs/AccountIndividual"
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "DONOR",
+        "PROJECT_HOLDER",
+        "LENDER",
+        "INVESTOR",
+        "CREDITOR",
+        "DEBTOR",
+        "BUYER",
+        "MERCHANT",
+        "SELLER",
+        "OPERATOR",
+        "CONTENT_EDITOR",
+        "OTHER_OPERATOR",
+        "VISA_APPLICANT",
+        "PAYER"
+      ],
+      "description": "User’s activity profile (only one)."
+    },
+    "walletId": {
+      "type": "string",
+      "description": "Are there any exceptions what walletId are not allowed.Note: That is a walletId is not created, Lemonway will auto-generate one."
+    }
+  },
+  "required": [
+    "individual",
+    "profile"
+  ],
+  "$defs": {
+    "AccountIndividual": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "birthDate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "YYYY/MM/DD"
+        },
+        "email": {
+          "type": "string"
+        },
+        "birthCountry": {
+          "type": "string",
+          "description": "Must be offical country Alpha-2 code for example UK, ES."
+        },
+        "nationalities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Must be offical country Alpha-2 code for example FR, UK, ES"
+        },
+        "address": {
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName",
+        "birthDate",
+        "email",
+        "birthCountry",
+        "nationalities",
+        "address"
+      ]
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "Country of residence (ISO 2-letter code)"
+        }
+      },
+      "required": [
+        "country"
+      ]
+    }
+  }
+}

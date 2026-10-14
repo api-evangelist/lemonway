@@ -1,0 +1,79 @@
+generated: '2026-10-14'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 6
+  own: 4
+  other_domain: 0
+  platform: 2
+  roles:
+  - api
+  - docs
+  - other
+  - support
+  - website
+hosts:
+- host: api.lemonway.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: lemonway.com
+  role: api
+  relation: own
+- host: documentation.lemonway.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - Documentation
+  - Status
+  - ChangeLog
+  serves:
+  - docs
+  registrable_domain: lemonway.com
+  role: docs
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHub
+  serves: []
+  registrable_domain: github.com
+  role: other
+  relation: platform
+- host: support.lemonway.com
+  found_by:
+  - pointer
+  types:
+  - Support
+  serves: []
+  registrable_domain: lemonway.com
+  role: support
+  relation: own
+- host: www.lemonway.com
+  found_by:
+  - pointer
+  types:
+  - Website
+  - Developers
+  - Pricing
+  - Blog
+  - TermsOfService
+  - PrivacyPolicy
+  serves: []
+  registrable_domain: lemonway.com
+  role: website
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform

@@ -1,5 +1,9 @@
 name: Lemonway
-description: Lemonway is a European payment institution regulated by the French ACPR (registration 16568) since 2012, providing REST APIs for marketplace payments including IBAN wallet creation, bank transfers, card payments, KYC/KYB verification, P2P transfers, and crowdfunding platform payment flows. Trusted by over 1,400 marketplaces across Europe.
+
+description: Lemonway is a European payment institution regulated by the French ACPR (registration 16568) since 2012, providing REST APIs for
+  marketplace payments including IBAN wallet creation, bank transfers, card payments, KYC/KYB verification, P2P transfers, and crowdfunding platform
+  payment flows. Trusted by over 1,400 marketplaces across Europe.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -11,6 +15,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: enterprise
   onboarding: unknown
@@ -23,116 +28,210 @@ accessModel:
   - plans
   generated: '2026-07-22'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lemonway.png
+
 url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/apis.yml
+
 created: '2026-06-13'
+
 modified: '2026-06-13'
+
 specificationVersion: '0.23'
+
 x-docs-platform: readme
+
 x-docs-platform-confidence: high
+
 x-docs-platform-checked: 2026-10-03
+
 tags:
-  - Payments
-  - Marketplace
-  - IBAN
-  - KYC
-  - Wallets
-  - Bank Transfers
-  - Card Payments
-  - Crowdfunding
-  - European
-  - PSD2
-apis:
-  - name: Lemonway API
-    description: REST API for marketplace payment infrastructure including pay-in, pay-out, wallet management, KYC/KYB onboarding, P2P transfers, and regulatory compliance for European marketplaces.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://documentation.lemonway.com/reference/lemonway-api
-    baseURL: https://api.lemonway.com
-    tags:
-      - Payments
-      - Marketplace
-      - Wallets
-      - KYC
-      - Bank Transfers
-    properties:
-      - type: Documentation
-        url: https://documentation.lemonway.com/
-      - type: OpenAPI
-        url: https://documentation.lemonway.com/llms.txt
-      - type: PostmanCollection
-        url: https://documentation.lemonway.com/docs/developer-documentation
-      - type: Sandbox
-        url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
-      - type: Status
-        url: https://documentation.lemonway.com/page/api-status
-      - type: ChangeLog
-        url: https://documentation.lemonway.com/page/changelog
-      - type: Plans
-        url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
-      - type: RateLimits
-        url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
-      - type: FinOps
-        url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
-    contact:
-      - FN: Lemonway Developer Support
-        url: https://support.lemonway.com/hc/en-us
-        email: ''
-  - name: Lemonway Onboarding API
-    description: REST API for online KYC/KYB onboarding flows, enabling marketplace operators to collect identity verification, document uploads, and account creation for both individual and legal entity account holders.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://documentation.lemonway.com/reference/lemonway-api
-    baseURL: https://api.lemonway.com
-    tags:
-      - KYC
-      - KYB
-      - Onboarding
-      - Identity Verification
-      - Compliance
-    properties:
-      - type: Documentation
-        url: https://documentation.lemonway.com/docs/developer-documentation
-      - type: Sandbox
-        url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
-    contact:
-      - FN: Lemonway Developer Support
-        url: https://support.lemonway.com/hc/en-us
-        email: ''
+- Payments
+- Marketplace
+- IBAN
+- KYC
+- Wallets
+- Bank Transfers
+- Card Payments
+- Crowdfunding
+- European
+- PSD2
+
+maintainers:
+- FN: API Evangelist
+  url: https://apievangelist.com
+  email: info@apievangelist.com
+
 common:
-  - type: Plans
-    url: plans/plans.yml
-  - type: RateLimits
-    url: rate-limits/rate-limits.yml
-  - type: FinOps
-    url: finops/finops.yml
-  - type: VulnerabilityDisclosure
-    url: security/lemonway-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/lemonway-domain-security.yml
-  - type: Website
-    url: https://www.lemonway.com/en
-  - type: Developers
-    url: https://www.lemonway.com/en/developers
+- type: AgenticAccess
+  url: agentic-access/lemonway-agentic-access.yml
+- type: Spectral
+  url: rules/lemonway-rules.yml
+- type: JSONLD
+  url: json-ld/lemonway-context.jsonld
+- type: Vocabulary
+  url: vocabulary/lemonway-vocabulary.yml
+- type: DataModel
+  url: data-model/lemonway-data-model.yml
+- type: Security
+  url: security/lemonway-vulnerability-disclosure.yml
+- type: ErrorCatalog
+  url: errors/lemonway-problem-types.yml
+- type: Conformance
+  url: conformance/lemonway-conformance.yml
+- type: LLMsTxt
+  url: llms/lemonway-llms.txt
+- type: WellKnown
+  url: well-known/lemonway-well-known.yml
+- type: Hosts
+  url: hosts/lemonway-hosts.yml
+- type: Vendors
+  url: vendors/lemonway-vendors.yml
+- type: StatusPage
+  url: https://status.lemonway.com/
+- type: Newsroom
+  url: https://www.lemonway.com/press
+- type: DeveloperPortal
+  url: https://portal.lemonway.com/
+- type: Authentication
+  url: authentication/lemonway-authentication.yml
+- type: Plans
+  url: plans/plans.yml
+- type: RateLimits
+  url: rate-limits/rate-limits.yml
+- type: FinOps
+  url: finops/finops.yml
+- type: VulnerabilityDisclosure
+  url: security/lemonway-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/lemonway-domain-security.yml
+- type: Website
+  url: https://www.lemonway.com/en
+- type: Developers
+  url: https://www.lemonway.com/en/developers
+- type: Documentation
+  url: https://documentation.lemonway.com/
+- type: Pricing
+  url: https://www.lemonway.com/en/pricing
+- type: Status
+  url: https://documentation.lemonway.com/page/api-status
+- type: ChangeLog
+  url: https://documentation.lemonway.com/page/changelog
+- type: Support
+  url: https://support.lemonway.com/hc/en-us
+- type: Blog
+  url: https://www.lemonway.com/en/blog
+- type: LinkedIn
+  url: https://www.linkedin.com/company/lemonway
+- type: GitHub
+  url: https://github.com/lemonwaysas
+- type: TermsOfService
+  url: https://www.lemonway.com/en/legal-notice
+- type: PrivacyPolicy
+  url: https://www.lemonway.com/en/privacy-policy
+
+apis:
+- name: Lemonway Onboarding API
+  description: REST API for online KYC/KYB onboarding flows, enabling marketplace operators to collect identity verification, document uploads,
+    and account creation for both individual and legal entity account holders.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - KYC
+  - KYB
+  - Onboarding
+  - Identity Verification
+  - Compliance
+  properties:
+  - type: Documentation
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  contact:
+  - FN: Lemonway Developer Support
+    url: https://support.lemonway.com/hc/en-us
+    email: ''
+  aid: lemonway:lemonway-onboarding-api
+- aid: lemonway:lemonway-account-onboarding-management-api
+  name: Lemonway Account Onboarding Management API
+  description: The Account Onboarding Management API from Lemonway — 16 operation(s) for account onboarding management.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - Account Onboarding Management
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-account-onboarding-management-api-openapi.yml
   - type: Documentation
     url: https://documentation.lemonway.com/
-  - type: Pricing
-    url: https://www.lemonway.com/en/pricing
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
   - type: Status
     url: https://documentation.lemonway.com/page/api-status
   - type: ChangeLog
     url: https://documentation.lemonway.com/page/changelog
-  - type: Support
-    url: https://support.lemonway.com/hc/en-us
-  - type: Blog
-    url: https://www.lemonway.com/en/blog
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/lemonway
-  - type: GitHub
-    url: https://github.com/lemonwaysas
-  - type: TermsOfService
-    url: https://www.lemonway.com/en/legal-notice
-  - type: PrivacyPolicy
-    url: https://www.lemonway.com/en/privacy-policy
-maintainers:
-  - FN: API Evangelist
-    url: https://apievangelist.com
-    email: info@apievangelist.com
+  - type: Plans
+    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+- aid: lemonway:lemonway-directkit-api-2-0
+  name: Lemonway Directkit Api 2 0 Openapi.Yml API
+  description: The Directkit Api 2 0 Openapi.Yml API from Lemonway — 69 operation(s) for directkit api 2 0 openapi.yml.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - Directkit Api 2 0 Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-directkit-api-2-0-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 87
+  tool: harvest-readme-openapi.py
+  portal: https://documentation.lemonway.com

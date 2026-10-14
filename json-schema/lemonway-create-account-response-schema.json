@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/lemonway/main/json-schema/lemonway-create-account-response-schema.json",
+  "title": "CreateAccountResponse",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateAccountResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACCEPTED",
+        "CREATED",
+        "DENIED",
+        "BLOCKED"
+      ]
+    },
+    "profileStatus": {
+      "type": "string",
+      "enum": [
+        "ACCEPTED",
+        "AWAITING_INFORMATION",
+        "CREATION_IN_PROGRESS",
+        "DENIED",
+        "IDENTITY_VERIFICATION_IN_PROGRESS",
+        "IDENTITY_VERIFICATION_ABANDONED",
+        "IDENTITY_VERIFICATION_ERROR",
+        "INFORMATION_COLLECTION_IN_PROGRESS",
+        "REJECTED",
+        "UNDER_ANALYSIS"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "status",
+    "profileStatus"
+  ]
+}

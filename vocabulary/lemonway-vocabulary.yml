@@ -1,0 +1,419 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/lemonway-account-onboarding-management-api-openapi.yml
+- openapi/lemonway-directkit-api-2-0-openapi.yml
+vocabulary:
+  name: Lemonway Domain Vocabulary
+  description: 'Terms declared by Lemonway''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-14'
+  terms:
+  - term: Address
+    definition: 'Object declared by the contract with fields: country.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Address
+  - term: AccountIndividual
+    definition: 'Object declared by the contract with fields: firstName, lastName, birthDate, email, birthCountry, nationalities, address.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/AccountIndividual
+  - term: CreateIndividualAccountRequest
+    definition: 'Object declared by the contract with fields: activity, individual, profile, walletId.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateIndividualAccountRequest
+  - term: CreateAccountResponse
+    definition: 'Object declared by the contract with fields: id, status, profileStatus.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateAccountResponse
+  - term: Project
+    definition: 'Object declared by the contract with fields: projectType, weddingRelation, beneficiaryFirstName, beneficiaryLastName, beneficiaryBirthDate,
+      description, website.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Project
+  - term: CreateIndividualWalletRequest
+    definition: 'Object declared by the contract with fields: walletId, project.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateIndividualWalletRequest
+  - term: CreateWalletResponse
+    definition: 'Object declared by the contract with fields: id, WalletStatus, internalId.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateWalletResponse
+  - term: CreateProfileRequest
+    definition: 'Object declared by the contract with fields: profile, activity, walletId, solutionName.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateProfileRequest
+  - term: CreateProfileResponse
+    definition: 'Object declared by the contract with fields: id, status.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateProfileResponse
+  - term: LegalEntity
+    definition: Details about the legal entity (see nested bodyParams)
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/LegalEntity
+  - term: LegalRepresentative
+    definition: Information about the entity’s legal representative (see nested bodyParams).
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/LegalRepresentative
+  - term: CreateLegalEntityAccountRequest
+    definition: 'Object declared by the contract with fields: activity, legalEntity, legalRepresentative, profile, walletId.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateLegalEntityAccountRequest
+  - term: CreateLegalEntityWalletRequest
+    definition: 'Object declared by the contract with fields: walletId, project.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateLegalEntityWalletRequest
+  - term: ProfileStatus
+    definition: 'Object declared by the contract with fields: type, subStatus.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/ProfileStatus
+  - term: Wallet
+    definition: 'Object declared by the contract with fields: id, internalId, type.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Wallet
+  - term: Profile
+    definition: 'Object declared by the contract with fields: id, type, status, wallets.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Profile
+  - term: Account
+    definition: 'Object declared by the contract with fields: id, onboardingId, identity, status, profiles, type, updatedAt, createdAt.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Account
+  - term: GetAccountsResponse
+    definition: 'Object declared by the contract with fields: data, nextLink, prevLink.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/GetAccountsResponse
+  - term: IndividualIdentity
+    definition: 'Object declared by the contract with fields: firstName, lastName, email, birthDate, birthCountry, residenceCountry, nationalities.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/IndividualIdentity
+  - term: LegalEntityIdentity
+    definition: 'Object declared by the contract with fields: name, type, registrationNumber, registrationCountry, registrationDate.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/LegalEntityIdentity
+  - term: LegalCapacity
+    definition: 'Object declared by the contract with fields: type, protectionType, otherProtectionType.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/LegalCapacity
+  - term: AccountFinancialSituation
+    definition: 'Object declared by the contract with fields: annualRevenue, estimatedWealth, isIFITax, taxCode.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/AccountFinancialSituation
+  - term: Document
+    definition: 'Object declared by the contract with fields: status, type, name, downloadUrl.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Document
+  - term: PayerRelationship
+    definition: 'Object declared by the contract with fields: link, other.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/PayerRelationship
+  - term: OriginOfFunds
+    definition: 'Object declared by the contract with fields: sources, other.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/OriginOfFunds
+  - term: PayerFinancialSituation
+    definition: 'Object declared by the contract with fields: annualRevenue, estimatedWealth, originOfFunds.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/PayerFinancialSituation
+  - term: FinancialSupport
+    definition: 'Object declared by the contract with fields: visaApplicantRole, isPayer, payerRelationship, financialSituation.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/FinancialSupport
+  - term: IndividualInformation
+    definition: 'Object declared by the contract with fields: firstName, lastName, otherName, birthDate, birthCity, birthProvince, birthCountry,
+      nationalities, email, phone, taxCode, city. (18 more)'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/IndividualInformation
+  - term: GetAccountResponse
+    definition: 'Object declared by the contract with fields: id, onboardingId, identity, status, profiles, information, type, documents, updatedAt,
+      createdAt, legalRepresentative, ubos.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/GetAccountResponse
+  - term: OnboardingAddress
+    definition: Address of the representative
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/OnboardingAddress
+  - term: PoliticalExposure
+    definition: Political exposure details (PEP status)
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/PoliticalExposure
+  - term: OnboardingFinancialSituation
+    definition: 'Object declared by the contract with fields: annualRevenue, estimatedWealth, hasIFItax, originOfFunds.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/OnboardingFinancialSituation
+  - term: ProfessionalSituation
+    definition: 'Object declared by the contract with fields: activity.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/ProfessionalSituation
+  - term: OnboardingIndividual
+    definition: 'Object declared by the contract with fields: firstName, lastName, otherName, birthDate, birthCity, birthCountry, birthProvince,
+      nationalities, email, phoneNumber, address, taxCode. (4 more)'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/OnboardingIndividual
+  - term: Beneficiary
+    definition: 'Object declared by the contract with fields: firstName, lastName, birthDate.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Beneficiary
+  - term: SalaryAdvanceReason
+    definition: 'Object declared by the contract with fields: type, other.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/SalaryAdvanceReason
+  - term: OnboardingProject
+    definition: 'Object declared by the contract with fields: type, beneficiary, website, description, weddingRelation, weddingPartnerFirstName,
+      weddingPartnerLastName, salaryAdvanceReason.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/OnboardingProject
+  - term: CreateIndividualOnboardingRequest
+    definition: 'Object declared by the contract with fields: accountId, redirectUrl, individual, project, financialSupport.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateIndividualOnboardingRequest
+  - term: CreateOnboardingResponse
+    definition: 'Object declared by the contract with fields: id, url.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateOnboardingResponse
+  - term: OtherFundsDestinationCountries
+    definition: 'Object declared by the contract with fields: countries, reason.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/OtherFundsDestinationCountries
+  - term: FundsDestinationCountries
+    definition: 'Object declared by the contract with fields: sameFundCountryAsCompanyRegistration, otherFundsDestinationCountries.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/FundsDestinationCountries
+  - term: Location
+    definition: 'Object declared by the contract with fields: sameAddressAsCompanyRegistration, address.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Location
+  - term: CompanyActivity
+    definition: Activity and business scope details
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CompanyActivity
+  - term: LegalEntityProject
+    definition: Project-related details
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/LegalEntityProject
+  - term: CompanyFinancialSituation
+    definition: Financial situation details
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CompanyFinancialSituation
+  - term: Shareholder
+    definition: 'Object declared by the contract with fields: name, registrationNumber, registrationCountry.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Shareholder
+  - term: Shareholding
+    definition: Shareholding structure details
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Shareholding
+  - term: DebtorsInformation
+    definition: 'Object declared by the contract with fields: performsProhibitedActivity, locatedInHighriskCountry.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/DebtorsInformation
+  - term: CompanyLegalEntity
+    definition: Legal entity details (see nested bodyParams below)
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CompanyLegalEntity
+  - term: CompanyLegalRepresentative
+    definition: Legal representative details (see nested bodyParams below)
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CompanyLegalRepresentative
+  - term: Ubo
+    definition: 'Object declared by the contract with fields: firstName, lastName, otherName, birthDate, birthCity, birthCountry, birthProvince,
+      nationalities, email, phoneNumber, taxCode, address. (1 more)'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Ubo
+  - term: CreateOnboardingCompanyRequest
+    definition: 'Object declared by the contract with fields: accountId, redirectUrl, legalEntity, legalRepresentative, ubos.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateOnboardingCompanyRequest
+  - term: EntityFinancing
+    definition: 'Object declared by the contract with fields: by, other.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/EntityFinancing
+  - term: AssociationActivity
+    definition: Activity and business scope details
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/AssociationActivity
+  - term: LegalEntityFinancialSituation
+    definition: Financial situation details
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/LegalEntityFinancialSituation
+  - term: AssociationLegalEntity
+    definition: Legal entity details (see nested bodyParams below)
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/AssociationLegalEntity
+  - term: AssociationLegalRepresentative
+    definition: Legal representative details (see nested bodyParams below)
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/AssociationLegalRepresentative
+  - term: CreateAssociationOnboardingRequest
+    definition: 'Object declared by the contract with fields: accountId, redirectUrl, legalEntity, legalRepresentative.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateAssociationOnboardingRequest
+  - term: Activity
+    definition: Activity and business scope details
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/Activity
+  - term: SoleTraderLegalEntity
+    definition: Legal entity details (see nested bodyParams below)
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/SoleTraderLegalEntity
+  - term: FinancialSituation
+    definition: 'Object declared by the contract with fields: annualRevenue, estimatedWealth, hasIFItax.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/FinancialSituation
+  - term: SoleTraderLegalRepresentative
+    definition: Legal representative details (see nested bodyParams below)
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/SoleTraderLegalRepresentative
+  - term: CreateSoleTraderOnboardingRequest
+    definition: 'Object declared by the contract with fields: accountId, redirectUrl, legalEntity, legalRepresentative.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateSoleTraderOnboardingRequest
+  - term: CreateUrlResponse
+    definition: 'Object declared by the contract with fields: url.'
+    tags:
+    - Object
+    source: openapi/lemonway-account-onboarding-management-api-openapi.yml#/components/schemas/CreateUrlResponse
+  - term: AccountDetails
+    definition: 'Object declared by the contract with fields: id, internalId, clientTitle, firstname, lastname, balance, email, status, isblocked,
+      isRestricted, accountType, company. (7 more)'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/AccountDetails
+  - term: Error
+    definition: 'Object declared by the contract with fields: code, message, psp.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/Error
+  - term: Company
+    definition: 'Object declared by the contract with fields: name, description, websiteUrl, identificationNumber.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/Company
+  - term: Birth
+    definition: 'Object declared by the contract with fields: date, city, Country.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/Birth
+  - term: PSP
+    definition: 'Object declared by the contract with fields: message.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/PSP
+  - term: AccountDetailsBatchInput
+    definition: 'Object declared by the contract with fields: accounts.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/AccountDetailsBatchInput
+  - term: WalletDetailsInput
+    definition: 'Object declared by the contract with fields: accountid, email.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/WalletDetailsInput
+  - term: AccountDetailsBatchOutput
+    definition: 'Object declared by the contract with fields: accounts, error.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/AccountDetailsBatchOutput
+  - term: EnrolmentInitInput
+    definition: 'Object declared by the contract with fields: Provider, successUrl, declinedUrl, couponRequestedUrl, reviewPendingUrl, incompleteUrl.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/EnrolmentInitInput
+  - term: EnrolmentInitOutput
+    definition: 'Object declared by the contract with fields: redirecturl, error.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/EnrolmentInitOutput
+  - term: AccountDetailsOutput
+    definition: 'Object declared by the contract with fields: account, error.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/AccountDetailsOutput
+  - term: AccountDocumentsOutput
+    definition: 'Object declared by the contract with fields: documents, error.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/AccountDocumentsOutput
+  - term: BalanceHistoryOutput
+    definition: 'Object declared by the contract with fields: balance, error.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/BalanceHistoryOutput
+  - term: Links
+    definition: 'Object declared by the contract with fields: first, last, previous, next, self.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/Links
+  - term: Link
+    definition: 'Object declared by the contract with fields: href, templated, method, type, deprecation, name, profile, title, hreflang.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/Link
+  - term: AccountBalanceOutput
+    definition: 'Object declared by the contract with fields: accounts, _links, error.'
+    tags:
+    - Object
+    source: openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/AccountBalanceOutput

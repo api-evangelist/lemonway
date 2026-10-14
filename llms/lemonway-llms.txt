@@ -1,0 +1,495 @@
+# Lemonway Documentation Documentation
+
+> Lemonway API and functional documentation
+
+## Main: Home
+- [Lemonway Documentation](https://documentation.lemonway.com/docs/home.md)
+  - [What's Your Business Model?](https://documentation.lemonway.com/docs/what-is-your-payment-scheme.md)
+- Marketplaces
+  - [B2B Marketplaces](https://documentation.lemonway.com/docs/b2b-marketplaces-landing.md)
+    - [Step 1: Create a merchant account](https://documentation.lemonway.com/docs/create-a-merchant-account.md)
+    - [Step 2: B2B Onboarding & Verification](https://documentation.lemonway.com/docs/b2b-onboardingverification.md)
+    - [Step 3: Pay-In - Setting-up the first sale for a B2B](https://documentation.lemonway.com/docs/b2b-first-sale.md): Pay-In and Pay-Out
+    - [Step 4: Transferring Funds to a Merchant's Bank Account](https://documentation.lemonway.com/docs/transferring-funds-to-a-merchants-bank-account.md)
+  - [B2C Marketplaces](https://documentation.lemonway.com/docs/b2c-marketplacelanding.md)
+    - [Step 1:  Create a seller account](https://documentation.lemonway.com/docs/b2ccreateselleraccount.md)
+    - [Step 2: B2C Onboarding & Verification](https://documentation.lemonway.com/docs/b2conboardingverification.md)
+    - [Step 3: Pay-In - Setting-up the first sale for a B2C](https://documentation.lemonway.com/docs/b2cfirst-successful-transaction.md): Pay-In and Pay-Out
+    - [Step 4: Pay-Out - Transfering Funds to Seller](https://documentation.lemonway.com/docs/b2crequesting-earned-payment.md)
+    - [Troubleshooting Seller Pay-outs](https://documentation.lemonway.com/docs/troubleshooting.md): Known common reasons payouts fail
+  - [C2C Marketplaces](https://documentation.lemonway.com/docs/c2c-marketplaces.md)
+    - [Step 1: Create a Seller Account (C2C)](https://documentation.lemonway.com/docs/step-1.md): _In C2C, your sellers are individuals. This step shows how to create an **individual Lemonway account** (seller profile) and retrieve the account information._
+    - [Step 2: Verify the Seller Identity (KYC)](https://documentation.lemonway.com/docs/step-2.md): This step verifies the seller’s identity and eligibility to receive payouts.   For C2C platforms, KYC is a core compliance requirement and should be designed for high completion rates.
+    - [Step 3: First Successful C2C Transaction (Buyer Pay-In)](https://documentation.lemonway.com/docs/step-3.md): This step covers the first successful payment from a buyer to purchase an item/service from a C2C seller
+    - [Step 4: Release Funds to Seller (Pay-Out)](https://documentation.lemonway.com/docs/step-4.md): After successful payment and platform-defined checks, payout transfers the seller’s earnings from wallet balance to their bank account
+- [Payment Flows](https://documentation.lemonway.com/docs/sqd.md): Sequence Diagrams that outline Lemonway payment flows
+  - [Pay by Card ](https://documentation.lemonway.com/docs/redirection-payments-flows.md)
+  - [Pay by Card  - Direct Payment (PCI-DSS compliant only)](https://documentation.lemonway.com/docs/paybycarddirect-flows.md)
+  - [Pay by Card with Registered Card](https://documentation.lemonway.com/docs/registered-card-flows.md)
+  - [BNPL Payment](https://documentation.lemonway.com/docs/bnpl-flows.md)
+  - [Pay By Bank Payment](https://documentation.lemonway.com/docs/pay-by-bank-flows.md)
+  - [Apple Payments](https://documentation.lemonway.com/docs/applepayflows.md)
+
+## Main: Start Integrating
+- [Connect Your Business to Lemonway](https://documentation.lemonway.com/docs/getting-started-lemonway.md)
+  - [Creating your Lemonway Account](https://documentation.lemonway.com/docs/creating-your-lemonway-account.md)
+  - [Pre-activation checks](https://documentation.lemonway.com/docs/before-account-activation.md)
+  - [Whitelisting an IP address](https://documentation.lemonway.com/docs/whitelisting-an-ip-address.md): Allowlist a static IP address for secure remote Dashboard or API access.
+  - [Accessing Lemonway Tools and Services](https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services.md)
+  - [Run Integration Tests](https://documentation.lemonway.com/docs/test-your-integration.md): Test your Lemonway integration in sandbox and run a live penny test before processing payments.
+- [Test Lemonway API with Postman](https://documentation.lemonway.com/docs/postman.md)
+
+## Main: Supported Payment Methods
+- [Payment Methods We Support](https://documentation.lemonway.com/docs/supportedpayments.md): What payment modes does Lemonway offer?
+- [Our Payment Modes](https://documentation.lemonway.com/docs/payment-modes.md): What payment modes does Lemonway offer?
+  - Card
+    - [Supported Cards](https://documentation.lemonway.com/docs/supported-card-payments.md)
+    - [Introduction](https://documentation.lemonway.com/docs/introduction-cards.md)
+    - [Online Payments: Security and Efficiency](https://documentation.lemonway.com/docs/online-payments-security-and-convenience.md): 3DSv2 Card Payments and Frictionless Payments
+    - [Pre-authorization](https://documentation.lemonway.com/docs/pre-authorization.md)
+    - [Redirection](https://documentation.lemonway.com/docs/redirection.md)
+    - [Redirection Guidelines](https://documentation.lemonway.com/docs/redirection-parameters.md)
+    - [3D Secure v2 and Card Payments](https://documentation.lemonway.com/docs/3ds-payments.md)
+    - [Frictionless Payments](https://documentation.lemonway.com/docs/frictionless-payments.md)
+    - [Pay By Link](https://documentation.lemonway.com/docs/pay-by-link.md)
+  - [Cheque](https://documentation.lemonway.com/docs/cheque-1.md)
+    - [Cheques](https://documentation.lemonway.com/docs/cheques.md)
+  - [Pay by Bank](https://documentation.lemonway.com/docs/pay-by-bank.md)
+  - [P2P transfers](https://documentation.lemonway.com/docs/p2p-transfers.md)
+  - [Bank Transfer](https://documentation.lemonway.com/docs/bank-transfer.md)
+    - [Bank Transfer Refunds](https://documentation.lemonway.com/docs/bank-trasfer-refunds.md)
+  - [Direct Debits](https://documentation.lemonway.com/docs/direct-debit.md)
+    - [SDD Refunds](https://documentation.lemonway.com/docs/sdd-refunds.md)
+  - Local Payment Methods
+    - [Supported Local Payment Methods](https://documentation.lemonway.com/docs/supported-payment-methods.md)
+    - [MBWay Payments](https://documentation.lemonway.com/docs/new-mbway-payments.md)
+  - [BNPL (Buy Now Pay Later)](https://documentation.lemonway.com/docs/buy-now-pay-later.md)
+    - [Pay 3x or 4x Payment Plan](https://documentation.lemonway.com/docs/payment-plans.md)
+    - [How to integrate BNPL on your platform](https://documentation.lemonway.com/docs/integrate-bnpl.md)
+    - [Make a BNPL Refund](https://documentation.lemonway.com/docs/bnpl-refunds.md)
+    - [BNPL MoneyIn](https://documentation.lemonway.com/docs/bnpl-moneyin-moneyout.md)
+    - [BNPL MoneyOut](https://documentation.lemonway.com/docs/bnpl-moneyout.md)
+    - [BNPL Error Codes and Messages](https://documentation.lemonway.com/docs/error-codes-bnpl.md)
+  - [PayPal Payments](https://documentation.lemonway.com/docs/paypal-payments.md)
+    - [Full Page PayPal Redirection](https://documentation.lemonway.com/docs/paypal-redirection.md)
+    - [PayPal Smart Button Integration](https://documentation.lemonway.com/docs/sdk-integration.md)
+    - [Delayed PayPal Payment Capture ](https://documentation.lemonway.com/docs/delayed-payment-capture.md)
+    - [Make a PayPal Refund](https://documentation.lemonway.com/docs/make-a-paypal-refund.md)
+    - [Dashboard PayPal Statuses](https://documentation.lemonway.com/docs/dashboard-paypal-statuses.md)
+  - [Apple Pay Payments](https://documentation.lemonway.com/docs/apple-pay-lemonway.md)
+- [Multi-capture Payment](https://documentation.lemonway.com/docs/multicapture.md)
+  - [How to use the Multi-capture](https://documentation.lemonway.com/docs/how-to-use-the-multi-capture.md)
+  - [Capture and Track multi-capture payments](https://documentation.lemonway.com/docs/capture-and-track-multi-capture-payments.md)
+- [Verification of Payee (VoP)](https://documentation.lemonway.com/docs/verification-of-payee-vop.md)
+- [APM (Alternative Payment Methods)](https://documentation.lemonway.com/docs/apm.md)
+
+## Main: Integrations
+- [Lemonway x Magento](https://documentation.lemonway.com/docs/lemonway-x-magento.md): Lemonway Payment Plugin
+  - [Prerequisites](https://documentation.lemonway.com/docs/pre-requisites.md)
+  - [Installation](https://documentation.lemonway.com/docs/installation.md)
+  - [Configuration](https://documentation.lemonway.com/docs/configuration.md)
+  - [Card Payments](https://documentation.lemonway.com/docs/card-payments.md)
+  - [Bank Transfer Payments](https://documentation.lemonway.com/docs/bank-transfer-payments.md)
+  - [SEPA Direct Debit payments](https://documentation.lemonway.com/docs/sepa-direct-debit-payments.md)
+  - [Developer documentation](https://documentation.lemonway.com/docs/developer-documentation.md)
+- [Lemonway x Mirakl](https://documentation.lemonway.com/docs/lemonway-x-mirakl.md)
+  - [Getting Started with Lemonway x Mirakl connector](https://documentation.lemonway.com/docs/preequisites.md)
+  - [What services does Lemonway provide?](https://documentation.lemonway.com/docs/services-provided.md)
+  - [Use Case - TechGadgets Marketplace](https://documentation.lemonway.com/docs/lemonwayxmirakl-usecase.md)
+    - [CellfunPhones first sale!](https://documentation.lemonway.com/docs/firstsale.md)
+    - [Processing the buyer payment](https://documentation.lemonway.com/docs/payment-to-lemonway-by-mirakl.md)
+    - [Settling Payments](https://documentation.lemonway.com/docs/settlingpayments.md)
+    - [Refunding a buyer](https://documentation.lemonway.com/docs/refundingbuyer.md)
+    - [TechGadget - Money-Outs](https://documentation.lemonway.com/docs/lemonway-x-mirakl-money-outs.md)
+- [Hosted Card Payment Fields](https://documentation.lemonway.com/docs/embedded-card-payment.md): Build and customize a card payment form with Lemonway Hosted Fields.
+  - [Getting Started with a Basic Payment Form](https://documentation.lemonway.com/docs/getting-started-with-a-basic-payment-form.md)
+  - [SDK Buddle - Integration and SSR](https://documentation.lemonway.com/docs/sdk-bundle-integration-and-ssr.md)
+  - [Styling with SDK](https://documentation.lemonway.com/docs/styling-with-sdk.md): CSS Sanitization
+  - [Toggling Classes](https://documentation.lemonway.com/docs/toggling-classes.md)
+  - [Synthetic Events](https://documentation.lemonway.com/docs/synthetic-events.md)
+  - [Event Hooks](https://documentation.lemonway.com/docs/event-hooks.md)
+  - [Internationalization](https://documentation.lemonway.com/docs/internationalization.md)
+  - [Card Scheme Detection](https://documentation.lemonway.com/docs/card-scheme-detection.md)
+  - [Submit a Form](https://documentation.lemonway.com/docs/submit-a-form.md)
+  - [Example Styles](https://documentation.lemonway.com/docs/examples.md)
+- [Lemonway Payment Page](https://documentation.lemonway.com/docs/lemonway-payment-page.md)
+
+## Main: Lemonway Dashboard
+- [What is Lemonway Dashboard?](https://documentation.lemonway.com/docs/dashboardoverview.md)
+- [Configure your dashboard](https://documentation.lemonway.com/docs/configure-your-dashboard.md)
+  - [System Configuration](https://documentation.lemonway.com/docs/user-admin.md): Create, manage and deactivate Lemonway Dashboard users.
+    - [Notifications](https://documentation.lemonway.com/docs/export-dashboard-data.md): Set up and configure automatic notifications in Lemonway Dashboard.
+    - [API Keys](https://documentation.lemonway.com/docs/access-invoices.md)
+  - [User Configuration](https://documentation.lemonway.com/docs/user-admin-1.md)
+    - [Manage Users](https://documentation.lemonway.com/docs/create-new-user.md)
+    - [Manage Roles](https://documentation.lemonway.com/docs/manage-roles.md)
+- [Secure your dashboard](https://documentation.lemonway.com/docs/secure-your-dashboard.md)
+  - [Enable Two-factor Authentication](https://documentation.lemonway.com/docs/twofactor-authentication.md)
+  - [Whitelisting an IP Address](https://documentation.lemonway.com/docs/ipwhitelist.md)
+  - [Reset Passwords](https://documentation.lemonway.com/docs/reset-password.md)
+- [Understand your dashboard](https://documentation.lemonway.com/docs/understand-your-dashboard.md)
+  - [Dashboard Menu](https://documentation.lemonway.com/docs/dashboard-menu.md)
+  - [Dashboard Tables](https://documentation.lemonway.com/docs/dashboard-tables.md)
+  - [Dashboard Languages](https://documentation.lemonway.com/docs/dashboard-languages.md): How to change the Dashboard display language.
+  - [Dashboard Updates](https://documentation.lemonway.com/docs/dashboard-updates.md)
+- [Use your dashboard](https://documentation.lemonway.com/docs/use-your-dashboard.md)
+  - Manage your clients
+    - [Accounts](https://documentation.lemonway.com/docs/accounts.md)
+    - [Wallets](https://documentation.lemonway.com/docs/wallets.md)
+  - Monitor Your Transactions
+    - [Transactions](https://documentation.lemonway.com/docs/transactions.md)
+    - [Managing Transactions](https://documentation.lemonway.com/docs/managing-transactions.md)
+    - [Approval Workflow for Pay-Out](https://documentation.lemonway.com/docs/dashboard-approval-workflow.md)
+- [Manage Your Products](https://documentation.lemonway.com/docs/manage-your-products.md)
+  - [Branding Lemonway Products in the Dashboard](https://documentation.lemonway.com/docs/branding-lemonway-products-in-the-dashboard.md)
+- [🆕 Dashboard Add individual or Legal Entitiy Account](https://documentation.lemonway.com/docs/dashboard-approval-workflow-for-pay-out-copy.md)
+
+## Main: Account Verification, Onboarding & Updates
+- [Getting Started with Online Onboarding](https://documentation.lemonway.com/docs/getting-started-with-onboarding.md)
+  - [Why Onboarding is a Critical First Step](https://documentation.lemonway.com/docs/onboarding-is-a-critical-first-step.md)
+  - [Lemonway Online Onboarding](https://documentation.lemonway.com/docs/lemonway-online-onboarding-form.md)
+  - [Improving Account Onboarding: Why Change Matters](https://documentation.lemonway.com/docs/improving-account-onboarding.md)
+  - [Online Onboarding: Customization for a Better User Experience](https://documentation.lemonway.com/docs/onboarding-form-customisation.md)
+  - [Online Onboarding Essentials](https://documentation.lemonway.com/docs/onboarding-essentials.md)
+  - [Save and Resume an Online Onboarding](https://documentation.lemonway.com/docs/onboardingform-resume-anytime.md)
+  - [Online Onboarding live status](https://documentation.lemonway.com/docs/onboardingform-livestatus.md)
+- Onboarding with Lemonway
+  - [Online Onboarding an Individual](https://documentation.lemonway.com/docs/start-your-journey.md)
+    - [Individual Account Creation and Onboarding API Reference](https://documentation.lemonway.com/docs/onboarding-api-reference-individual.md)
+    - [Individual Account Creation and Onboarding](https://documentation.lemonway.com/docs/individuals.md)
+    - [Online onboarding Identity Validation](https://documentation.lemonway.com/docs/identify-validation.md)
+    - [Individual Online Onboarding Summary](https://documentation.lemonway.com/docs/individual-onboarding-summary.md)
+  - [Online Onboarding a Legal Entity](https://documentation.lemonway.com/docs/legal-entity-creation-and-onboarding.md)
+    - [Legal Entity Onboarding - API Reference](https://documentation.lemonway.com/docs/legalentity-onboarding.md)
+- [Onboarding for Multiple Profiles & Wallets](https://documentation.lemonway.com/docs/online-onboarding-for-multiple-profiles-wallets.md)
+- [Onboarding Checklist: Required Documents](https://documentation.lemonway.com/docs/onlineonboardingessentialdocsneeded.md)
+  - [Legal Entities: Non-Listed Company](https://documentation.lemonway.com/docs/legal-entities-non-listed-company.md)
+  - [Company Registered in the EU or Recognized Third Country](https://documentation.lemonway.com/docs/company-registered-in-the-eu.md)
+  - [Associations](https://documentation.lemonway.com/docs/associations.md)
+  - [Foundations](https://documentation.lemonway.com/docs/foundations.md)
+  - [Endowment Funds](https://documentation.lemonway.com/docs/endowment-funds.md)
+  - [Skilled Trades](https://documentation.lemonway.com/docs/skilled-trades.md)
+  - [Limited Liability Agricultural Company](https://documentation.lemonway.com/docs/llcompany.md)
+  - [Self-employed](https://documentation.lemonway.com/docs/selfemployed.md)
+  - [Investment funds](https://documentation.lemonway.com/docs/investmentfunds.md)
+  - [Unincorporated Funds (UIF)](https://documentation.lemonway.com/docs/unincorporated-funds.md)
+  - [Social and Economic Committee (SEC)](https://documentation.lemonway.com/docs/sec.md)
+  - [General Interest Groups](https://documentation.lemonway.com/docs/general-interest-groups.md)
+  - [Insurance company](https://documentation.lemonway.com/docs/insurance-company.md)
+  - [Parish or Church](https://documentation.lemonway.com/docs/parishorchurch.md)
+- [Onboarding Help and FAQs](https://documentation.lemonway.com/docs/onboarding-faqs.md)
+  - [Online Onboarding - Troubleshooting for Developers](https://documentation.lemonway.com/docs/online-onboarding-troubleshooting-for-developers.md)
+  - [ Online Onboarding - Ask AI Prompts ](https://documentation.lemonway.com/docs/online-onboarding-ask-ai-prompts.md)
+  - [FAQs – Paper Identity Documents (EU/EEA)](https://documentation.lemonway.com/docs/faqs-paper-identity-documents-eueea.md)
+- [Account & Wallet Usage with Applied Exemptions](https://documentation.lemonway.com/docs/exception-use-cases-for-wallet-usage.md)
+- [KYC Update Sandbox Simulation](https://documentation.lemonway.com/docs/api-sandbox-only.md)
+- [KYC Update - Use Cases](https://documentation.lemonway.com/docs/kyc-update-use-cases.md)
+- [Handling KYC Updates - FAQs](https://documentation.lemonway.com/docs/kyc-update-faqs.md)
+
+## Main: Practical Information
+- Product & Integration
+  - [Safeguarding Customer Funds](https://documentation.lemonway.com/docs/safefunds.md): Find out how customer funds are safeguarded under European Banking regulations
+  - [Updates & Upgrades: Onfido (Entrust) Web SDK & Hosted Online Onboarding](https://documentation.lemonway.com/docs/stable-upgrades-opindo.md)
+- Regulation & Compliance
+  - [PSD3 - What can we expect?](https://documentation.lemonway.com/docs/psd3.md)
+  - [Marketplace VAT Regulation](https://documentation.lemonway.com/docs/marketplace-vat-regulation.md)
+  - [Lemonway Servers](https://documentation.lemonway.com/docs/location-of-lemonway-servers.md)
+- Operations & Reference
+  - [Instant Pay-Out - Eligible BIC Banks list](https://documentation.lemonway.com/docs/bic-instant-payouts.md)
+  - [Country Codes - ISO 21661](https://documentation.lemonway.com/docs/country-codes-iso.md)
+  - [Account holder death procedure](https://documentation.lemonway.com/docs/lemonway-account-holder-death.md)
+- [Glossary](https://documentation.lemonway.com/docs/glossary.md): All the relevant terms that you might encounter while working with Lemonway
+  - [Tech](https://documentation.lemonway.com/docs/tech.md)
+  - [Payments](https://documentation.lemonway.com/docs/payments.md)
+  - [Security](https://documentation.lemonway.com/docs/security.md)
+  - [Lemonway Terminology](https://documentation.lemonway.com/docs/lemonway-specific-terms.md)
+  - [Regulations](https://documentation.lemonway.com/docs/regulations.md)
+
+## Main: About lemonway
+- [How to Contact Lemonway](https://documentation.lemonway.com/docs/how-to-contact-lemonway.md)
+- [Site Map](https://documentation.lemonway.com/docs/site-map.md)
+
+## API Reference: 🆕  Account & Onboarding Management API
+- The Accounts Object
+  - [Create Individual Account for Onboarding](https://documentation.lemonway.com/reference/accountscontroller_createindividual.md): Creates a new individual Lemonway account for onboarding a new user. If the individual already has a Lemonway account but requires full onboarding, use POST /onboardings/individual and provide the…
+  - [Add Wallet to an Accepted Individual Profile](https://documentation.lemonway.com/reference/accountscontroller_createindividualwallet.md): Add a wallet to an existing profile that has already been accepted
+  - [Add Profile to an Accepted Individual Account](https://documentation.lemonway.com/reference/accountscontroller_createindividualprofile.md): Add a profile to an existing individual account that has already been accepted
+  - [Create Corporate Account with Legal Representative](https://documentation.lemonway.com/reference/accountscontroller_createlegalentity.md): Creates a new legal entity account by providing the entity’s details along with information about its legal representative. This request is typically the first step before initiating the onboarding…
+  - [Add Wallet to an Accepted Legal Entity Profile](https://documentation.lemonway.com/reference/accountscontroller_createlegalentitywallet.md): Add a wallet to an existing profile that has already been accepted
+  - [Add Profile to an Accepted Legal Entity Account](https://documentation.lemonway.com/reference/accountscontroller_createlegalentityprofile.md): Add a profile to an existing legal-entity account that has already been accepted
+  - [List Accounts (Individuals & Legal Entities)](https://documentation.lemonway.com/reference/accountscontroller_get.md): Retrieve a list of all individual (and/or corporate) accounts
+  - [Retrieve Account Overview (Profile, Wallets & Onboarding Status)](https://documentation.lemonway.com/reference/accountscontroller_find.md): Fetch details for a single account by its unique ID.  The when endpoint is called the following information is provided:  • Provides account information (id, identity, status)  • Provides the…
+  - [Get Account Document by ID and Type](https://documentation.lemonway.com/reference/accountscontroller_getfile.md): Fetches a previously uploaded document for a given account.  The account is identified by its UUID (`accountId`), and the document by its name or logical identifier (`documentName`).  ### Conditions…
+- The Onboarding Object
+  - [Start Individual Online Onboarding](https://documentation.lemonway.com/reference/onboardings_createonboarding.md): If the account’s profile status is awaiting_information, start the onboarding flow. To initiate the Online Onboarding process using the POST/onboardings/individual endpoint, you need to submit the…
+  - [Add Document to an Individual in Onboarding](https://documentation.lemonway.com/reference/individualonboarding_uploaddocument.md): Upload a document associated with an individual currently being onboarded
+  - [Start Legal Entity Online Onboarding](https://documentation.lemonway.com/reference/onboardings_createcompanyonboarding.md): Initiates the online onboarding process for a legal entity whose profile status is AWAITING_INFORMATION. This call generates a secure onboarding session and returns a redirect URL where the end-user…
+  - [Start Legal Entity Online Onboarding (Association)](https://documentation.lemonway.com/reference/onboardings_createassociationonboarding.md): Initiates the online onboarding process for a legal entity whose profile status is AWAITING_INFORMATION. This call generates a secure onboarding session and returns a redirect URL where the end-user…
+  - [Start Legal Entity Online Onboarding (Sole-Trader)](https://documentation.lemonway.com/reference/onboardings_createsoletraderonboarding.md): Initiates the online onboarding process for a legal entity whose profile status is AWAITING_INFORMATION. This call generates a secure onboarding session and returns a redirect URL where the end-user…
+  - [Add Document to a Legal Entity in Onboarding](https://documentation.lemonway.com/reference/legalentityonboarding_uploaddocument.md): Upload a document associated with a legal entity currently being onboarded
+  - [Get Onboarding Resume URL](https://documentation.lemonway.com/reference/onboardingscontroller_createurl-2.md): Retrieves a continuation (resume) URL for a previously-started, in-progress onboarding session.  This allows an end-user to return to their onboarding process after leaving the session without…
+- [Online Onboarding: Structure](https://documentation.lemonway.com/reference/online-onboarding-api-reference.md)
+- [Onboarding Webhooks - Account and Profile Updates](https://documentation.lemonway.com/reference/online-onboarding-webhooks-statues.md): Account Creation and Status updates and Profile Status Updates
+- [Hosted Online Onboarding](https://documentation.lemonway.com/reference/hosted-online-onboarding.md)
+  - [Release Notes  & Change Log](https://documentation.lemonway.com/reference/release-notes.md)
+- [Onboarding Resources](https://documentation.lemonway.com/reference/resources.md)
+  - [Onboarding API Error Messages](https://documentation.lemonway.com/reference/onboarding-api-error-messages.md)
+  - [Onboarding HTTP Response Codes](https://documentation.lemonway.com/reference/online-onboarding-http-response-codes.md)
+  - [Activity Rules](https://documentation.lemonway.com/reference/activity-rules-new.md)
+  - [Required Data for Indviduals & Legal Entities](https://documentation.lemonway.com/reference/required-data.md)
+    - [Additonal Data Requirements](https://documentation.lemonway.com/reference/additonal-data-requirements.md)
+  - [Validation Rules for Individuals](https://documentation.lemonway.com/reference/validation-rules-for-individuals.md)
+  - [Validation Rules for Legal Entities](https://documentation.lemonway.com/reference/validation-rules-for-legalentities.md)
+  - [Explorer Onboarding Payload Examples](https://documentation.lemonway.com/reference/onboardingpayload-examples.md)
+    - [Individual Payloads](https://documentation.lemonway.com/reference/individual-payloads.md)
+    - [Legal Entity Company](https://documentation.lemonway.com/reference/legal-entity-payloads.md)
+    - [Legal Entity Association](https://documentation.lemonway.com/reference/copy-of-legal-entity-company.md)
+  - [EU & UK Phone Regex Patterns](https://documentation.lemonway.com/reference/eu-uk-phone-regex-patterns.md)
+- [API Deprecations - DirectKit API 2.0](https://documentation.lemonway.com/reference/api-deprecations.md)
+
+## API Reference: test Integration
+- [OAuth Authentication ](https://documentation.lemonway.com/reference/authentication-oauth.md)
+- Lemonway MCP Server
+  - [What is the Lemonway MCP?](https://documentation.lemonway.com/reference/mcp-x-lemonway.md)
+    - [Connecting Lemonway to Claude](https://documentation.lemonway.com/reference/connecting-to-claude.md)
+- Cards
+  - [How do I test cards on my Platform?](https://documentation.lemonway.com/reference/test-bank-cards.md)
+  - [Carte Bancaires (CB) Test Cards](https://documentation.lemonway.com/reference/cbtestcards.md)
+  - [Mastercard Test Cards](https://documentation.lemonway.com/reference/mastercardtestcards.md)
+  - [Visa Test Cards](https://documentation.lemonway.com/reference/visatestcards.md)
+
+## API Reference: Lemonway DirectKit API 2.0
+- Accounts | Admin
+  - 🔵 POST
+    - [Get Detailed Payments Accounts Data](https://documentation.lemonway.com/reference/accounts_retrievepost.md): Lets your system to get detailed payment account information including:  payment account balance, account type, if the account is blocked, and account email address.   Fill at least one search…
+    - [(Deprecated) Initialize a Deutsche Post POSTIDENT Identification](https://documentation.lemonway.com/reference/accounts_enrolmentinit.md)
+  - 🟢 GET
+    - [Get Detailed Payment Account Data](https://documentation.lemonway.com/reference/accounts_accountsingleget.md): Enables your system to get detailed payment account information including:    * Payment account balance    * Account type     * Account status (if blocked or not)  * Account email address
+    - [Get Documents Associated with a Payment Account](https://documentation.lemonway.com/reference/accounts_documentget.md): Returns the document ID, document status, and document type of a users account.              **Note:** If you validate your Client's documentation using Lemonway's automated KYC, you will not…
+    - [Get Payment Account Balance History](https://documentation.lemonway.com/reference/accounts_balanceshistoryget.md): Enter an `accountId` and specify the `atDate` parameter to return an account balance.    **Important:** Payment account balances can not be viewed for special accounts SC **11** and LW **4** using…
+    - [Get all Payment Account Balances](https://documentation.lemonway.com/reference/accounts_balancesget.md): Use `GetBalances` to get all payment accounts where the balance has changed since the input date, or all the balances of payment accounts with internal ID between payment `accountIdStart` and payment…
+    - [Get list of all Payment Account transactions](https://documentation.lemonway.com/reference/accounts_transactionsget.md): Use the `GetWalletTransHistory` to retrieve the list of **Money-In**, **Money-Out** and **P2P (payment between payment account)** of a given payment account. The following numbered list corresponds…
+  - 🟠 PUT
+    - [Block or Unblock an Account](https://documentation.lemonway.com/reference/accounts_blockedput.md)
+- Accounts | Create & KYC
+  - 🔵 POST
+    - [Create a New Individual Account](https://documentation.lemonway.com/reference/accounts_individualpost.md): Lets you to create a individual payment account   1. Your Client enter their data on your platform, for example on their profile space.   2. Your server calls our Accounts API.   3. Lemonway…
+    - [Create an Ultimate Beneficial Owner](https://documentation.lemonway.com/reference/accounts_addultimatebeneficialowner.md): The method enables you to link an Ultimate Beneficial Owner to a legal payment account.   To be validated all Legal accounts need to provide their Ultimate Beneficial Owner information.   An…
+    - [Create a New Legal Account](https://documentation.lemonway.com/reference/accounts_legalpost.md): Lets you to create a legal payment account:       1. Your client enter their data on your platform, for example on their profile space.    2. Your server calls our Accounts API.   3. Lemonway…
+    - [Upload Documents for KYC (Know Your Customers)](https://documentation.lemonway.com/reference/accounts_documentsuploadpost.md): KYC is a regulatory obligation for Payment Institutions. European Directive 2015/849 of the European Parliament states this requirement     for the prevention of the use of the financial system for…
+  - 🟢 GET
+    - [Get all Ultimate Beneficial Owners associated to a payment account.](https://documentation.lemonway.com/reference/accounts_getultimatebeneficialowner.md): This method enables you get all the Ultimate Beneficial Owners associated to a legal payment account.
+    - [Find a user, document or an IBAN that has been modified since an entry date](https://documentation.lemonway.com/reference/accounts_kycstatusget.md): Use to find users, documents, IBAN for which the status has changed since a specified date.   **Note:** Returns the same user multiple times in the same request if his status has changed multiple…
+  - 🟠 PUT
+    - [Update Ultimate Beneficial Owner data](https://documentation.lemonway.com/reference/accounts_updateultimatebeneficialowner.md): This method enables you to update information related to an Ultimate Beneficial Owner.
+- Accounts | Update
+  - 🟠 PUT
+    - [Update Legal Payment Account Data](https://documentation.lemonway.com/reference/accounts_legalsingleput.md): This method enables you to update information relating to a **legal** client payment account.   1. The client enters their new data.   2. The client calls the Lemonway Webservice.   3. Lemonway…
+    - [Update Payment Account Status](https://documentation.lemonway.com/reference/accounts_kycstatusput.md): Allows certain payment account statuses to be updated.   - To close an account (status 12), the account must have zero balance.   - An account status can not be changed to bypass the KYC process.…
+    - [Update Individual Payment Account Data](https://documentation.lemonway.com/reference/accounts_individualput.md): Enables you to update information related to a client payment account.   1. The client enters their new data.   2. The client calls the Lemonway Webservice.   3. Lemonway records data when it…
+- MoneyIns | Cards
+  - 🔵 POST
+    - [Initiate a Web Payment](https://documentation.lemonway.com/reference/moneyins_cardwebinitpost.md)
+    - [Initiate Monthly Recurring Payments](https://documentation.lemonway.com/reference/moneyins_cardsubscriptionpost.md): Use the following steps to ensure a recurring payment can be setup:   1. Initiate a first transaction      If you are using the **PSP Payment** Page, you need to have initiated a Web Payment using…
+    - [Charge a Registered Card](https://documentation.lemonway.com/reference/moneyins_cardrebill.md): <b>Important:</b> Due to PSD2 requirements for strong authentication, rebilling with a registered card <b>for amounts that change on each transaction</b> is no longer available. In the short-term,…
+    - [Credit an Account with Money-In with Card without PSP process](https://documentation.lemonway.com/reference/moneyins_cardcreatepost.md): Credit an account with Money-In with card without PSP process. This functionality is available depending on your contract.
+  - 🟢 GET
+    - [Get the Card Associated to a Payment Account](https://documentation.lemonway.com/reference/moneyins_cardget.md)
+    - [Retrieve Payment Details](https://documentation.lemonway.com/reference/moneyins_moneyinget.md): Retrieves the details of a Payment that has previously been initiated.
+  - 🟠 PUT
+    - [Capture a Deferred Payment](https://documentation.lemonway.com/reference/moneyins_validateput.md): This call is only used in deferred payment. Pre-authroriztion validation can only be done once. 1. After initiating a pre-authorized Web Payment using `POST /moneyins/card/webinit`, you received a…
+    - [Unregister a Card Token](https://documentation.lemonway.com/reference/moneyins_cardunregisterput.md): This method lets you unregister (break the link) between a card and a payment account.
+    - [Finalize a Direct Payment (PCI-DSS compliant only)](https://documentation.lemonway.com/reference/moneyins_carddirect3dconfirmput.md): This method finalizes the credit of a wallet by card after 3D Secure authentication of the client:<br /> 1. After initiating a Direct Payment using <b>POST /moneyins/card/direct/3dinit</b>, you…
+  - [Get Card Information](https://documentation.lemonway.com/reference/get_v2-moneyins-card-cardid.md): Lets you retrieve card information.
+- [MoneyIns  | Apple Pay](https://documentation.lemonway.com/reference/moneyinsapplepay.md)
+- [MoneyIns | Google Pay™](https://documentation.lemonway.com/reference/moneyins-google-pay.md)
+- MoneyIns | Virtual IBAN
+  -  🔵 POST
+    - [Disable a Dedicated Virtual IBAN](https://documentation.lemonway.com/reference/moneyins_bankwireibandisablepost.md): This functionality enables you to disable dedicated IBANs.
+    - [Create Dedicated Virtual IBANs](https://documentation.lemonway.com/reference/moneyins_bankwireibancreatepost.md): This feature enables you to create dedicated (virtual) IBANs. These IBANs are linked to a dedicated payment account and give the possibility to you to receive wire transfers directly to these…
+  - 🟢 GET
+    - [Get VIBANs count](https://documentation.lemonway.com/reference/moneyins_bankwireibancountget.md): This endpoint enables you to retrieve the VIBAN count, the remaining VIBAN count and the max VIBAN thresholds.
+    - [Get the IBAN Associated with a Payment Account](https://documentation.lemonway.com/reference/get-the-iban-associated-with-a-payment-account.md)
+- MoneyIns | Direct Debits
+  - [🔵 POST](https://documentation.lemonway.com/reference/post-4.md)
+    - [Register a SDD Mandate](https://documentation.lemonway.com/reference/moneyins_sddmandatepost.md): This method allows you to pre-register a mandate.<br /><ul><li>If you register a mandate with electronic signature, the mandate will be pending. You need to use the [Generate an Electronic Signature…
+    - [Request a SEPA Direct Debit (SDD)](https://documentation.lemonway.com/reference/moneyins_sddinitpost.md): SEPA Direct Debit requests are sent to our bank every working day at 10:30am (CET).<br /> Prequisites:<br /> 1. You allow your client to fill in a mandate, and pre-registers it with Lemonway, by…
+    - [Generate an Electronic Signature of a Document](https://documentation.lemonway.com/reference/accounts_documentssigninitpost.md): This call lets you to generate an electronic signature.    **Note:** Only SDD mandates can be signed with this method.        **Prerequisite:**  A Mandate needs to be registered with…
+  - 🟢 GET
+    - [Get Mandate Associated to a Payment Account](https://documentation.lemonway.com/reference/moneyins_mandateget.md)
+    - [Get Mandate Document](https://documentation.lemonway.com/reference/moneyins_mandategetdocument.md): Download a mandate document that is registered to one of your payment accounts.
+    - [List of Money-In by SEPA Direct Debit (SDD)](https://documentation.lemonway.com/reference/moneyins_sddget.md): Returns the list of Money-In by SDD which status has changed since the input date.
+  - 🟠 PUT
+    - [Cancel a Money-In](https://documentation.lemonway.com/reference/moneyins_cancelput.md): With the PUT /moneyins/{transactionid}/cancel method, you can cancel a pre-authorization / SEPA Direct Debit (SDD) request.
+    - [Deactivate a Mandate](https://documentation.lemonway.com/reference/moneyins_sddmandateunregisterput.md): This allows you to deactivate a mandate
+- MoneyIns | BNPL
+  - 🔵 POST
+    - [Create New Pending Payment](https://documentation.lemonway.com/reference/moneyins_createbnplpayment.md): Depending on your activated payment plans this call will let you setup a new payment plan.
+  - 🟢 GET
+    - [Get all Actived Payment Plans](https://documentation.lemonway.com/reference/moneyins_getbnplpaymentplans.md): Activated payment plans are summarized in a list that may consist of one, or more configured plans.   We offer 15 and 30 day deferment plans, and pay 3x and 4x plans.   **Note:** Payment plans are…
+    - [Capture a Deferred Payment](https://documentation.lemonway.com/reference/capture-a-deferred-payment-2.md)
+- MoneyIns | Pay by Link
+  - 🔵 POST
+    - [Create Payment Form (Pay by Link)](https://documentation.lemonway.com/reference/moneyins_cardpaymentformpost.md): Accept payments by an SMS, email, or document.     Create a form that permits your customers to make card payments by link.        - Payment forms are generated and managed by Lemonway.   -…
+  - 🟢 GET
+    - [Get Details of a Completed Payment Form](https://documentation.lemonway.com/reference/moneyins_paymentformcompletedget.md): This method lets you to retreive the status of a <b>completed (or filled) payment form</b><br /> Scenario <ul><li>Using the POST /moneyins/card/paymentform method, you have generated a re-usable…
+  - 🟠 PUT
+    - [Disable a Payment Form](https://documentation.lemonway.com/reference/moneyins_paymentformdisableput.md): Disable a payment form created by CreatePaymentForm
+- MoneyIns | Pay by Bank
+  - 🔵 POST
+    - [Initiate Pay by Bank](https://documentation.lemonway.com/reference/moneyins_moneyintransferinit.md): <b>How does it work?</b> <br /> <p></p>             1. Call POST v2/moneyins/paybybank/transfer/init, to receive a redirect URL and the transaction Id. <br /><p></p>             2. Redirect the…
+  - 🟢 GET 
+    - [Get Pay by Bank List](https://documentation.lemonway.com/reference/moneyins_getmoneyinbanks.md): Returns the list of supported Banks to make Pay By Bank transfers. This method enables you to design, customize and host a bank selection site, or alternatively a bank's bankid can be retrieved from…
+- MoneyIns | Transfers In
+  - 🟢 GET 
+    - [Search for Payment Details Previously Initiated](https://documentation.lemonway.com/reference/search-for-payment-details-previously-initiated.md)
+    - [Search for a Money-In by Fund Transfer](https://documentation.lemonway.com/reference/moneyins_bankwireget.md): Use `GetMoneyInIBANStatus` to obtain the list of all Money-In by fund transfer (not by card payment) received by Lemonway, starting from an entry date given in input to this method.
+- MoneyIns | Cheque
+  - 🟢 GET
+    - [Search for Cheque Money-In by Date or by Token](https://documentation.lemonway.com/reference/moneyins_chequeget.md): Use GET /moneyins/cheque to obtain the list of all money-in by cheque (received by Lemonway), starting from an entry date given in input to this method, or by merchant token.
+  - 🔵 POST
+    - [Register a Cheque](https://documentation.lemonway.com/reference/moneyins_chequeinitpost.md): The following rules apply: If you want to pre-enter the cheques in our system, use the POST /moneyins/cheque/init method<br /> The cheque must be made out to Lemonway<br /> On the back of the…
+- MoneyIns | Local Payments
+  - 🔵 POST
+    - [Initialize Multibanco Payment](https://documentation.lemonway.com/reference/moneyins_multibancoinitpost.md): Payment process: <ul><li>You call the Lemonway DirectKit API to initialize the credit transaction of a payment account and get a payment reference</li><li>You give the payment reference to the final…
+  - [(Deprecated) Initialize MB WAY Payment](https://documentation.lemonway.com/reference/moneyins_mbwayinitpost.md): Payment process: <ul><li>You call the Lemonway DirectKit API, provide a phone number to initialize the payment</li><li>The payment order is sent to the customer's smartphone</li><li>The customer…
+  - [(Deprecated) Initialize Sofort Payment](https://documentation.lemonway.com/reference/moneyins_sofortinitpost.md): You will need 2 integration points on your code: <ul><li>One call to Lemonway DirectKit API to init Sofort payment to credit the payment account</li><li>One redirection from your website to the…
+  - [(Deprecated) Initialize Payshop Payment](https://documentation.lemonway.com/reference/moneyins_payshopinitpost.md): Payment process <ul><li>Your system will call the Lemonway DirectKit API to initialize the credit transaction of a payment account and get a payment reference</li><li>Your system gives the payment…
+  - [(Deprecated) Initialize Trustly Payment](https://documentation.lemonway.com/reference/moneyins_trustlyinitpost.md): Trustly is a Swedish payment method used in 29 European countries. With Trustly you can buy and pay from your bank account.
+  - [(Deprecated) Initialize PayTrail Payment](https://documentation.lemonway.com/reference/moneyins_paytrailinitpost.md): You will need 2 integration points on your code: <ul><li>One call to Lemonway DirectKit API to init PayTrail payment to credit the payment account</li><li>One redirection from your website to the…
+  - [(Deprecated) Initialize MobilePay Payment](https://documentation.lemonway.com/reference/moneyins_mobilepayinitpost.md): You will need two integration points on your code: <ul><li>One call to Lemonway DirectKit API to init MobilePay payment to credit the payment account</li><li>One redirection from your website to the…
+- MoneyIns | APM
+  - 🔵 POST
+    - [Initializes an APM transaction.](https://documentation.lemonway.com/reference/moneyins_moneyinapminitasync.md)
+- MoneyIns | PayPal
+  - 🔵 POST
+    - [Initiate Pay by PayPal](https://documentation.lemonway.com/reference/moneyins_moneyinpaypalinit.md): Lets you integrate PayPal payments on your platform. The integration is implemented as a standard web page redirect to PayPal.com, it enables buyers to login to their accounts and make a payment to…
+    - [PayPal Resume](https://documentation.lemonway.com/reference/moneyins_paypaltransactionresume.md): PayPal's SDK Integration method lets you customize your offering. It enables you to define content based on the data that passed. There are a number of parameters that can be defined,   for example,…
+- MoneyOuts
+  -  🔵 POST
+    - [Add an IBAN to a Payment Account for Money-Outs](https://documentation.lemonway.com/reference/moneyouts_ibanpost.md): To send Money-Out from the Lemonway payment account to the bank account of your Clients, you need to register their bank account details. This method lets our system to link an IBAN to a payment…
+    - [Add Bank Account to a Payment Account for Money-Outs](https://documentation.lemonway.com/reference/moneyouts_ibanextendedpost.md): You are required to register your client's bank account details in order to send Money-Out from a Lemonway payment account.   With this method, our system links other bank formats to a payment…
+    - [External Fund Transfer from a Payment Account to a Bank Account](https://documentation.lemonway.com/reference/moneyouts_moneyoutpostasync.md): How does it work? Select an IBAN if multiple IBAN exist for the wallet. Select an amount, not greater than the balance of the wallet. Call the moneout method, and the system performs the fund…
+  - 🟢 GET
+    - [Get the IBAN Associated with a Payment Account](https://documentation.lemonway.com/reference/moneyouts_ibanget.md)
+    - [Search for a Money-Out](https://documentation.lemonway.com/reference/moneyouts_moneyoutget.md): Use this call to get and check all Money-Out information.
+  - 🟠 PUT
+    - [Money-Out Cancellation](https://documentation.lemonway.com/reference/moneyouts_cancelput.md): The cancel call lets you cancel a Money-Out/SDD.
+    - [Disable Bank Information (IBAN) from a Payment Account](https://documentation.lemonway.com/reference/moneyouts_ibanunregisterput.md): The <b>UnregisterIBAN</b> method enables you to disable an IBAN from a Payment Account. As a reminder a bank account number (IBAN) is needed to process Money-Out. An IBAN is not needed to perform…
+- P2Ps
+  - 🔵 POST
+    - [Payment between Payment Accounts (P2P)](https://documentation.lemonway.com/reference/p2ps_p2ppost.md): This call debits Wallet A and credits Wallet B. Payment accounts are internal to Lemonway. You can schedule this payment if you do not want the payment to occure immediately. The following list…
+  - 🟢 GET
+    - [Search for Transactions between Payments Accounts](https://documentation.lemonway.com/reference/p2ps_p2pget.md): Returns a lit of payment transactions between payments accounts that match the search fields.
+- Refunds
+  - 🟠 PUT
+    - [Refund a Money-In](https://documentation.lemonway.com/reference/refunds_refundput.md): **General Rules:**    - A refund can **only** be made to the card holder's original used card, or the bank that made the initial payment. - Lemonway reserves the right to retain the payment fee.…
+    - [Refund a transaction without PSP process](https://documentation.lemonway.com/reference/refunds_refundcreateput.md)
+- Disputes
+  - 🟢 GET
+    - [Get list of disputes from a given date](https://documentation.lemonway.com/reference/disputes_disputesget.md)
+
+## API Reference: Webhook Notifications
+- [Lemonway Webhook Notifications](https://documentation.lemonway.com/reference/complete-list-of-lemonway-webhooks.md)
+- Money-In
+  - [Money-In Creation](https://documentation.lemonway.com/reference/money-in-creation.md)
+- Money-Out
+  - [Money-Out Statuses](https://documentation.lemonway.com/reference/money-out-statuses.md)
+- [Payment Codes and Description](https://documentation.lemonway.com/reference/statuses.md)
+
+## API Reference: Statuses and Types
+- KYC
+  - [KYC Document Statuses](https://documentation.lemonway.com/reference/kyc-document-status.md)
+  - [KYC Document Types](https://documentation.lemonway.com/reference/kyc-document-types.md)
+
+## API Reference: Lemonway Error Codes
+- [Complete Lemonway Error List](https://documentation.lemonway.com/reference/complete-lemonway-error-list.md)
+- Declined Payments
+  - [Card Payments Error Codes](https://documentation.lemonway.com/reference/card-payments.md)
+
+## Pages
+- [Add a Bank Account (all formats) to a Payment Account for Money-Outs](https://documentation.lemonway.com/page/add-a-bank-account-all-formats-to-a-payment-account-for-money-outs.md)
+- [Add a Bank Account (IBAN format) to a Payment Account for Money-Outs](https://documentation.lemonway.com/page/add-a-bank-account-iban-format-to-a-payment-account-for-money-outs.md)
+- [Administrative Tasks](https://documentation.lemonway.com/page/administrative-tasks.md)
+- [API Status](https://documentation.lemonway.com/page/api-status.md)
+- [API v1](https://documentation.lemonway.com/page/api-v1.md)
+- [Automatic KYC](https://documentation.lemonway.com/page/automatic-kyc.md)
+- [Before account activation](https://documentation.lemonway.com/page/before-account-activation.md)
+- [By-Cheque-Introduction](https://documentation.lemonway.com/page/by-cheque-introduction.md)
+- [Capture a Deferred Payment](https://documentation.lemonway.com/page/capture-a-deferred-payment.md)
+- [Changelog](https://documentation.lemonway.com/page/changelog.md)
+- [Charge a Registered Card](https://documentation.lemonway.com/page/charge-a-registered-card.md)
+- [Check if Card is Registered](https://documentation.lemonway.com/page/check-if-card-is-registered.md)
+- [Check Money-In 3DS Status (PCI-DSS compliant only)](https://documentation.lemonway.com/page/check-money-in-3ds-status-pci-dss-compliant-only.md)
+- [Create a Dedicated Virtual IBAN](https://documentation.lemonway.com/page/create-a-dedicated-virtual-iban.md)
+- [Create Payment Form](https://documentation.lemonway.com/page/create-payment-form.md)
+- [Create Ultimate Beneficial Owner](https://documentation.lemonway.com/page/createultimatebeneficialowner.md)
+- [Creating a New Payment Account](https://documentation.lemonway.com/page/creating-a-new-payment-account.md)
+- [Credit an Account with Card without PSP process](https://documentation.lemonway.com/page/credit-an-account-with-card-without-psp-process.md)
+- [Deactivate a SDD mandate](https://documentation.lemonway.com/page/deactivate-a-sdd-mandate.md)
+- [Delete a Card Token](https://documentation.lemonway.com/page/delete-a-card-token.md)
+- [DirectkitJSON and DirectkitJSON2](https://documentation.lemonway.com/page/directkitjson-and-directkitjson2.md)
+- [Disable a Bank Account (IBAN or other format) from a Payment Account](https://documentation.lemonway.com/page/disable-a-bank-account-iban-or-other-format-from-a-payment-account.md)
+- [Disable a Dedicated Virtual IBAN](https://documentation.lemonway.com/page/disable-a-dedicated-virtual-iban.md)
+- [Disable a Payment Form](https://documentation.lemonway.com/page/disable-a-payment-form.md)
+- [Document Requirements for different Payment Account Holder Types](https://documentation.lemonway.com/page/document-requirements-for-different-payment-account-holder-types.md)
+- [Error Messages](https://documentation.lemonway.com/page/error-messages.md)
+- [External Fund Transfer from a Wallet to a Bank Account](https://documentation.lemonway.com/page/external-fund-transfer-from-a-wallet-to-a-bank-account.md)
+- [Finalize a Direct Payment (PCI-DSS compliant only)](https://documentation.lemonway.com/page/finalize-a-direct-payment-pci-dss-compliant-only.md)
+- [Generate an Electronic Signature of a Document](https://documentation.lemonway.com/page/generate-an-electronic-signature-of-a-document.md)
+- [Get Details of a Completed Payment Form](https://documentation.lemonway.com/page/get-details-of-a-completed-payment-form.md)
+- [Get List of Chargebacks from a Given Date](https://documentation.lemonway.com/page/get-list-of-chargebacks-from-a-given-date.md)
+- [Get All Wallet Balances](https://documentation.lemonway.com/page/getbalances.md)
+- [Search for User, Document, IBAN, modified since an entry date](https://documentation.lemonway.com/page/getkycstatus.md)
+- [Retrieve Payment Details](https://documentation.lemonway.com/page/getmoneyintransdetails.md)
+- [Get all Ultimate Beneficial Owners Associated with a Payment Account](https://documentation.lemonway.com/page/getultimatebeneficialowner.md)
+- [Get Detailed Wallet Data](https://documentation.lemonway.com/page/getwalletdetails.md)
+- [Get Batched Detailed Wallet Data](https://documentation.lemonway.com/page/getwalletdetailsbatch.md)
+- [Get a List of All Wallet Transactions](https://documentation.lemonway.com/page/getwallettranshistory.md)
+- [How to Access Lemonway Tools and Services](https://documentation.lemonway.com/page/how-to-access-lemonway-tools-and-services.md)
+- [IBAN Common](https://documentation.lemonway.com/page/iban-common.md)
+- [Initiate a Direct Payment (PCI-DSS compliant only)](https://documentation.lemonway.com/page/initiate-a-direct-payment-pci-dss-compliant-only.md)
+- [Initiate a PayPal payment](https://documentation.lemonway.com/page/initiate-a-paypal-payment.md)
+- [Initiate a Web Payment](https://documentation.lemonway.com/page/initiate-a-web-payment.md)
+- [Initiate Monthly Recurring Payments](https://documentation.lemonway.com/page/initiate-monthly-recurring-payments.md)
+- [Introduction](https://documentation.lemonway.com/page/introduction-1.md)
+- [Introduction](https://documentation.lemonway.com/page/introduction.md)
+- [KYC (Know Your Customer)](https://documentation.lemonway.com/page/kyc-know-your-customer.md)
+- [List of Money-In by SDD](https://documentation.lemonway.com/page/list-of-money-in-by-sdd.md)
+- [Money-Out Cancellation](https://documentation.lemonway.com/page/money-out-cancellation.md)
+- [ON-US Payment between Wallets](https://documentation.lemonway.com/page/on-us-payment-between-wallets.md)
+- [Onboarding](https://documentation.lemonway.com/page/onboarding.md)
+- [Preauthorization Request/SDD Cancellation](https://documentation.lemonway.com/page/preauthorization-requestsdd-cancellation.md)
+- [Prohibited Activities at Lemonway](https://documentation.lemonway.com/page/prohibited-activities-at-lemonway.md)
+- [Refund a Money-In](https://documentation.lemonway.com/page/refund-a-money-in.md)
+- [Refund a transaction](https://documentation.lemonway.com/page/refundmoneyincreate.md)
+- [Register a Money-In by Cheque](https://documentation.lemonway.com/page/register-a-money-in-by-cheque.md)
+- [Register a SDD Mandate](https://documentation.lemonway.com/page/register-a-sdd-mandate.md)
+- [Register a Card for Direct Payments (PCI-DSS compliant only) (Deprecated)](https://documentation.lemonway.com/page/registercard-deprecated.md)
+- [Creating a New Wallet](https://documentation.lemonway.com/page/registerwallet.md)
+- [Request a Direct Debit (SDD)](https://documentation.lemonway.com/page/request-a-direct-debit-sdd.md)
+- [Requests and Responses](https://documentation.lemonway.com/page/requests-and-responses.md)
+- [Required KYC/KYB documents for France](https://documentation.lemonway.com/page/required-kyckyb-documents-for-france.md)
+- [Retreive a List of P2P Transactions](https://documentation.lemonway.com/page/retreive-a-list-of-p2p-transactions.md)
+- [Retrieve a List of Money-In/Out Transactions](https://documentation.lemonway.com/page/retrieve-a-list-of-money-inout-transactions.md)
+- [Retrieve Payment Details](https://documentation.lemonway.com/page/retrieve-payment-details.md)
+- [Search for a Money-In by Fund Transfer](https://documentation.lemonway.com/page/search-for-a-money-in-by-fund-transfer.md)
+- [Search for a Money-Out](https://documentation.lemonway.com/page/search-for-a-money-out.md)
+- [Search for Money-In by Cheque](https://documentation.lemonway.com/page/search-for-money-in-by-cheque.md)
+- [Search for Payments between Wallets](https://documentation.lemonway.com/page/search-for-payments-between-wallets.md)
+- [Setting a secure password](https://documentation.lemonway.com/page/setting-a-secure-password.md)
+- [Setting your Merchant account (KYB)](https://documentation.lemonway.com/page/setting-your-merchant-account-kyb.md)
+- [Block or Unblock a Wallet](https://documentation.lemonway.com/page/setwalletblocked.md)
+- [Start your Journey](https://documentation.lemonway.com/page/start-your-journey.md)
+- [Test Connections](https://documentation.lemonway.com/page/test-connections.md)
+- [Test Your Integration](https://documentation.lemonway.com/page/test-your-integration.md)
+- [Thresholds for KYC2](https://documentation.lemonway.com/page/thresholds-for-kyc2.md)
+- [Two-factor Authentication](https://documentation.lemonway.com/page/two-factor-authentication.md)
+- [Ultimate Beneficial Owner (UBO)](https://documentation.lemonway.com/page/ultimate-beneficial-owner-ubo.md)
+- [Update an Ultimate Beneficial Owner](https://documentation.lemonway.com/page/updateultimatebeneficialowner.md)
+- [Update a Payment Account Data](https://documentation.lemonway.com/page/updatewalletdetails.md)
+- [Update Payment Account Status](https://documentation.lemonway.com/page/updatewalletstatus.md)
+- [Upload Document for KYC](https://documentation.lemonway.com/page/uploadfile.md)
+- [What is your MCC?](https://documentation.lemonway.com/page/what-is-your-mcc.md)
+- [What is your Payment Scheme?](https://documentation.lemonway.com/page/what-is-your-payment-scheme.md)
+- [Whitelisting an IP address](https://documentation.lemonway.com/page/whitelisting-an-ip-address.md)

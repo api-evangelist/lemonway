@@ -1,0 +1,216 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/lemonway-account-onboarding-management-api-openapi.yml
+- openapi/lemonway-directkit-api-2-0-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 87 operation(s) in the provider's own
+  OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.
+tools:
+- name: accounts_controller_get
+  operationId: AccountsController_get
+  method: GET
+  path: /accounts
+  description: List Accounts (Individuals & Legal Entities)
+- name: accounts_balances_get
+  operationId: Accounts_BalancesGet
+  method: GET
+  path: /v2/accounts/balances
+  description: Get all Payment Account Balances
+- name: accounts_controller_create_individual
+  operationId: AccountsController_createIndividual
+  method: POST
+  path: /accounts/individual
+  description: Create Individual Account for Onboarding
+- name: accounts_individual_post
+  operationId: Accounts_IndividualPost
+  method: POST
+  path: /v2/accounts/individual
+  description: Create a New Individual Account
+- name: accounts_controller_create_individual_profile
+  operationId: AccountsController_createIndividualProfile
+  method: POST
+  path: /accounts/individual/{id}/profiles
+  description: Add a profile to an existing individual account that has already been accepted
+- name: accounts_individual_put
+  operationId: Accounts_IndividualPut
+  method: PUT
+  path: /v2/accounts/individual/{accountid}
+  description: Update Individual Payment Account Data
+- name: accounts_controller_create_individual_wallet
+  operationId: AccountsController_createIndividualWallet
+  method: POST
+  path: /accounts/individual/{id}/profiles/{profileId}/wallets
+  description: Add a wallet to an existing profile that has already been accepted
+- name: accounts_kyc_status_get
+  operationId: Accounts_KycStatusGet
+  method: GET
+  path: /v2/accounts/kycstatus
+  description: Find a user, document or an IBAN that has been modified since an entry date
+- name: accounts_controller_create_legal_entity
+  operationId: AccountsController_createLegalEntity
+  method: POST
+  path: /accounts/legal-entity
+  description: Create Corporate Account with Legal Representative
+- name: accounts_kycstatus_put
+  operationId: Accounts_KycstatusPut
+  method: PUT
+  path: /v2/accounts/kycstatus/{accountid}
+  description: Update Payment Account Status
+- name: accounts_controller_create_legal_entity_profile
+  operationId: AccountsController_createLegalEntityProfile
+  method: POST
+  path: /accounts/legal-entity/{id}/profiles
+  description: Add a profile to an existing legal-entity account that has already been accepted
+- name: accounts_legal_post
+  operationId: Accounts_LegalPost
+  method: POST
+  path: /v2/accounts/legal
+  description: Create a New Legal Account
+- name: accounts_controller_create_legal_entity_wallet
+  operationId: AccountsController_createLegalEntityWallet
+  method: POST
+  path: /accounts/legal-entity/{id}/profiles/{profileId}/wallets
+  description: Add a wallet to an existing profile that has already been accepted
+- name: accounts_legal_single_put
+  operationId: Accounts_LegalSinglePut
+  method: PUT
+  path: /v2/accounts/legal/{accountid}
+  description: Update Legal Payment Account Data
+- name: accounts_controller_get_file
+  operationId: AccountsController_getFile
+  method: GET
+  path: /accounts/{accountId}/documents/{fileName}
+  description: Fetches a previously uploaded document for a given account.
+- name: accounts_retrieve_post
+  operationId: Accounts_RetrievePost
+  method: POST
+  path: /v2/accounts/retrieve
+  description: Get Detailed Payments Accounts Data
+- name: accounts_controller_find
+  operationId: AccountsController_find
+  method: GET
+  path: /accounts/{id}
+  description: Fetch details for a single account by its unique ID.
+- name: accounts_balances_history_get
+  operationId: Accounts_BalancesHistoryGet
+  method: GET
+  path: /v2/accounts/{accountId}/balances/history
+  description: Get Payment Account Balance History
+- name: legal_entity_onboardings_controller_upload_onboarding_docume
+  operationId: LegalEntityOnboardingsController_uploadOnboardingDocument
+  method: POST
+  path: /legal-entity-onboarding/{onboardingId}/document
+  description: Upload a document associated with a legal entity currently being onboarded
+- name: accounts_transactions_get
+  operationId: Accounts_TransactionsGet
+  method: GET
+  path: /v2/accounts/{accountId}/transactions
+  description: Get list of all Payment Account transactions
+- name: individual_onboardings_controller_upload_onboarding_document
+  operationId: IndividualOnboardingsController_uploadOnboardingDocument
+  method: POST
+  path: /onboarding/{onboardingId}/document
+  description: Add Document to an Individual in Onboarding
+- name: accounts_add_ultimate_beneficial_owner
+  operationId: Accounts_AddUltimateBeneficialOwner
+  method: POST
+  path: /v2/accounts/{accountId}/ultimateBeneficialOwner
+  description: Create an Ultimate Beneficial Owner
+- name: onboardings_controller_create_association_onboarding
+  operationId: OnboardingsController_createAssociationOnboarding
+  method: POST
+  path: /onboardings/association
+  description: Initiates the online onboarding process for a legal entity whose profile status is AWAITING_INFORMATION. This call generates a
+    secure onboarding session and ret
+- name: accounts_update_ultimate_beneficial_owner
+  operationId: Accounts_UpdateUltimateBeneficialOwner
+  method: PUT
+  path: /v2/accounts/{accountId}/ultimateBeneficialOwner/{UltimateBeneficialOwnerId}
+  description: Update Ultimate Beneficial Owner data
+- name: onboardings_controller_create_company_onboarding
+  operationId: OnboardingsController_createCompanyOnboarding
+  method: POST
+  path: /onboardings/company
+  description: Start Legal Entity Online Onboarding
+- name: accounts_get_ultimate_beneficial_owner
+  operationId: Accounts_GetUltimateBeneficialOwner
+  method: GET
+  path: /v2/accounts/{accountId}ultimateBeneficialOwner
+  description: Get all Ultimate Beneficial Owners associated to a payment account.
+- name: onboardings_controller_create_onboarding
+  operationId: OnboardingsController_createOnboarding
+  method: POST
+  path: /onboardings/individual
+  description: Start Individual Online Onboarding
+- name: accounts_account_single_get
+  operationId: Accounts_AccountSingleGet
+  method: GET
+  path: /v2/accounts/{accountid}
+  description: Get Detailed Payment Account Data
+- name: onboardings_controller_create_sole_trader_onboarding
+  operationId: OnboardingsController_createSoleTraderOnboarding
+  method: POST
+  path: /onboardings/sole-trader
+  description: Initiates the online onboarding process for a legal entity whose profile status is AWAITING_INFORMATION. This call generates a
+    secure onboarding session and ret
+- name: accounts_blocked_put
+  operationId: Accounts_BlockedPut
+  method: PUT
+  path: /v2/accounts/{accountid}/blocked
+  description: Block or Unblock an Account
+- name: onboardings_controller_create_url
+  operationId: OnboardingsController_createUrl
+  method: GET
+  path: /onboardings/{onboardingId}/resume
+  description: Retrieves a continuation (resume) URL for a previously-started, in-progress onboarding session.
+- name: accounts_document_get
+  operationId: Accounts_DocumentGet
+  method: GET
+  path: /v2/accounts/{accountid}/documents
+  description: Get Documents Associated with a Payment Account
+- name: accounts_documents_upload_post
+  operationId: Accounts_DocumentsUploadPost
+  method: POST
+  path: /v2/accounts/{accountid}/documents/upload
+  description: Upload Documents for KYC (Know Your Customers)
+- name: accounts_documents_sign_init_post
+  operationId: Accounts_DocumentsSignInitPost
+  method: POST
+  path: /v2/accounts/{accountid}/documents/{documentid}/signinit
+  description: Generate an Electronic Signature of a Document
+- name: accounts_enrolment_init
+  operationId: Accounts_EnrolmentInit
+  method: POST
+  path: /v2/accounts/{accountid}/enrolment/init
+  description: (Deprecated) Initialize a Deutsche Post POSTIDENT Identification
+- name: disputes_disputes_get
+  operationId: Disputes_DisputesGet
+  method: GET
+  path: /v2/disputes
+  description: Get list of disputes from a given date
+- name: money_ins_money_in_get
+  operationId: MoneyIns_MoneyInGet
+  method: GET
+  path: /v2/moneyins
+  description: Retrieve Payment Details
+- name: money_ins_money_in_apm_init_async
+  operationId: MoneyIns_MoneyInApmInitAsync
+  method: POST
+  path: /v2/moneyins/apm/init
+  description: Initializes an APM transaction.
+- name: money_ins_bankwire_get
+  operationId: MoneyIns_BankwireGet
+  method: GET
+  path: /v2/moneyins/bankwire
+  description: Search for a Money-In by Fund Transfer
+- name: money_ins_bankwire_iban_count_get
+  operationId: MoneyIns_BankwireIbanCountGet
+  method: GET
+  path: /v2/moneyins/bankwire/iban/count
+  description: Get VIBANs count

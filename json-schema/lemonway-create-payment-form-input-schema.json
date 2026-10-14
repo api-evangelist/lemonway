@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/lemonway/main/json-schema/lemonway-create-payment-form-input-schema.json",
+  "title": "CreatePaymentFormInput",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/lemonway-directkit-api-2-0-openapi.yml#/components/schemas/CreatePaymentFormInput",
+  "type": "object",
+  "properties": {
+    "optId": {
+      "description": "To cross-reference a buyer with a payment, use `optId` to help associate them with one another.   \r\n**Note:** Do not use special characters in this field, for example: #, @, and !.",
+      "maxLength": 60,
+      "minLength": 0,
+      "type": "string"
+    },
+    "walletPayer": {
+      "description": "Associated with the **Payer Wallet**.  \r\nIf this field is filled then the money reaches this wallet before arriving at the beneficiary wallet (via a transfer wallet to wallet).\r\n**Important:** Don't put the <b>SC Wallet</b> here, it won't work. You cannot debit the <b>SC Wallet</b> with a credit card.",
+      "maxLength": 100,
+      "minLength": 0,
+      "type": "string"
+    },
+    "walletReceiver": {
+      "description": "Beneficiary Wallet. If this field is not complete, then the end-user must to fill its value on the payment form. \r\n<b>We recommend you complete the form instead of your end-user</b>\r\nDon't put the <b>SC Wallet</b> here, it won't work. You cannot credit the <b>SC Wallet</b> with a credit card.",
+      "maxLength": 100,
+      "minLength": 0,
+      "type": "string"
+    },
+    "totalAmount": {
+      "description": "Amount or a range of the amount to be debited.\r\n1. If this field is configured with an interval (eg, 15.30-500.26) then the final customer will have to enter an appropriate amount in the form.\r\n2. If this field is not filled then the end-user can enter any amount to the form.\r\n3. If this field is filled with a precise value (eg 15.60), then the end-user has no choice in the amount field of the form.\r\nAmounts are given as integer numbers in cents.\r\nNote: If you enter a fixed amount",
+      "type": "string"
+    },
+    "commissionAmount": {
+      "format": "int32",
+      "description": "Your Fee\r\nAmounts are given as integer numbers in cents",
+      "type": "integer"
+    },
+    "comment": {
+      "description": "Comment Regarding the Transaction",
+      "maxLength": 140,
+      "minLength": 0,
+      "type": "string"
+    },
+    "returnUrl": {
+      "description": "URL redirection after the payment procedure is successfully finished",
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string"
+    },
+    "cancelUrl": {
+      "description": "URL redirection after the payment procedure is cancelled",
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string"
+    },
+    "errorUrl": {
+      "description": "URL edirection after the payment procedure is failed",
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string"
+    },
+    "firstNamePayer": {
+      "description": "Payer's First Name\r\nIf this field is not filled then the end-user have to fill it in the payment form",
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string"
+    },
+    "lastNamePayer": {
+      "description": "Payer's Last Name\r\nIf this field is not filled then the end-user have to fill it in the payment form",
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string"
+    },
+    "emailPayer": {
+      "description": "Payer's Email\r\nIf this field is not filled then the end-user have to fill it in the payment form",
+      "maxLength": 255,
+      "minLength": 0,
+      "pattern": "^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$",
+      "type": "string"
+    },
+    "style": {
+      "description": "Link to a custom CSS Stylesheet\r\nThe stylesheet should be publicly accessible via **HTTPS*",
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string"
+    },
+    "atosStyle": {
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string"
+    },
+    "notifUrl": {
+      "description": "At the end of the payment procedure, an HTTP POST message containing the payment status (PAID, ERROR, CANCEL) is sent to this address. \r\nIt is possible that the same notification might be sent several times.",
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string"
+    },
+    "options": {
+      "description": "Reserved for a future version",
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string"
+    }
+  }
+}

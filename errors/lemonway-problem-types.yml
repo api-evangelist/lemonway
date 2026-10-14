@@ -1,0 +1,49 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/lemonway-account-onboarding-management-api-openapi.yml
+- openapi/lemonway-directkit-api-2-0-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: null
+coverage:
+  operations: 87
+  statuses_declared: 5
+problems:
+- status: 400
+  title: Bad Request
+  description: Missing or invalid request parameters
+  operations: 8
+  media_types:
+  - application/json
+  schema: null
+- status: 401
+  title: Unauthorized
+  description: Unauthorized
+  operations: 78
+  media_types:
+  - application/json
+  schema: null
+- status: 404
+  title: Not Found
+  description: Account not found or does not meet onboarding prerequisites
+  operations: 7
+  media_types:
+  - application/json
+  schema: null
+- status: 409
+  title: Conflict
+  description: Onboarding already initiated for this account
+  operations: 5
+  media_types:
+  - application/json
+  schema: null
+- status: 500
+  title: Internal Server Error
+  description: InternalServerError
+  operations: 78
+  media_types:
+  - application/json
+  schema: null
