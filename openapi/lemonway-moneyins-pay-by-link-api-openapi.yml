@@ -1,0 +1,630 @@
+openapi: 3.2.0
+info:
+  version: v2
+  title: Lemonway DirectKit API 2.0 MoneyIns | Pay by Link API
+servers:
+- url: https://ws.lemonway.fr/mb/env-name/prod/directkitrest/
+tags:
+- name: MoneyIns | Pay by Link
+paths:
+  /v2/moneyins/card/paymentform:
+    post:
+      tags:
+      - MoneyIns | Pay by Link
+      summary: Create Payment Form (Pay by Link)
+      description: 'Accept payments by an SMS, email, or document.
+
+        Create a form that permits your customers to make card payments by link.
+
+
+        - Payment forms are generated and managed by Lemonway.
+
+        - Payment forms are publicly accessible, making it possible for anyone to pay with a valid link.
+
+        - Payment by bank card is only supported.
+
+
+        Payment Scenerios:
+
+        1. **Benificary Wallet `walletReceiver` not specified**
+
+        You only specify `walletPayer` and not `walletReceiver` in the body parameters.
+
+        They make a card payment and funds are transfered to the `walletPayer` (a designated wallet)
+
+
+        2. **Payer and Benificary Wallet defined**
+
+
+        3. **Benificary pecified**
+
+
+        **Note:** Deferred payment is not supported.'
+      operationId: MoneyIns_CardPaymentFormPost
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentFormInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentFormOutput'
+              examples:
+                response:
+                  value:
+                    form:
+                      walletIp: 82.26.79.125
+                      walletUa: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.3
+                      amountTotRange: 1100-50100
+                      amountCom: ''
+                      language: fr
+                      version: '1.9'
+                      style: https://YourCompany.com/public/payment.css
+                      atosStyle: https://YourCompany.com/public/atos.css
+                      notifUrl: http://login:pass@YourCompany.com/notif/?origine=lemonway&orderId=135
+                      options: ''
+                      active: true
+                      raisonSociale: null
+                      id: 579c7def4bb0411da294d9b57c2c1323
+                      optId: Order1234
+                      accountPayer: '8888'
+                      accountReceiver: '9999'
+                      comment: Commande numéro 245
+                      returnUrl: http://YourCompany.com/ThankYou
+                      cancelUrl: http://YourCompany.com/PleaseComeBackLater
+                      errorUrl: http://YourCompany.com/Sorry
+                      firstNamePayer: Jean
+                      lastNamePayer: DUPONT
+                      emailPayer: jean.dupont@email.com
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/moneyins/paymentform/{formid}/completed:
+    get:
+      tags:
+      - MoneyIns | Pay by Link
+      summary: Get Details of a Completed Payment Form
+      description: 'This method lets you to retreive the status of a completed (or filled) payment form
+
+
+        Scenario
+
+
+        Using the POST /moneyins/card/paymentform method, you have generated a re-usable Payment Form (with the form Id is for example 579c7def4bb0411da294d9b57c2c1323)
+
+
+        Some clients filled the form and make payment.
+
+
+        Each time a client completes the form and click on the Accept and Pay button, Lemonway will store the completed form and generate a new id for it, for example 7e98be392a5e45f6bc357a9ab8c623d2
+
+
+        The initial status of the completed form is pending. When client finish the payment process, it will switch to PAID. It could also switch to CANCEL or ERROR.
+
+
+        In this example, the completed form 7e98.. was created from the parent form 579c..The form 579c.. is reusable, which means it can be completed several time by different clients, so it could have many completed version.This function allows you to retreive the status of a the filled form via its id (7e98..).'
+      operationId: MoneyIns_PaymentFormCompletedGet
+      parameters:
+      - name: formid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCompletedPaymentFormOutput'
+              examples:
+                response:
+                  value:
+                    form:
+                      parentId: string
+                      parentComment: string
+                      amountTot: string
+                      status: PENDING | PAID | ERROR | CANCEL
+                      utcDate: 1474376289
+                      created: 1474290552
+                      id: 579c7def4bb0411da294d9b57c2c1323
+                      optId: Order1234
+                      accountPayer: '8888'
+                      accountReceiver: '9999'
+                      comment: Commande numéro 245
+                      returnUrl: http://YourCompany.com/success
+                      cancelUrl: http://YourCompany.com/cancel
+                      errorUrl: http://YourCompany.com/error
+                      firstNamePayer: Jean
+                      lastNamePayer: DUPONT
+                      emailPayer: jean.dupont@email.com
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/moneyins/paymentform/{formid}/disable:
+    put:
+      tags:
+      - MoneyIns | Pay by Link
+      summary: Disable a Payment Form
+      description: Disable a payment form created by CreatePaymentForm
+      operationId: MoneyIns_PaymentFormDisablePut
+      parameters:
+      - name: formid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisablePaymentFormOutput'
+              examples:
+                response:
+                  value:
+                    message: e6a3bbb8d6864cdba6e311d65e3d2005
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+components:
+  schemas:
+    CreatePaymentFormOutput:
+      type: object
+      properties:
+        form:
+          $ref: '#/components/schemas/PaymentForm'
+        error:
+          $ref: '#/components/schemas/Error'
+    GetCompletedPaymentFormOutput:
+      type: object
+      properties:
+        form:
+          $ref: '#/components/schemas/PaymentFormDetails'
+        error:
+          $ref: '#/components/schemas/Error'
+    DisablePaymentFormOutput:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+    CreatePaymentFormInput:
+      type: object
+      properties:
+        optId:
+          description: "To cross-reference a buyer with a payment, use `optId` to help associate them with one another.   \n**Note:** Do not use special characters in this field, for example: #, @, and !."
+          maxLength: 60
+          minLength: 0
+          type: string
+        walletPayer:
+          description: "Associated with the **Payer Wallet**.  \nIf this field is filled then the money reaches this wallet before arriving at the beneficiary wallet (via a transfer wallet to wallet).\n**Important:** Don't put the <b>SC Wallet</b> here, it won't work. You cannot debit the <b>SC Wallet</b> with a credit card."
+          maxLength: 100
+          minLength: 0
+          type: string
+        walletReceiver:
+          description: "Beneficiary Wallet. If this field is not complete, then the end-user must to fill its value on the payment form. \n<b>We recommend you complete the form instead of your end-user</b>\nDon't put the <b>SC Wallet</b> here, it won't work. You cannot credit the <b>SC Wallet</b> with a credit card."
+          maxLength: 100
+          minLength: 0
+          type: string
+        totalAmount:
+          description: 'Amount or a range of the amount to be debited.
+
+            1. If this field is configured with an interval (eg, 15.30-500.26) then the final customer will have to enter an appropriate amount in the form.
+
+            2. If this field is not filled then the end-user can enter any amount to the form.
+
+            3. If this field is filled with a precise value (eg 15.60), then the end-user has no choice in the amount field of the form.
+
+            Amounts are given as integer numbers in cents.
+
+            Note: If you enter a fixed amount'
+          type: string
+        commissionAmount:
+          format: int32
+          description: 'Your Fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment Regarding the Transaction
+          maxLength: 140
+          minLength: 0
+          type: string
+        returnUrl:
+          description: URL redirection after the payment procedure is successfully finished
+          maxLength: 255
+          minLength: 0
+          type: string
+        cancelUrl:
+          description: URL redirection after the payment procedure is cancelled
+          maxLength: 255
+          minLength: 0
+          type: string
+        errorUrl:
+          description: URL edirection after the payment procedure is failed
+          maxLength: 255
+          minLength: 0
+          type: string
+        firstNamePayer:
+          description: 'Payer''s First Name
+
+            If this field is not filled then the end-user have to fill it in the payment form'
+          maxLength: 255
+          minLength: 0
+          type: string
+        lastNamePayer:
+          description: 'Payer''s Last Name
+
+            If this field is not filled then the end-user have to fill it in the payment form'
+          maxLength: 255
+          minLength: 0
+          type: string
+        emailPayer:
+          description: 'Payer''s Email
+
+            If this field is not filled then the end-user have to fill it in the payment form'
+          maxLength: 255
+          minLength: 0
+          pattern: ^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+          type: string
+        style:
+          description: 'Link to a custom CSS Stylesheet
+
+            The stylesheet should be publicly accessible via **HTTPS*'
+          maxLength: 255
+          minLength: 0
+          type: string
+        atosStyle:
+          maxLength: 255
+          minLength: 0
+          type: string
+        notifUrl:
+          description: "At the end of the payment procedure, an HTTP POST message containing the payment status (PAID, ERROR, CANCEL) is sent to this address. \nIt is possible that the same notification might be sent several times."
+          maxLength: 255
+          minLength: 0
+          type: string
+        options:
+          description: Reserved for a future version
+          maxLength: 255
+          minLength: 0
+          type: string
+      example:
+        optId: Order1234
+        walletPayer: '8888'
+        walletReceiver: '9999'
+        totalAmount: 500-1000
+        commissionAmount: 100
+        comment: Commande numéro 245
+        returnUrl: http://YourCompany.com/ThankYou
+        cancelUrl: http://YourCompany.com/PleaseComeBackLater
+        errorUrl: http://YourCompany.com/Sorry
+        firstNamePayer: Jean
+        lastNamePayer: DUPONT
+        emailPayer: jean.dupont@email.com
+        style: https://sandbox-webkit.lemonway.fr/demo/dev/payment-page/css/main.css
+        atosStyle: https://YourCompany.com/public/atos.css
+        notifUrl: http://login:pass@YourCompany.com/notif/?origine=lemonway&orderId=135
+    Error:
+      type: object
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        psp:
+          $ref: '#/components/schemas/PSP'
+    PaymentFormDetails:
+      type: object
+      properties:
+        parentId:
+          type: string
+        parentComment:
+          type: string
+        amountTot:
+          type: string
+        status:
+          type: string
+        utcDate:
+          format: int32
+          description: UTC Unix Timestamp
+          type: integer
+        created:
+          format: int32
+          description: UTC Unix Timestamp
+          type: integer
+        id:
+          description: Payment Form ID
+          type: string
+        optId:
+          description: Optional identity of the payment form. You should not use special character here.
+          type: string
+        accountPayer:
+          description: 'Payer Account
+
+            If this field is filled then the money reaches this wallet before arriving at the beneficiary wallet (via a transfer wallet to wallet)
+
+            note: Don''t put the <b>SC Wallet</b> here, it won''t work. You cannot credit the <b>SC Wallet</b> with a credit card.'
+          type: string
+        accountReceiver:
+          description: 'Beneficiary Account
+
+            if this field is not filled then the end-user must to fill its value on the payment form. We recommend you to always fill it instead of your end-user.
+
+            note: Don''t put the <b>SC Wallet</b> here, it won''t work. You cannot credit the <b>SC Wallet</b> with a credit card.'
+          type: string
+        comment:
+          type: string
+        returnUrl:
+          description: URL redirection after the payment procedure is successfully finished
+          type: string
+        cancelUrl:
+          description: URL redirection after the payment procedure is cancelled
+          type: string
+        errorUrl:
+          description: URL redirection after the payment procedure is failed
+          type: string
+        firstNamePayer:
+          description: 'Payer''s First Name
+
+            If this field is not filled then the end-user have to fill it in the payment form.'
+          type: string
+        lastNamePayer:
+          description: 'Payer''s Last Name
+
+            If this field is not filled then the end-user have to fill it in the payment form.'
+          type: string
+        emailPayer:
+          description: 'Payer''s Email
+
+            If this field is not filled then the end-user have to fill it in the payment form.'
+          type: string
+    PSP:
+      type: object
+      properties:
+        message:
+          description: Get the Error Message from PSP
+          type: string
+    PaymentForm:
+      type: object
+      properties:
+        walletIp:
+          type: string
+        walletUa:
+          type: string
+        amountTotRange:
+          type: string
+        amountCom:
+          type: string
+        language:
+          type: string
+        version:
+          type: string
+        style:
+          type: string
+        atosStyle:
+          description: 'Mercanet v1 only: Link to a custom Mercanet CSS Stylesheet.
+
+            The stylesheet should be publicly accessible via HTTPS'
+          type: string
+        notifUrl:
+          type: string
+        options:
+          description: Reserved for future version
+          type: string
+        active:
+          type: boolean
+        raisonSociale:
+          type: string
+        id:
+          description: Payment Form ID
+          type: string
+        optId:
+          description: Optional identity of the payment form. You should not use special character here.
+          type: string
+        accountPayer:
+          description: 'Payer Account
+
+            If this field is filled then the money reaches this wallet before arriving at the beneficiary wallet (via a transfer wallet to wallet)
+
+            note: Don''t put the <b>SC Wallet</b> here, it won''t work. You cannot credit the <b>SC Wallet</b> with a credit card.'
+          type: string
+        accountReceiver:
+          description: 'Beneficiary Account
+
+            if this field is not filled then the end-user must to fill its value on the payment form. We recommend you to always fill it instead of your end-user.
+
+            note: Don''t put the <b>SC Wallet</b> here, it won''t work. You cannot credit the <b>SC Wallet</b> with a credit card.'
+          type: string
+        comment:
+          type: string
+        returnUrl:
+          description: URL redirection after the payment procedure is successfully finished
+          type: string
+        cancelUrl:
+          description: URL redirection after the payment procedure is cancelled
+          type: string
+        errorUrl:
+          description: URL redirection after the payment procedure is failed
+          type: string
+        firstNamePayer:
+          description: 'Payer''s First Name
+
+            If this field is not filled then the end-user have to fill it in the payment form.'
+          type: string
+        lastNamePayer:
+          description: 'Payer''s Last Name
+
+            If this field is not filled then the end-user have to fill it in the payment form.'
+          type: string
+        emailPayer:
+          description: 'Payer''s Email
+
+            If this field is not filled then the end-user have to fill it in the payment form.'
+          type: string
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accounts_accountsingleget.md
+  - https://documentation.lemonway.com/reference/accounts_addultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_balancesget.md
+  - https://documentation.lemonway.com/reference/accounts_balanceshistoryget.md
+  - https://documentation.lemonway.com/reference/accounts_blockedput.md
+  - https://documentation.lemonway.com/reference/accounts_documentget.md
+  - https://documentation.lemonway.com/reference/accounts_documentssigninitpost.md
+  - https://documentation.lemonway.com/reference/accounts_documentsuploadpost.md
+  - https://documentation.lemonway.com/reference/accounts_enrolmentinit.md
+  - https://documentation.lemonway.com/reference/accounts_getultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_individualpost.md
+  - https://documentation.lemonway.com/reference/accounts_individualput.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusget.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusput.md
+  - https://documentation.lemonway.com/reference/accounts_legalpost.md
+  - https://documentation.lemonway.com/reference/accounts_legalsingleput.md
+  - https://documentation.lemonway.com/reference/accounts_retrievepost.md
+  - https://documentation.lemonway.com/reference/accounts_transactionsget.md
+  - https://documentation.lemonway.com/reference/accounts_updateultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/disputes_disputesget.md
+  - https://documentation.lemonway.com/reference/moneyins_accountcardget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancountget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibandisablepost.md
+  - https://documentation.lemonway.com/reference/moneyins_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardcreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_carddirect3dconfirmput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardget.md
+  - https://documentation.lemonway.com/reference/moneyins_cardpaymentformpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardrebill.md
+  - https://documentation.lemonway.com/reference/moneyins_cardsubscriptionpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardwebinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeget.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_createbnplpayment.md
+  - https://documentation.lemonway.com/reference/moneyins_getbnplpaymentplans.md
+  - https://documentation.lemonway.com/reference/moneyins_getmoneyinbanks.md
+  - https://documentation.lemonway.com/reference/moneyins_mandateget.md
+  - https://documentation.lemonway.com/reference/moneyins_mandategetdocument.md
+  - https://documentation.lemonway.com/reference/moneyins_mbwayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_mobilepayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinapminitasync.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinget.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinpaypalinit.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyintransferinit.md
+  - https://documentation.lemonway.com/reference/moneyins_multibancoinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformcompletedget.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformdisableput.md
+  - https://documentation.lemonway.com/reference/moneyins_paypaltransactionresume.md
+  - https://documentation.lemonway.com/reference/moneyins_payshopinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paytrailinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddget.md
+  - https://documentation.lemonway.com/reference/moneyins_sddinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandateunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_sofortinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_trustlyinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_validateput.md
+  - https://documentation.lemonway.com/reference/moneyouts_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanextendedpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanget.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutget.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutpostasync.md
+  - https://documentation.lemonway.com/reference/p2ps_p2pget.md
+  - https://documentation.lemonway.com/reference/p2ps_p2ppost.md
+  - https://documentation.lemonway.com/reference/refunds_refundcreateput.md
+  - https://documentation.lemonway.com/reference/refunds_refundput.md
+  merge:
+    pages: 71
+    deduped: 281
+    conflicts_kept_first: 0

@@ -1,0 +1,69 @@
+{
+  "provider": "lemonway",
+  "sources": [
+    "lemonway-directkit-api-2-0-openapi.yml",
+    "lemonway-account-onboarding-management-api-openapi.yml"
+  ],
+  "outputs": [
+    "lemonway-accounts-admin-api-openapi.yml",
+    "lemonway-accounts-create-kyc-api-openapi.yml",
+    "lemonway-accounts-update-api-openapi.yml",
+    "lemonway-disputes-api-openapi.yml",
+    "lemonway-moneyins-apm-api-openapi.yml",
+    "lemonway-moneyins-bnpl-api-openapi.yml",
+    "lemonway-moneyins-cards-api-openapi.yml",
+    "lemonway-moneyins-cheque-api-openapi.yml",
+    "lemonway-moneyins-direct-debits-api-openapi.yml",
+    "lemonway-moneyins-local-payments-api-openapi.yml",
+    "lemonway-moneyins-pay-by-bank-api-openapi.yml",
+    "lemonway-moneyins-pay-by-link-api-openapi.yml",
+    "lemonway-moneyins-paypal-api-openapi.yml",
+    "lemonway-moneyins-transfers-in-api-openapi.yml",
+    "lemonway-moneyins-virtual-iban-api-openapi.yml",
+    "lemonway-moneyouts-api-openapi.yml",
+    "lemonway-p2ps-api-openapi.yml",
+    "lemonway-refunds-api-openapi.yml",
+    "lemonway-accounts-api-openapi.yml",
+    "lemonway-legal-entity-onboarding-api-openapi.yml",
+    "lemonway-onboarding-api-openapi.yml",
+    "lemonway-onboardings-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation",
+    "archived openapi/lemonway-directkit-api-2-0-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [
+    "lemonway-account-onboarding-management-api-openapi.yml: previously refined output kept for 16 operation(s) no archived document covers (e.g. /accounts get, /accounts/individual post, /accounts/individual/{id}/profiles post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "lemonway-directkit-api-2-0-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: Accounts | Admin",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: Accounts | Create & KYC",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: Accounts | Update",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: Disputes",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | APM",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | BNPL",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | Cards",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | Cheque",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | Direct Debits",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | Local Payments",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | Pay by Bank",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | Pay by Link",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | PayPal",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | Transfers In",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyIns | Virtual IBAN",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: MoneyOuts",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: P2Ps",
+    "lemonway-directkit-api-2-0-openapi.yml: declared missing tag: Refunds",
+    "lemonway-account-onboarding-management-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "lemonway-account-onboarding-management-api-openapi.yml: declared missing tag: accounts",
+    "lemonway-account-onboarding-management-api-openapi.yml: declared missing tag: legal-entity-onboarding",
+    "lemonway-account-onboarding-management-api-openapi.yml: declared missing tag: onboarding",
+    "lemonway-account-onboarding-management-api-openapi.yml: declared missing tag: onboardings",
+    "superseded outputs removed: lemonway-account-onboarding-management-api-openapi.yml",
+    "apis.yml register: written (+22 apis, 23 total)"
+  ],
+  "skipped": []
+}

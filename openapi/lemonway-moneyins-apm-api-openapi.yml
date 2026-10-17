@@ -1,0 +1,316 @@
+openapi: 3.2.0
+info:
+  version: v2
+  title: Lemonway DirectKit API 2.0 MoneyIns | APM API
+servers:
+- url: https://ws.lemonway.fr/mb/env-name/prod/directkitrest/
+tags:
+- name: MoneyIns | APM
+paths:
+  /v2/moneyins/apm/init:
+    post:
+      tags:
+      - MoneyIns | APM
+      summary: Initializes an APM transaction
+      operationId: MoneyIns_MoneyInApmInitAsync
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitApmTransactionInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitApmTransactionOutput'
+              examples:
+                response:
+                  value:
+                    id: 378956
+                    redirectUrl: https://webkit.staging.lemonway.com/currentSandbox/prod/payments/apm/form/7fba9a33-45da-4829-aa53-ff0ac50e4111
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+components:
+  schemas:
+    ApmRedirections:
+      description: Redirections
+      type: object
+      properties:
+        returnUrl:
+          description: 'Gets the URL to which the user will be redirected after a successful payment.
+
+            ReturnUrl'
+          type: string
+        errorUrl:
+          description: 'Gets the URL to which the user will be redirected if the payment fails.
+
+            ErrorUrl'
+          type: string
+        cancelUrl:
+          description: 'Gets the URL to which the user will be redirected if the payment is canceled.
+
+            CancelUrl'
+          type: string
+    InitApmTransactionOutput:
+      description: Represents the output of an APM transaction initialization.
+      required:
+      - id
+      - redirectUrl
+      type: object
+      properties:
+        id:
+          format: int64
+          description: Gets or sets the Lemonway transaction ID.
+          type: integer
+        redirectUrl:
+          description: Gets or sets the redirection URL.
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        psp:
+          $ref: '#/components/schemas/PSP'
+    InitApmTransactionInput:
+      description: Represents the input data for initializing an APM transaction.
+      type: object
+      properties:
+        transaction:
+          $ref: '#/components/schemas/ApmTransaction'
+        paymentUrls:
+          $ref: '#/components/schemas/PaymentUrls'
+        customer:
+          $ref: '#/components/schemas/ApmCustomer'
+        preferredLanguage:
+          description: Preferred language for the payment flow (e.g., fr, nl, de, en).
+          type: string
+        appToAppUrl:
+          description: URL used for app-to-app redirection.
+          type: string
+        timeoutInMinutes:
+          format: int32
+          description: Timeout for the transaction in minutes.
+          type: integer
+      example:
+        transaction:
+          reference: TX987654
+          accountId: 3f6f3dfb-4a1e-43c1-9d6c-5f9b6e1a7f3b
+          totalAmount: 15000
+          commissionAmount: 750
+          comment: Achat en ligne
+          autoCommission: false
+        paymentUrls:
+          redirections:
+            returnUrl: https://example.fr/succes
+            errorUrl: https://example.fr/erreur
+            cancelUrl: https://example.fr/annulation
+        customer:
+          civility: M.
+          gender: 1
+          firstName: Pierre
+          lastName: Dupont
+          email: pierre.dupont@example.fr
+          mobilePhone: '+33612345678'
+          birthDate: '1985-05-15'
+          countryCode: FR
+    ApmCustomer:
+      description: Customer
+      required:
+      - firstName
+      - lastName
+      - countryCode
+      type: object
+      properties:
+        civility:
+          description: Civility
+          type: string
+        gender:
+          format: int32
+          description: Gender<br/>1 = Male.<br/>2 = Female.<br/>
+          enum:
+          - 1
+          - 2
+          type: integer
+        firstName:
+          description: FirstName (required)
+          type: string
+        lastName:
+          description: LastName (required)
+          type: string
+        email:
+          description: Email
+          type: string
+        mobilePhone:
+          description: MobilePhone
+          type: string
+        birthDate:
+          description: BirthDate
+          type: string
+        countryCode:
+          description: 'Country code of the payer (required).
+
+            For iDEAL: only NL is accepted.
+
+            For Bancontact: only BE is accepted.'
+          type: string
+    ApmTransaction:
+      description: Transaction
+      required:
+      - PaymentMethod
+      - totalAmount
+      - accountId
+      type: object
+      properties:
+        reference:
+          description: Reference
+          type: string
+        accountId:
+          description: AccountId (required)
+          type: string
+        totalAmount:
+          format: int32
+          description: TotalAmount (required)
+          type: integer
+        PaymentMethod:
+          description: 'PaymentMethod: ideal/bancontact'
+          type: string
+        commissionAmount:
+          format: int32
+          description: CommissionAmount
+          type: integer
+        comment:
+          description: Comment
+          type: string
+        autoCommission:
+          description: AutoCommission
+          type: boolean
+    PSP:
+      type: object
+      properties:
+        message:
+          description: Get the Error Message from PSP
+          type: string
+    PaymentUrls:
+      description: PaymentUrls
+      type: object
+      properties:
+        redirections:
+          $ref: '#/components/schemas/ApmRedirections'
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accounts_accountsingleget.md
+  - https://documentation.lemonway.com/reference/accounts_addultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_balancesget.md
+  - https://documentation.lemonway.com/reference/accounts_balanceshistoryget.md
+  - https://documentation.lemonway.com/reference/accounts_blockedput.md
+  - https://documentation.lemonway.com/reference/accounts_documentget.md
+  - https://documentation.lemonway.com/reference/accounts_documentssigninitpost.md
+  - https://documentation.lemonway.com/reference/accounts_documentsuploadpost.md
+  - https://documentation.lemonway.com/reference/accounts_enrolmentinit.md
+  - https://documentation.lemonway.com/reference/accounts_getultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_individualpost.md
+  - https://documentation.lemonway.com/reference/accounts_individualput.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusget.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusput.md
+  - https://documentation.lemonway.com/reference/accounts_legalpost.md
+  - https://documentation.lemonway.com/reference/accounts_legalsingleput.md
+  - https://documentation.lemonway.com/reference/accounts_retrievepost.md
+  - https://documentation.lemonway.com/reference/accounts_transactionsget.md
+  - https://documentation.lemonway.com/reference/accounts_updateultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/disputes_disputesget.md
+  - https://documentation.lemonway.com/reference/moneyins_accountcardget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancountget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibandisablepost.md
+  - https://documentation.lemonway.com/reference/moneyins_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardcreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_carddirect3dconfirmput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardget.md
+  - https://documentation.lemonway.com/reference/moneyins_cardpaymentformpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardrebill.md
+  - https://documentation.lemonway.com/reference/moneyins_cardsubscriptionpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardwebinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeget.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_createbnplpayment.md
+  - https://documentation.lemonway.com/reference/moneyins_getbnplpaymentplans.md
+  - https://documentation.lemonway.com/reference/moneyins_getmoneyinbanks.md
+  - https://documentation.lemonway.com/reference/moneyins_mandateget.md
+  - https://documentation.lemonway.com/reference/moneyins_mandategetdocument.md
+  - https://documentation.lemonway.com/reference/moneyins_mbwayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_mobilepayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinapminitasync.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinget.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinpaypalinit.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyintransferinit.md
+  - https://documentation.lemonway.com/reference/moneyins_multibancoinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformcompletedget.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformdisableput.md
+  - https://documentation.lemonway.com/reference/moneyins_paypaltransactionresume.md
+  - https://documentation.lemonway.com/reference/moneyins_payshopinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paytrailinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddget.md
+  - https://documentation.lemonway.com/reference/moneyins_sddinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandateunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_sofortinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_trustlyinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_validateput.md
+  - https://documentation.lemonway.com/reference/moneyouts_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanextendedpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanget.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutget.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutpostasync.md
+  - https://documentation.lemonway.com/reference/p2ps_p2pget.md
+  - https://documentation.lemonway.com/reference/p2ps_p2ppost.md
+  - https://documentation.lemonway.com/reference/refunds_refundcreateput.md
+  - https://documentation.lemonway.com/reference/refunds_refundput.md
+  merge:
+    pages: 71
+    deduped: 281
+    conflicts_kept_first: 0

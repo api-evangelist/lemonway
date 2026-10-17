@@ -132,8 +132,9 @@ common:
 
 apis:
 - name: Lemonway Onboarding API
-  description: REST API for online KYC/KYB onboarding flows, enabling marketplace operators to collect identity verification, document uploads,
-    and account creation for both individual and legal entity account holders.
+  description: >-
+    REST API for online KYC/KYB onboarding flows, enabling marketplace operators to collect identity verification,
+    document uploads, and account creation for both individual and legal entity account holders.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://documentation.lemonway.com/reference/lemonway-api
   baseURL: https://api.lemonway.com
@@ -153,16 +154,16 @@ apis:
     url: https://support.lemonway.com/hc/en-us
     email: ''
   aid: lemonway:lemonway-onboarding-api
-- aid: lemonway:lemonway-account-onboarding-management-api
-  name: Lemonway Account Onboarding Management API
-  description: The Account Onboarding Management API from Lemonway — 16 operation(s) for account onboarding management.
+- aid: lemonway:lemonway-accounts-admin-api
+  name: Lemonway Accounts | Admin API
+  description: The Accounts | Admin API from Lemonway — 9 operation(s) for accounts | admin.
   humanURL: https://documentation.lemonway.com/reference/lemonway-api
   baseURL: https://api.lemonway.com
   tags:
-  - Account Onboarding Management
+  - Accounts | Admin
   properties:
   - type: OpenAPI
-    url: openapi/lemonway-account-onboarding-management-api-openapi.yml
+    url: openapi/lemonway-accounts-admin-api-openapi.yml
   - type: Documentation
     url: https://documentation.lemonway.com/
   - type: PostmanCollection
@@ -174,11 +175,14 @@ apis:
   - type: ChangeLog
     url: https://documentation.lemonway.com/page/changelog
   - type: Plans
-    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
   - type: JSONSchema
     url: json-schema/lemonway-create-legal-entity-account-request-schema.json
   - type: JSONSchema
@@ -191,32 +195,6 @@ apis:
     url: json-schema/lemonway-create-onboarding-company-request-schema.json
   - type: JSONSchema
     url: json-schema/lemonway-create-account-response-schema.json
-- aid: lemonway:lemonway-directkit-api-2-0
-  name: Lemonway Directkit Api 2 0 Openapi.Yml API
-  description: The Directkit Api 2 0 Openapi.Yml API from Lemonway — 69 operation(s) for directkit api 2 0 openapi.yml.
-  humanURL: https://documentation.lemonway.com/reference/lemonway-api
-  baseURL: https://api.lemonway.com
-  tags:
-  - Directkit Api 2 0 Openapi.Yml
-  properties:
-  - type: OpenAPI
-    url: openapi/lemonway-directkit-api-2-0-openapi.yml
-  - type: Documentation
-    url: https://documentation.lemonway.com/
-  - type: PostmanCollection
-    url: https://documentation.lemonway.com/docs/developer-documentation
-  - type: Sandbox
-    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
-  - type: Status
-    url: https://documentation.lemonway.com/page/api-status
-  - type: ChangeLog
-    url: https://documentation.lemonway.com/page/changelog
-  - type: Plans
-    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
-  - type: RateLimits
-    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
-  - type: FinOps
-    url: https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
   - type: JSONSchema
     url: json-schema/lemonway-upload-document-input-schema.json
   - type: JSONSchema
@@ -229,7 +207,1127 @@ apis:
     url: json-schema/lemonway-register-individual-account-input-schema.json
   - type: JSONSchema
     url: json-schema/lemonway-create-bnpl-payment-input-schema.json
-
+- aid: lemonway:lemonway-accounts-api
+  name: Lemonway Accounts API
+  description: The accounts API from Lemonway — 9 operation(s) for accounts.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-accounts-create-kyc-api
+  name: Lemonway Accounts | Create & KYC API
+  description: >-
+    The Accounts | Create & KYC API from Lemonway — 7 operation(s) for accounts | create & kyc.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - Accounts | Create & KYC
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-accounts-create-kyc-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-accounts-update-api
+  name: Lemonway Accounts | Update API
+  description: The Accounts | Update API from Lemonway — 3 operation(s) for accounts | update.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - Accounts | Update
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-accounts-update-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-disputes-api
+  name: Lemonway Disputes API
+  description: The Disputes API from Lemonway — 1 operation(s) for disputes.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - Disputes
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-disputes-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-legal-entity-onboarding-api
+  name: Lemonway Legal Entity Onboarding API
+  description: >-
+    The legal-entity-onboarding API from Lemonway — 1 operation(s) for legal-entity-onboarding.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - legal-entity-onboarding
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-legal-entity-onboarding-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-apm-api
+  name: Lemonway MoneyIns | APM API
+  description: The MoneyIns | APM API from Lemonway — 1 operation(s) for moneyins | apm.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | APM
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-apm-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-bnpl-api
+  name: Lemonway MoneyIns | BNPL API
+  description: The MoneyIns | BNPL API from Lemonway — 2 operation(s) for moneyins | bnpl.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | BNPL
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-bnpl-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-cards-api
+  name: Lemonway MoneyIns | Cards API
+  description: The MoneyIns | Cards API from Lemonway — 11 operation(s) for moneyins | cards.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | Cards
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-cards-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-cheque-api
+  name: Lemonway MoneyIns | Cheque API
+  description: The MoneyIns | Cheque API from Lemonway — 2 operation(s) for moneyins | cheque.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | Cheque
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-cheque-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-direct-debits-api
+  name: Lemonway MoneyIns | Direct Debits API
+  description: >-
+    The MoneyIns | Direct Debits API from Lemonway — 7 operation(s) for moneyins | direct debits.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | Direct Debits
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-local-payments-api
+  name: Lemonway MoneyIns | Local Payments API
+  description: >-
+    The MoneyIns | Local Payments API from Lemonway — 7 operation(s) for moneyins | local payments.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | Local Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-local-payments-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-pay-by-bank-api
+  name: Lemonway MoneyIns | Pay by Bank API
+  description: >-
+    The MoneyIns | Pay by Bank API from Lemonway — 2 operation(s) for moneyins | pay by bank.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | Pay by Bank
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-pay-by-bank-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-pay-by-link-api
+  name: Lemonway MoneyIns | Pay by Link API
+  description: >-
+    The MoneyIns | Pay by Link API from Lemonway — 3 operation(s) for moneyins | pay by link.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | Pay by Link
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-pay-by-link-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-paypal-api
+  name: Lemonway MoneyIns | PayPal API
+  description: The MoneyIns | PayPal API from Lemonway — 2 operation(s) for moneyins | paypal.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | PayPal
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-paypal-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-transfers-in-api
+  name: Lemonway MoneyIns | Transfers In API
+  description: >-
+    The MoneyIns | Transfers In API from Lemonway — 1 operation(s) for moneyins | transfers in.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | Transfers In
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-transfers-in-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyins-virtual-iban-api
+  name: Lemonway MoneyIns | Virtual IBAN API
+  description: >-
+    The MoneyIns | Virtual IBAN API from Lemonway — 3 operation(s) for moneyins | virtual iban.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyIns | Virtual IBAN
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyins-virtual-iban-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-moneyouts-api
+  name: Lemonway Money Outs API
+  description: The MoneyOuts API from Lemonway — 6 operation(s) for moneyouts.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - MoneyOuts
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-moneyouts-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-onboarding-api
+  name: Lemonway Onboarding API
+  description: The onboarding API from Lemonway — 1 operation(s) for onboarding.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - onboarding
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-onboarding-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-onboardings-api
+  name: Lemonway Onboardings API
+  description: The onboardings API from Lemonway — 5 operation(s) for onboardings.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - onboardings
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-onboardings-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-p2ps-api
+  name: Lemonway P2Ps API
+  description: The P2Ps API from Lemonway — 1 operation(s) for p2ps.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - P2Ps
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-p2ps-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
+- aid: lemonway:lemonway-refunds-api
+  name: Lemonway Refunds API
+  description: The Refunds API from Lemonway — 2 operation(s) for refunds.
+  humanURL: https://documentation.lemonway.com/reference/lemonway-api
+  baseURL: https://api.lemonway.com
+  tags:
+  - Refunds
+  properties:
+  - type: OpenAPI
+    url: openapi/lemonway-refunds-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.lemonway.com/
+  - type: PostmanCollection
+    url: https://documentation.lemonway.com/docs/developer-documentation
+  - type: Sandbox
+    url: https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services
+  - type: Status
+    url: https://documentation.lemonway.com/page/api-status
+  - type: ChangeLog
+    url: https://documentation.lemonway.com/page/changelog
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/lemonway/refs/heads/main/finops/finops.yml
+  - type: JSONSchema
+    url: json-schema/lemonway-create-legal-entity-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-individual-account-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-get-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-profile-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-onboarding-company-request-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-account-response-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-upload-document-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-payment-form-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-money-in-web-init-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-legal-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-register-individual-account-input-schema.json
+  - type: JSONSchema
+    url: json-schema/lemonway-create-bnpl-payment-input-schema.json
 x-readme-harvest:
   date: '2026-10-14'
   ops: 87

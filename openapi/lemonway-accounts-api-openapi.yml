@@ -1,0 +1,1337 @@
+openapi: 3.2.0
+info:
+  title: Account & Onboarding Management Accounts API
+  description: API Account and Onboarding
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://onboarding-api.lemonway.com/
+  description: Lemonway API
+  variables:
+    env:
+      default: sandbox
+      description: Environment name (sandbox, uat, staging, prod)
+tags:
+- name: Accounts
+paths:
+  /accounts:
+    get:
+      operationId: AccountsController_get
+      parameters:
+      - name: $searchTerm
+        required: false
+        in: query
+        description: Search term to filter accounts by
+        schema:
+          $ref: '#/components/schemas/Object'
+      - name: $searchFields
+        required: false
+        in: query
+        description: Fields to search in accounts using search terms
+        schema:
+          type: array
+          items:
+            type: string
+      - name: $filter
+        required: false
+        in: query
+        description: "A way to filter accounts based on certain criteria. \n\n**Syntax:**\n\n• **Colon (:)**: Assigns a value to an attribute (e.g., `key:value`).\n\n• **Pipe (|)**: Logical **OR** separator for multiple values of the same attribute (e.g., `key:val1|val2`).\n\n• **Comma (,)**: Logical **AND** separator between different attribute filters (e.g., `key1:val,key2:val`).\n\n**Example:** `$filter=profiles.solutionName:'Test1'|'Test2',identity.firstName:'test'` will return records matching solution name('Test1' OR 'Test2') AND having the first name 'test'."
+        schema:
+          $ref: '#/components/schemas/Object'
+      - name: $size
+        required: false
+        in: query
+        description: Page size — number of accounts to return per request
+        schema:
+          $ref: '#/components/schemas/Object'
+      - name: $orderBy
+        required: false
+        in: query
+        description: Which field to order the results by. Allowed values here are createdAt (date account was created) or type (account type)
+        schema:
+          type: string
+          enum:
+          - createdAt
+          - type
+      - name: $select
+        required: false
+        in: query
+        description: 'Restrict the returned fields to only those specified. Allowed fields: createdAt, type, id, externalAccountId, status, profiles'
+        schema:
+          type: string
+          enum:
+          - createdAt
+          - type
+          - id
+          - externalAccountId
+          - status
+          - profiles
+      - name: $sort
+        required: false
+        in: query
+        description: 'Sort order: ascending (asc) or descending (desc)'
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: $skipToken
+        required: false
+        in: query
+        description: A token for retrieving the next or previous page of results in pagination
+        schema:
+          type: string
+      - name: $skipDirection
+        required: false
+        in: query
+        description: Whether to paginate forwards (next) or backwards (prev)
+        schema:
+          type: string
+          enum:
+          - prev
+          - next
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountsResponse'
+      security:
+      - bearer: []
+      tags:
+      - Accounts
+      description: Retrieve a list of all individual (and/or corporate) accounts
+      summary: List Accounts (Individuals & Legal Entities)
+  /accounts/individual:
+    post:
+      operationId: AccountsController_createIndividual
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIndividualAccountRequest'
+      responses:
+        '201':
+          description: In the Response a unique Id is created. This Id corresponds to the accountId field in the endpoint POST /onboardings/individual.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountResponse'
+      security:
+      - bearer: []
+      tags:
+      - Accounts
+      description: Creates a new individual Lemonway account for onboarding a new user. If the individual already has a Lemonway account but requires full onboarding, use POST /onboardings/individual and provide the user’s unique accountId.This call essentially validates you’ve provided all required bodyParams.• Creates an account record of type “individual.”• Associate a new wallet entry using the walletId.• Returns a populated account object (including an assigned Id) so you can pass it into subsequent onboarding calls.
+      summary: Create Individual Account for Onboarding
+  /accounts/individual/{id}/profiles:
+    post:
+      operationId: AccountsController_createIndividualProfile
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProfileRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProfileResponse'
+      security:
+      - bearer: []
+      tags:
+      - Accounts
+      description: Add a profile to an existing individual account that has already been accepted
+      summary: Accounts controller create individual profile
+      x-summary-source: derived
+  /accounts/individual/{id}/profiles/{profileId}/wallets:
+    post:
+      operationId: AccountsController_createIndividualWallet
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: profileId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIndividualWalletRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateWalletResponse'
+      security:
+      - bearer: []
+      tags:
+      - Accounts
+      description: Add a wallet to an existing profile that has already been accepted
+      summary: Accounts controller create individual wallet
+      x-summary-source: derived
+  /accounts/legal-entity:
+    post:
+      operationId: AccountsController_createLegalEntity
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLegalEntityAccountRequest'
+      responses:
+        '201':
+          description: Account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountResponse'
+        '400':
+          description: Missing or invalid request parameters
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema: {}
+        '409':
+          description: Account with similar details already exists
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: Unexpected error occurred on the server
+          content:
+            application/json:
+              schema: {}
+      security:
+      - bearer: []
+      tags:
+      - Accounts
+      description: Creates a new legal entity account by providing the entity’s details along with information about its legal representative. This request is typically the first step before initiating the onboarding process. Once created, the account will have an initial status (e.g., CREATED) and a profile status (e.g., AWAITING_INFORMATION)
+      summary: Create Corporate Account with Legal Representative
+  /accounts/legal-entity/{id}/profiles:
+    post:
+      operationId: AccountsController_createLegalEntityProfile
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProfileRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProfileResponse'
+      security:
+      - bearer: []
+      tags:
+      - Accounts
+      description: Add a profile to an existing legal-entity account that has already been accepted
+      summary: Accounts controller create legal entity profile
+      x-summary-source: derived
+  /accounts/legal-entity/{id}/profiles/{profileId}/wallets:
+    post:
+      operationId: AccountsController_createLegalEntityWallet
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: profileId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLegalEntityWalletRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateWalletResponse'
+      security:
+      - bearer: []
+      tags:
+      - Accounts
+      description: Add a wallet to an existing profile that has already been accepted
+      summary: Accounts controller create legal entity wallet
+      x-summary-source: derived
+  /accounts/{accountId}/documents/{fileName}:
+    get:
+      operationId: AccountsController_getFile
+      parameters:
+      - name: accountId
+        required: true
+        in: path
+        description: The unique UUID of the account
+        schema:
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+      - name: fileName
+        required: true
+        in: path
+        description: The document's name or logical identifier
+        schema:
+          example: Passport
+          type: string
+      responses:
+        '200':
+          description: Returns the file content of the requested document
+        '400':
+          description: ' The request is invalid — missing parameters or file, or file format is not supported'
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Authentication failed — missing or invalid authentication token
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: The specified onboarding session or account could not be found
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: ' An unexpected error occurred on the server'
+          content:
+            application/json:
+              schema: {}
+      security:
+      - bearer: []
+      tags:
+      - Accounts
+      description: 'Fetches a previously uploaded document for a given account.
+
+
+        The account is identified by its UUID (`accountId`), and the document by its name or logical identifier (`documentName`).
+
+
+        ### Conditions
+
+        - The account must be fully onboarded and accepted.
+
+        - Document retrieval will fail if onboarding is incomplete or the account has not been approved.
+
+
+        ### List of available documents
+
+        - ApplicationForm (`APPLICATION_FORM`)
+
+        - ArticlesOfAssociation (`ARTICLES_OF_ASSOCIATION`)
+
+        - BoardMembersInformation (`BOARD_MEMBERS_INFORMATION`)
+
+        - Brochure (`BROCHURE`)
+
+        - CompanyRegistry (`COMPANY_REGISTRY`)
+
+        - DrivingLicense (`DRIVING_LICENSE`)
+
+        - EvidenceFile (`EVIDENCE_FILE`)
+
+        - FamilyDocument (`FAMILY_DOCUMENT`)
+
+        - LegalCapacityDocument (`LEGAL_CAPACITY_DOCUMENT`)
+
+        - LegalRepresentativeDocument (`LEGAL_REPRESENTATIVE_DOCUMENT`)
+
+        - MotionCapture (`MOTION_CAPTURE`)
+
+        - NationalIdentityCard (`NATIONAL_IDENTITY_CARD`)
+
+        - OfficialNotice (`OFFICIAL_NOTICE`)
+
+        - Other (`OTHER`)
+
+        - Passport (`PASSPORT`)
+
+        - ProofOfAddress (`PROOF_OF_ADDRESS`)
+
+        - ProofOfBankInformation (`PROOF_OF_BANK_INFORMATION`)
+
+        - PublicationExcerpt (`PUBLICATION_EXCERPT`)
+
+        - ResidencePermit (`RESIDENCE_PERMIT`)
+
+        - ShareholdingStructureDocumentation (`SHAREHOLDING_STRUCTURE_DOCUMENTATION`)
+
+        - SignedDocument (`SIGNED_DOCUMENT`)
+
+        - TaxNotice (`TAX_NOTICE`)
+
+        - UboDocument (`UBO_DOCUMENT`)'
+      summary: Accounts controller get file
+      x-summary-source: derived
+  /accounts/{id}:
+    get:
+      operationId: AccountsController_find
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Unique account Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: In the Response when you create an account using POST /accounts/individual  a unique Id is created. Us this for this call to get account information on a specific individual account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountResponse'
+      security:
+      - bearer: []
+      tags:
+      - Accounts
+      description: 'Fetch details for a single account by its unique ID.
+
+
+        The when endpoint is called the following information is provided:
+
+
+        • Provides account information (id, identity, status)
+
+
+        • Provides the Onboarding status
+
+
+        • Profiles linked to this account
+
+
+        • Wallets linked to this profile
+
+
+        Note: When account details are retrieved using GET /accounts/{:id}, only the basic information submitted during account creation (POST /accounts) is returned if the end-user is still in the onboarding process. The full data set, including any submitted documents, becomes accessible once the onboarding is complete—meaning the account status is either ACCEPTED or DENIED'
+      summary: Accounts controller find
+      x-summary-source: derived
+components:
+  schemas:
+    Document:
+      type: object
+      properties:
+        status:
+          type: string
+        type:
+          type: string
+        name:
+          type: string
+        downloadUrl:
+          type: string
+      required:
+      - status
+      - type
+      - name
+      - downloadUrl
+    OriginOfFunds:
+      type: object
+      properties:
+        sources:
+          type: array
+          items:
+            type: string
+            enum:
+            - INCOME
+            - REAL_ESTATE_PROPERTIES
+            - SAVINGS_ACCUMULATED_OVER_SEVERAL_YEARS
+            - DONATION_OR_INHERITANCE
+            - SALE_OF_A_STOCK_PORTFOLIO
+            - TRANSFER_OF_COMPANY_SHARES
+            - WINNING_FROM_GAMES_OR_CONTESTS
+            - SURRENDER_OF_A_CAPITALIZATION_CONTRACT_OR_LIFE_INSURANCE_POLICY
+            - SALE_OF_MOVABLE_ASSETS_GOODWILL_INTELLECTUAL_PROPERTY_RIGHTS
+            - SALE_OF_CURRENCY_GOLD_OR_CRYPTOCURRENCIES
+            - FINANCIAL_INVESTMENTS
+            - OTHER_OPERATIONS
+          example: Income (salary, etc.)
+        other:
+          type: string
+          description: Description of other origin of funds
+          example: 'true'
+      required:
+      - sources
+    LegalRepresentative:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Representative’s first name
+          example: Diane
+        lastName:
+          type: string
+          description: Representative’s last name
+          example: Bethney
+        birthDate:
+          format: date-time
+          type: string
+          description: Date of birth (ISO 8601 format)
+          example: '2025-08-11T08:10:18.405Z'
+        birthCountry:
+          type: string
+          description: Country of birth (ISO 2-letter code)
+          example: UK
+        nationalities:
+          type: array
+          items:
+            type: string
+          description: List of nationality codes (ISO 2-letter)
+          example: '["UK"]'
+        email:
+          type: string
+          description: Email address of the legal representative
+          example: BethneyD12@gmail.com
+        address:
+          $ref: '#/components/schemas/Address'
+      required:
+      - firstName
+      - lastName
+      - birthDate
+      - birthCountry
+      - nationalities
+      - email
+      - address
+      description: Information about the entity’s legal representative (see nested bodyParams).
+    Wallet:
+      type: object
+      properties:
+        id:
+          type: string
+        internalId:
+          type: string
+        type:
+          type: string
+          enum:
+          - PAYMENT_ACCOUNT
+          - TECHNICAL
+      required:
+      - id
+      - internalId
+      - type
+    LegalEntity:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Full legal name of the entity.
+          example: Matt Claxton
+        type:
+          type: string
+          enum:
+          - COMPANY
+          - ASSOCIATION
+          - SOLE_TRADER
+          description: Legal form/type of the entity.
+          example: ClaxtonBells
+        registrationNumber:
+          type: string
+          description: Official company registration number
+          example: 126766Z
+        registrationDate:
+          format: date-time
+          type: string
+          description: Date of legal registration (ISO 8601 format)
+          example: '2025-08-11T08:10:18.405Z'
+        address:
+          $ref: '#/components/schemas/Address'
+      required:
+      - name
+      - type
+      - registrationDate
+      description: Details about the legal entity (see nested bodyParams)
+    GetAccountsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        nextLink:
+          type: string
+        prevLink:
+          type: string
+      required:
+      - data
+      - nextLink
+      - prevLink
+    Object:
+      type: object
+      properties: {}
+    ProfileStatus:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - ACCEPTED
+          - AWAITING_INFORMATION
+          - CREATION_IN_PROGRESS
+          - DENIED
+          - IDENTITY_VERIFICATION_IN_PROGRESS
+          - IDENTITY_VERIFICATION_ABANDONED
+          - IDENTITY_VERIFICATION_ERROR
+          - INFORMATION_COLLECTION_IN_PROGRESS
+          - REJECTED
+          - UNDER_ANALYSIS
+        subStatus:
+          type: string
+          enum:
+          - REGULATORY_REASON
+          - ONBOARDING_REJECTED
+      required:
+      - type
+      - subStatus
+    Profile:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - DONOR
+          - PROJECT_HOLDER
+          - LENDER
+          - INVESTOR
+          - CREDITOR
+          - DEBTOR
+          - BUYER
+          - MERCHANT
+          - SELLER
+          - OPERATOR
+          - CONTENT_EDITOR
+          - OTHER_OPERATOR
+          - VISA_APPLICANT
+          - PAYER
+        status:
+          $ref: '#/components/schemas/ProfileStatus'
+        wallets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wallet'
+      required:
+      - id
+      - type
+      - status
+    CreateLegalEntityAccountRequest:
+      type: object
+      properties:
+        activity:
+          type: string
+          enum:
+          - CROWDFUNDING_MONEYPOT
+          - CROWDFUNDING_DONATION
+          - MARKETPLACE_B2B
+          - MARKETPLACE_B2C
+          - MARKETPLACE_C2C
+          - CROWDEQUITY
+          - CROWDLENDING
+          - VALUE_ADDED_SERVICE
+          - INVOICE_TRADING
+          - MARKETPLACE_B2C_C2C
+          - VISA_ACCOUNT_APPLICATION
+          - SALARY_ADVANCE
+          description: Activity code or category for the legal entity (e.g., type of business)
+          example: CROWDFUNDING_MONEYPOT
+        legalEntity:
+          $ref: '#/components/schemas/LegalEntity'
+        legalRepresentative:
+          $ref: '#/components/schemas/LegalRepresentative'
+        profile:
+          type: string
+          enum:
+          - DONOR
+          - PROJECT_HOLDER
+          - LENDER
+          - INVESTOR
+          - CREDITOR
+          - DEBTOR
+          - BUYER
+          - MERCHANT
+          - SELLER
+          - OPERATOR
+          - CONTENT_EDITOR
+          - OTHER_OPERATOR
+          - VISA_APPLICANT
+          - PAYER
+          description: User profile type
+          example: DONOR
+        walletId:
+          type: string
+          description: Wallet identifier
+          example: '1278782'
+      required:
+      - legalEntity
+      - legalRepresentative
+      - profile
+    LegalEntityIdentity:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - COMPANY
+          - ASSOCIATION
+          - SOLE_TRADER
+        registrationNumber:
+          type: string
+        registrationCountry:
+          type: string
+        registrationDate:
+          format: date-time
+          type: string
+      required:
+      - name
+      - type
+      - registrationNumber
+      - registrationCountry
+      - registrationDate
+    PayerRelationship:
+      type: object
+      properties:
+        link:
+          type: string
+          enum:
+          - MOTHER_FATHER
+          - RELATIVES
+          - SIBLINGS
+          - GRAND_PARENTS
+          - HUSBAND_WIFE
+          - LIFE_PARTNER
+          - OTHER
+        other:
+          type: string
+      required:
+      - link
+    CreateWalletResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        WalletStatus:
+          type: string
+          enum:
+          - CREATED
+          - UNDER_ANALYSIS
+          - CLOSED
+          - BLOCKED
+        internalId:
+          type: number
+      required:
+      - id
+      - WalletStatus
+    CreateAccountResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+          - ACCEPTED
+          - CREATED
+          - DENIED
+          - BLOCKED
+        profileStatus:
+          type: string
+          enum:
+          - ACCEPTED
+          - AWAITING_INFORMATION
+          - CREATION_IN_PROGRESS
+          - DENIED
+          - IDENTITY_VERIFICATION_IN_PROGRESS
+          - IDENTITY_VERIFICATION_ABANDONED
+          - IDENTITY_VERIFICATION_ERROR
+          - INFORMATION_COLLECTION_IN_PROGRESS
+          - REJECTED
+          - UNDER_ANALYSIS
+      required:
+      - id
+      - status
+      - profileStatus
+      example:
+        id: ff928147-d51e-4f22-b26c-d2c1a2sebd8d
+        status: CREATED
+        profileStatus: AWAITING_INFORMATION
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        onboardingId:
+          type: string
+        identity:
+          oneOf:
+          - $ref: '#/components/schemas/IndividualIdentity'
+          - $ref: '#/components/schemas/LegalEntityIdentity'
+        status:
+          type: string
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+        type:
+          type: string
+        updatedAt:
+          type: string
+        createdAt:
+          type: string
+      required:
+      - id
+      - onboardingId
+      - identity
+      - status
+      - profiles
+      - type
+      - updatedAt
+      - createdAt
+    GetAccountResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        onboardingId:
+          type: string
+        identity:
+          oneOf:
+          - $ref: '#/components/schemas/IndividualIdentity'
+          - $ref: '#/components/schemas/LegalEntityIdentity'
+        status:
+          type: string
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+        information:
+          $ref: '#/components/schemas/IndividualInformation'
+        type:
+          type: string
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+        updatedAt:
+          type: string
+        createdAt:
+          type: string
+        legalRepresentative:
+          $ref: '#/components/schemas/IndividualInformation'
+        ubos:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndividualInformation'
+      required:
+      - id
+      - onboardingId
+      - identity
+      - status
+      - profiles
+      - information
+      - type
+      - documents
+      - updatedAt
+      - createdAt
+      - legalRepresentative
+    CreateLegalEntityWalletRequest:
+      type: object
+      properties:
+        walletId:
+          type: string
+        project:
+          $ref: '#/components/schemas/Project'
+      required:
+      - walletId
+    Address:
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country of residence (ISO 2-letter code)
+          example: UK
+      required:
+      - country
+    Project:
+      type: object
+      properties:
+        projectType:
+          type: string
+        weddingRelation:
+          type: string
+        beneficiaryFirstName:
+          type: string
+        beneficiaryLastName:
+          type: string
+        beneficiaryBirthDate:
+          type: string
+        description:
+          type: string
+        website:
+          type: string
+      required:
+      - projectType
+      - weddingRelation
+      - beneficiaryFirstName
+      - beneficiaryLastName
+      - beneficiaryBirthDate
+      - description
+      - website
+    LegalCapacity:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - MINOR_EMANCIPATED
+          - MINOR_NOT_EMANCIPATED
+          - LEGAL_AGE_AND_CAPACITY
+          - PROTECTED_ADULT
+          description: 'Legal capacity options: LEGAL_AGE_AND_CAPACITY, PROTECTED_ADULT, MINOR_EMANCIPATED, MINOR_NOT_EMANCIPATED'
+          example: Protected adult
+        protectionType:
+          type: string
+          enum:
+          - SAFEGUARDING_OF_JUSTICE
+          - CURATORSHIP
+          - GUARDIANSHIP
+          - OTHER
+          example: Family Guardianship
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/3703d8d3-61b8-eed5-06f3-772c7acfb4bb/complete_enum_lists.xlsx
+            description: Enum of protection types
+        otherProtectionType:
+          type: string
+          description: Must specify other protection type
+      required:
+      - type
+    CreateProfileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+          - ACCEPTED
+          - AWAITING_INFORMATION
+          - CREATION_IN_PROGRESS
+          - DENIED
+          - IDENTITY_VERIFICATION_IN_PROGRESS
+          - IDENTITY_VERIFICATION_ABANDONED
+          - IDENTITY_VERIFICATION_ERROR
+          - INFORMATION_COLLECTION_IN_PROGRESS
+          - REJECTED
+          - UNDER_ANALYSIS
+      required:
+      - id
+      - status
+    FinancialSupport:
+      type: object
+      properties:
+        visaApplicantRole:
+          type: string
+          enum:
+          - STUDENT
+          - JOB_SEEKER
+        isPayer:
+          type: boolean
+        payerRelationship:
+          $ref: '#/components/schemas/PayerRelationship'
+        financialSituation:
+          $ref: '#/components/schemas/PayerFinancialSituation'
+      required:
+      - visaApplicantRole
+      - isPayer
+      - payerRelationship
+      - financialSituation
+    AccountIndividual:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Jonathan
+        lastName:
+          type: string
+          example: Lamary
+        birthDate:
+          format: date-time
+          type: string
+          description: YYYY/MM/DD
+          example: '1973-06-01'
+        email:
+          type: string
+          example: JLamry55@gmail.com
+        birthCountry:
+          type: string
+          description: Must be offical country Alpha-2 code for example UK, ES.
+          example: FR
+        nationalities:
+          type: array
+          items:
+            type: string
+          description: Must be offical country Alpha-2 code for example FR, UK, ES
+          example: '[FR,UK,ES.]'
+        address:
+          $ref: '#/components/schemas/Address'
+      required:
+      - firstName
+      - lastName
+      - birthDate
+      - email
+      - birthCountry
+      - nationalities
+      - address
+    CreateProfileRequest:
+      type: object
+      properties:
+        profile:
+          type: string
+          enum:
+          - DONOR
+          - PROJECT_HOLDER
+          - LENDER
+          - INVESTOR
+          - CREDITOR
+          - DEBTOR
+          - BUYER
+          - MERCHANT
+          - SELLER
+          - OPERATOR
+          - CONTENT_EDITOR
+          - OTHER_OPERATOR
+          - VISA_APPLICANT
+          - PAYER
+        activity:
+          type: string
+          enum:
+          - CROWDFUNDING_MONEYPOT
+          - CROWDFUNDING_DONATION
+          - MARKETPLACE_B2B
+          - MARKETPLACE_B2C
+          - MARKETPLACE_C2C
+          - CROWDEQUITY
+          - CROWDLENDING
+          - VALUE_ADDED_SERVICE
+          - INVOICE_TRADING
+          - MARKETPLACE_B2C_C2C
+          - VISA_ACCOUNT_APPLICATION
+          - SALARY_ADVANCE
+        walletId:
+          type: string
+        solutionName:
+          type: string
+      required:
+      - profile
+      - solutionName
+    CreateIndividualWalletRequest:
+      type: object
+      properties:
+        walletId:
+          type: string
+        project:
+          $ref: '#/components/schemas/Project'
+      required:
+      - walletId
+    IndividualIdentity:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        birthDate:
+          format: date-time
+          type: string
+        birthCountry:
+          type: string
+        residenceCountry:
+          type: string
+        nationalities:
+          type: array
+          items:
+            type: string
+      required:
+      - firstName
+      - lastName
+      - email
+      - birthDate
+      - birthCountry
+      - residenceCountry
+      - nationalities
+    PayerFinancialSituation:
+      type: object
+      properties:
+        annualRevenue:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          description: "6 tiers format in Euro. \n\n•FIRST_TIER: 0 - 100K€\n\n•SECOND_TIER: 100K€ - 200K€\n\n•THIRD_TIER: 500K€ - 1.5M€\n\n•FOURTH_TIER: 1.5M€ - 5M€\n\n•FIFTH_TIER: 5M€ - 20M€ \n\n•SIXTH_TIER: 20M€ - 100M€"
+          example: 0 - 10K €
+        estimatedWealth:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: "7 tiers format in Euro \n\n•FIRST_TIER: 0 - 100K€\n\n•SECOND_TIER: 100K€ - 200K€\n\n•THIRD_TIER: 500K€ - 1.5M€\n\n•FOURTH_TIER: 1.5M€ - 5M€\n\n•FIFTH_TIER: 5M€ - 20M€\n\n•SIXTH_TIER: 20M€ - 100M€\n\n•SEVENTH_TIER: >100M€"
+          example: 0 - 50K €
+        originOfFunds:
+          $ref: '#/components/schemas/OriginOfFunds'
+      required:
+      - annualRevenue
+      - estimatedWealth
+      - originOfFunds
+    AccountFinancialSituation:
+      type: object
+      properties:
+        annualRevenue:
+          type: string
+        estimatedWealth:
+          type: string
+        isIFITax:
+          type: boolean
+        taxCode:
+          type: string
+      required:
+      - annualRevenue
+      - estimatedWealth
+      - isIFITax
+      - taxCode
+    CreateIndividualAccountRequest:
+      type: object
+      properties:
+        activity:
+          type: string
+          enum:
+          - CROWDFUNDING_MONEYPOT
+          - CROWDFUNDING_DONATION
+          - MARKETPLACE_B2B
+          - MARKETPLACE_B2C
+          - MARKETPLACE_C2C
+          - CROWDEQUITY
+          - CROWDLENDING
+          - VALUE_ADDED_SERVICE
+          - INVOICE_TRADING
+          - MARKETPLACE_B2C_C2C
+          - VISA_ACCOUNT_APPLICATION
+          - SALARY_ADVANCE
+          description: ActivityType
+        individual:
+          $ref: '#/components/schemas/AccountIndividual'
+        profile:
+          type: string
+          enum:
+          - DONOR
+          - PROJECT_HOLDER
+          - LENDER
+          - INVESTOR
+          - CREDITOR
+          - DEBTOR
+          - BUYER
+          - MERCHANT
+          - SELLER
+          - OPERATOR
+          - CONTENT_EDITOR
+          - OTHER_OPERATOR
+          - VISA_APPLICANT
+          - PAYER
+          description: User’s activity profile (only one).
+          example: DONOR
+        walletId:
+          type: string
+          description: 'Are there any exceptions what walletId are not allowed.Note: That is a walletId is not created, Lemonway will auto-generate one.'
+          example: '6768992'
+      required:
+      - individual
+      - profile
+    IndividualInformation:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        otherName:
+          type: string
+        birthDate:
+          type: string
+        birthCity:
+          type: string
+        birthProvince:
+          type: string
+        birthCountry:
+          type: string
+        nationalities:
+          type: array
+          items:
+            type: string
+        email:
+          type: string
+        phone:
+          type: string
+        taxCode:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        street:
+          type: string
+        streetComplementaryInfo:
+          type: string
+        postalCode:
+          type: string
+        province:
+          type: string
+        pep:
+          type: object
+        startDate:
+          type: string
+        endDate:
+          type: string
+        closeToPep:
+          type: object
+        fullName:
+          type: string
+        legalCapacity:
+          $ref: '#/components/schemas/LegalCapacity'
+        professionalSituation:
+          type: object
+        financialSituation:
+          $ref: '#/components/schemas/AccountFinancialSituation'
+        originOfFunds:
+          type: object
+        roles:
+          type: array
+          items:
+            type: object
+            properties:
+              boardMemberPositions:
+                type: array
+              role:
+                type:
+                - string
+                - 'null'
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+        financialSupport:
+          $ref: '#/components/schemas/FinancialSupport'
+      required:
+      - firstName
+      - lastName
+      - otherName
+      - birthDate
+      - birthCity
+      - birthProvince
+      - birthCountry
+      - nationalities
+      - email
+      - phone
+      - taxCode
+      - city
+      - country
+      - street
+      - streetComplementaryInfo
+      - postalCode
+      - province
+      - pep
+      - startDate
+      - endDate
+      - closeToPep
+      - fullName
+      - legalCapacity
+      - professionalSituation
+      - financialSituation
+      - originOfFunds
+      - roles
+      - projects
+      - documents
+      - financialSupport
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accountscontroller_createindividual.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createindividualprofile.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createindividualwallet.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createlegalentity.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createlegalentityprofile.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createlegalentitywallet.md
+  - https://documentation.lemonway.com/reference/accountscontroller_find.md
+  - https://documentation.lemonway.com/reference/accountscontroller_get.md
+  - https://documentation.lemonway.com/reference/accountscontroller_getfile.md
+  - https://documentation.lemonway.com/reference/individualonboarding_uploaddocument.md
+  - https://documentation.lemonway.com/reference/legalentityonboarding_uploaddocument.md
+  - https://documentation.lemonway.com/reference/onboardings_createassociationonboarding.md
+  - https://documentation.lemonway.com/reference/onboardings_createcompanyonboarding.md
+  - https://documentation.lemonway.com/reference/onboardings_createonboarding.md
+  - https://documentation.lemonway.com/reference/onboardings_createsoletraderonboarding.md
+  - https://documentation.lemonway.com/reference/onboardingscontroller_createurl-2.md
+  merge:
+    pages: 16
+    deduped: 50
+    conflicts_kept_first: 0

@@ -1,0 +1,130 @@
+openapi: 3.2.0
+info:
+  title: Account & Onboarding Management Legal Entity Onboarding API
+  description: API Account and Onboarding
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://onboarding-api.lemonway.com/
+  description: Lemonway API
+  variables:
+    env:
+      default: sandbox
+      description: Environment name (sandbox, uat, staging, prod)
+tags:
+- name: legal-entity-onboarding
+paths:
+  /legal-entity-onboarding/{onboardingId}/document:
+    post:
+      operationId: LegalEntityOnboardingsController_uploadOnboardingDocument
+      parameters:
+      - name: onboardingId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                accountId:
+                  type: string
+                type:
+                  type: string
+                  enum:
+                  - ARTICLES_OF_ASSOCIATION
+                  - BOARD_MEMBERS_INFORMATION
+                  - BROCHURE
+                  - COMPANY_REGISTRY
+                  - LEGAL_REPRESENTATIVE_DOCUMENT
+                  - NATIONAL_IDENTITY_CARD
+                  - OFFICIAL_NOTICE
+                  - OTHER
+                  - PASSPORT
+                  - PROOF_OF_ADDRESS
+                  - PUBLICATION_EXCERPT
+                  - RESIDENCE_PERMIT
+                  - SHAREHOLDING_STRUCTURE_DOCUMENTATION
+                  - TAX_NOTICE
+                  - UBO_DOCUMENT
+                file:
+                  type: string
+                  format: binary
+              required:
+              - accountId
+              - type
+              - file
+      responses:
+        '200':
+          description: Document uploaded successfully. Response includes documentId and status
+          content:
+            application/json:
+              schema:
+                example:
+                  documentId: a1b2c3d4-e5f6-7890-ab12-cd34ef56gh78
+                  status: SUCCESS
+        '201':
+          description: ''
+        '400':
+          description: ' Missing parameters, invalid file, or unsupported document type'
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: The specified onboarding session or account could not be found
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: ' An unexpected error occurred on the server'
+          content:
+            application/json:
+              schema: {}
+      security:
+      - bearer: []
+      tags:
+      - legal-entity-onboarding
+      description: Upload a document associated with a legal entity currently being onboarded
+      summary: Legal entity onboardings controller upload onboarding document
+      x-summary-source: derived
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accountscontroller_createindividual.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createindividualprofile.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createindividualwallet.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createlegalentity.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createlegalentityprofile.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createlegalentitywallet.md
+  - https://documentation.lemonway.com/reference/accountscontroller_find.md
+  - https://documentation.lemonway.com/reference/accountscontroller_get.md
+  - https://documentation.lemonway.com/reference/accountscontroller_getfile.md
+  - https://documentation.lemonway.com/reference/individualonboarding_uploaddocument.md
+  - https://documentation.lemonway.com/reference/legalentityonboarding_uploaddocument.md
+  - https://documentation.lemonway.com/reference/onboardings_createassociationonboarding.md
+  - https://documentation.lemonway.com/reference/onboardings_createcompanyonboarding.md
+  - https://documentation.lemonway.com/reference/onboardings_createonboarding.md
+  - https://documentation.lemonway.com/reference/onboardings_createsoletraderonboarding.md
+  - https://documentation.lemonway.com/reference/onboardingscontroller_createurl-2.md
+  merge:
+    pages: 16
+    deduped: 50
+    conflicts_kept_first: 0

@@ -1,0 +1,666 @@
+openapi: 3.2.0
+info:
+  version: v2
+  title: Lemonway DirectKit API 2.0 Accounts | Update API
+servers:
+- url: https://ws.lemonway.fr/mb/env-name/prod/directkitrest/
+tags:
+- name: Accounts | Update
+paths:
+  /v2/accounts/individual/{accountid}:
+    put:
+      tags:
+      - Accounts | Update
+      summary: Update Individual Payment Account Data
+      description: 'Enables you to update information related to a client payment account.
+
+        1. The client enters their new data.
+
+        2. The client calls the Lemonway Webservice.
+
+        3. Lemonway records data when it exists.
+
+        4. The application processes Lemonway''s response and displays a confirmation message.'
+      operationId: Accounts_IndividualPut
+      parameters:
+      - name: accountid
+        in: path
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateIndividualAccountDetailsInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateIndividualAccountDetailsOutput'
+              examples:
+                response:
+                  value:
+                    account:
+                      id: Account1234
+                      internalId: 13
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/accounts/kycstatus/{accountid}:
+    put:
+      tags:
+      - Accounts | Update
+      summary: Update Payment Account Status
+      description: 'Allows certain payment account statuses to be updated.
+
+
+        - To close an account (status 12), the account must have zero balance.
+
+        - An account status can not be changed to bypass the KYC process. KYC statuses are updated by Lemonway.
+
+        - If an account is closed in status 6 (KYC 2) and you would like to reopen it, you must send a support request to Lemonway.
+
+
+        You can view all account statues here.
+
+
+        **Note:** This feature is subject to your contract.'
+      operationId: Accounts_KycstatusPut
+      parameters:
+      - name: accountid
+        in: path
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountStatusInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAccountStatusOutput'
+              examples:
+                response:
+                  value:
+                    account:
+                      id: ExternalUserId
+                      status: 6
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/accounts/legal/{accountid}:
+    put:
+      tags:
+      - Accounts | Update
+      summary: Update Legal Payment Account Data
+      description: 'This method enables you to update information relating to a **legal** client payment account.
+
+        1. The client enters their new data.
+
+        2. The client calls the Lemonway Webservice.
+
+        3. Lemonway records data when it exists.
+
+        4. The application processes Lemonway''s response and displays a confirmation message.'
+      operationId: Accounts_LegalSinglePut
+      parameters:
+      - name: accountid
+        in: path
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLegalAccountDetailsInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateLegalAccountDetailsOutput'
+              examples:
+                response:
+                  value:
+                    account:
+                      id: Account1234
+                      lemonwayId: 13
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+components:
+  schemas:
+    IndividualAccount:
+      type: object
+      properties:
+        id:
+          description: Payment Account ID
+          type: string
+        internalId:
+          format: int64
+          description: Internal ID given by Lemonway (ID displayed on the Lemonway Dashboard)
+          type: integer
+        limits:
+          $ref: '#/components/schemas/Limits'
+    UpdateIndividualAccountDetailsOutput:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/IndividualAccount'
+        error:
+          $ref: '#/components/schemas/Error'
+    UpdateAccountStatus:
+      type: object
+      properties:
+        id:
+          description: Updated payment account ID
+          type: string
+        status:
+          format: int32
+          description: Status of the payment account
+          type: integer
+    Birth:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          description: Client Date of Birth
+          pattern: ^[12]\d{3}\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$
+          type: string
+        city:
+          description: Client City of Birth
+          maxLength: 140
+          minLength: 0
+          type: string
+        Country:
+          description: 'Client Country of Birth, using ISO 3166-1 alpha-3. Three-letter country code, for example: FRA (France), GBR (United Kingdom of Great Britain and Northern Ireland)'
+          maxLength: 3
+          minLength: 3
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        psp:
+          $ref: '#/components/schemas/PSP'
+    Limits:
+      type: object
+      properties:
+        totalMoneyInAllowed:
+          format: int64
+          description: Total Money-In number allowed for this account
+          type: integer
+        amountMoneyInAllowed:
+          format: double
+          description: Total Money-In amount allowed for this wallet
+          type: number
+    UpdateAccountStatusInput:
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          format: int32
+          description: New payment account status<br/>0 = Unknown.<br/>1 = Not Opened.<br/>2 = Opened, need more documents.<br/>3 = Opened, document rejected.<br/>5 = Opened, KYC1.<br/>6 = Opened, KYC2.<br/>7 = Opened, KYC3.<br/>8 = Opened, document expired.<br/>9 = Frozen (by backoffice).<br/>10 = Blocked.<br/>11 = Locked (by Web Service).<br/>12 = Closed.<br/>13 = Pending KYC3.<br/>14 = One-time customer.<br/>15 = CGE.<br/>16 = Technical Payment Account.<br/>
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          type: integer
+      example:
+        status: 6
+    PSP:
+      type: object
+      properties:
+        message:
+          description: Get the Error Message from PSP
+          type: string
+    Company:
+      required:
+      - name
+      - description
+      type: object
+      properties:
+        name:
+          description: Company name (at least one alphabethic character is required)
+          maxLength: 256
+          minLength: 1
+          type: string
+        description:
+          description: Company description
+          maxLength: 256
+          minLength: 1
+          type: string
+        websiteUrl:
+          description: Website URL
+          maxLength: 256
+          minLength: 1
+          type: string
+        identificationNumber:
+          description: Company identification number
+          maxLength: 256
+          minLength: 1
+          type: string
+    LegalAccount:
+      type: object
+      properties:
+        id:
+          description: Updated Wallet ID (your choice when you create the Wallet)
+          type: string
+        lemonwayId:
+          format: int64
+          description: Lemonway Wallet ID (you can not choose this number). This number is also displayed in our Dashboard.
+          type: integer
+        limits:
+          $ref: '#/components/schemas/Limits'
+    UpdateLegalAccountDetailsInput:
+      required:
+      - company
+      type: object
+      properties:
+        company:
+          $ref: '#/components/schemas/Company'
+        email:
+          description: New Email.
+          maxLength: 256
+          minLength: 6
+          pattern: ^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+          type: string
+        title:
+          description: Client title
+          maxLength: 1
+          minLength: 1
+          pattern: ^(M|F|J|U)$
+          type: string
+        firstName:
+          description: Client first name
+          maxLength: 256
+          minLength: 2
+          type: string
+        lastName:
+          description: Client last name
+          maxLength: 256
+          minLength: 2
+          type: string
+        adresse:
+          $ref: '#/components/schemas/Address'
+        Birth:
+          $ref: '#/components/schemas/Birth'
+        phoneNumber:
+          description: MSISDN phone number
+          maxLength: 30
+          minLength: 6
+          pattern: ^\d{6,30}$
+          type: string
+        mobileNumber:
+          description: "Mobile phone number with MSISDN format: international number with country code without \"00\" neither \"+\".<br /> \nThis will be used by default when eletronically signing documents."
+          maxLength: 30
+          minLength: 6
+          pattern: ^\d{6,30}$
+          type: string
+        isDebtor:
+          description: For crowdfunding/loan platforms, indicate if the wallet is created for a debtor.
+          type: boolean
+        nationality:
+          description: 'client nationality, using ISO 3166-1 alpha-3 format.
+
+            Separate multiple nationalities with a comma.'
+          maxLength: 19
+          minLength: 0
+          type: string
+        payerOrBeneficiary:
+          format: int32
+          description: 'Indicates if the payment account is created for a payer or a beneficiary:
+
+            Empty: unknown status (default)
+
+            1: Payer
+
+            2: Beneficiary'
+          maximum: 2
+          minimum: 1
+          type: integer
+        isCompany:
+          description: '**Important:** This object is deprecated and no longer permissible in accordance with EU compliance rules.'
+          type: boolean
+      example:
+        company:
+          name: Lemonway SAS
+          description: Ecommerce, clothings
+          websiteUrl: www.lemonway.fr
+          identificationNumber: 1234567ABCDEF
+        email: adresse@domaine.com
+        title: M
+        firstName: Pierre
+        lastName: Dupont
+        adresse:
+          street: 26 rue de Paris
+          postCode: '93100'
+          city: Montreuil
+          country: FRA
+        Birth:
+          date: 21/03/1985
+          city: Montreuil
+          Country: FRA
+        phoneNumber: '33672635263'
+        mobileNumber: '33672635263'
+        isDebtor: true
+        nationality: FRA,USA
+        payerOrBeneficiary: 1
+        isCompany: false
+    Address:
+      required:
+      - country
+      type: object
+      properties:
+        street:
+          description: Client number and street
+          maxLength: 256
+          minLength: 0
+          type: string
+        postCode:
+          description: Client Postcode/ZIP
+          maxLength: 10
+          minLength: 0
+          type: string
+        city:
+          description: Client city
+          maxLength: 140
+          minLength: 0
+          type: string
+        country:
+          description: Client country using ISO 3166-1 alpha-3
+          maxLength: 3
+          minLength: 3
+          type: string
+    UpdateAccountStatusOutput:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/UpdateAccountStatus'
+        error:
+          $ref: '#/components/schemas/Error'
+    UpdateLegalAccountDetailsOutput:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/LegalAccount'
+        error:
+          $ref: '#/components/schemas/Error'
+    UpdateIndividualAccountDetailsInput:
+      type: object
+      properties:
+        email:
+          description: New Email.
+          maxLength: 256
+          minLength: 6
+          pattern: ^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+          type: string
+        title:
+          description: Client title
+          maxLength: 1
+          minLength: 1
+          pattern: ^(M|F|J|U)$
+          type: string
+        firstName:
+          description: Client first name
+          maxLength: 256
+          minLength: 2
+          type: string
+        lastName:
+          description: Client last name
+          maxLength: 256
+          minLength: 2
+          type: string
+        adresse:
+          $ref: '#/components/schemas/Address'
+        Birth:
+          $ref: '#/components/schemas/Birth'
+        phoneNumber:
+          description: MSISDN phone number
+          maxLength: 30
+          minLength: 6
+          pattern: ^\d{6,30}$
+          type: string
+        mobileNumber:
+          description: "Mobile phone number with MSISDN format: international number with country code without \"00\" neither \"+\".<br /> \nThis will be used by default when eletronically signing documents."
+          maxLength: 30
+          minLength: 6
+          pattern: ^\d{6,30}$
+          type: string
+        isDebtor:
+          description: For crowdfunding/loan platforms, indicate if the wallet is created for a debtor.
+          type: boolean
+        nationality:
+          description: 'client nationality, using ISO 3166-1 alpha-3 format.
+
+            Separate multiple nationalities with a comma.'
+          maxLength: 19
+          minLength: 0
+          type: string
+        payerOrBeneficiary:
+          format: int32
+          description: 'Indicates if the payment account is created for a payer or a beneficiary:
+
+            Empty: unknown status (default)
+
+            1: Payer
+
+            2: Beneficiary'
+          maximum: 2
+          minimum: 1
+          type: integer
+        isCompany:
+          description: '**Important:** This object is deprecated and no longer permissible in accordance with EU compliance rules.'
+          type: boolean
+      example:
+        email: adresse@domaine.com
+        title: M
+        firstName: Pierre
+        lastName: Dupont
+        adresse:
+          street: 26 rue de Paris
+          postCode: '93100'
+          city: Montreuil
+          country: FRA
+        Birth:
+          date: 21/03/1985
+          city: Montreuil
+          Country: FRA
+        phoneNumber: '33672635263'
+        mobileNumber: '33672635263'
+        isDebtor: true
+        nationality: FRA,USA
+        payerOrBeneficiary: 1
+        isCompany: false
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accounts_accountsingleget.md
+  - https://documentation.lemonway.com/reference/accounts_addultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_balancesget.md
+  - https://documentation.lemonway.com/reference/accounts_balanceshistoryget.md
+  - https://documentation.lemonway.com/reference/accounts_blockedput.md
+  - https://documentation.lemonway.com/reference/accounts_documentget.md
+  - https://documentation.lemonway.com/reference/accounts_documentssigninitpost.md
+  - https://documentation.lemonway.com/reference/accounts_documentsuploadpost.md
+  - https://documentation.lemonway.com/reference/accounts_enrolmentinit.md
+  - https://documentation.lemonway.com/reference/accounts_getultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_individualpost.md
+  - https://documentation.lemonway.com/reference/accounts_individualput.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusget.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusput.md
+  - https://documentation.lemonway.com/reference/accounts_legalpost.md
+  - https://documentation.lemonway.com/reference/accounts_legalsingleput.md
+  - https://documentation.lemonway.com/reference/accounts_retrievepost.md
+  - https://documentation.lemonway.com/reference/accounts_transactionsget.md
+  - https://documentation.lemonway.com/reference/accounts_updateultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/disputes_disputesget.md
+  - https://documentation.lemonway.com/reference/moneyins_accountcardget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancountget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibandisablepost.md
+  - https://documentation.lemonway.com/reference/moneyins_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardcreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_carddirect3dconfirmput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardget.md
+  - https://documentation.lemonway.com/reference/moneyins_cardpaymentformpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardrebill.md
+  - https://documentation.lemonway.com/reference/moneyins_cardsubscriptionpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardwebinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeget.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_createbnplpayment.md
+  - https://documentation.lemonway.com/reference/moneyins_getbnplpaymentplans.md
+  - https://documentation.lemonway.com/reference/moneyins_getmoneyinbanks.md
+  - https://documentation.lemonway.com/reference/moneyins_mandateget.md
+  - https://documentation.lemonway.com/reference/moneyins_mandategetdocument.md
+  - https://documentation.lemonway.com/reference/moneyins_mbwayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_mobilepayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinapminitasync.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinget.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinpaypalinit.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyintransferinit.md
+  - https://documentation.lemonway.com/reference/moneyins_multibancoinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformcompletedget.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformdisableput.md
+  - https://documentation.lemonway.com/reference/moneyins_paypaltransactionresume.md
+  - https://documentation.lemonway.com/reference/moneyins_payshopinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paytrailinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddget.md
+  - https://documentation.lemonway.com/reference/moneyins_sddinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandateunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_sofortinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_trustlyinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_validateput.md
+  - https://documentation.lemonway.com/reference/moneyouts_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanextendedpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanget.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutget.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutpostasync.md
+  - https://documentation.lemonway.com/reference/p2ps_p2pget.md
+  - https://documentation.lemonway.com/reference/p2ps_p2ppost.md
+  - https://documentation.lemonway.com/reference/refunds_refundcreateput.md
+  - https://documentation.lemonway.com/reference/refunds_refundput.md
+  merge:
+    pages: 71
+    deduped: 281
+    conflicts_kept_first: 0

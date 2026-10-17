@@ -1,0 +1,505 @@
+openapi: 3.2.0
+info:
+  version: v2
+  title: Lemonway DirectKit API 2.0 MoneyIns | BNPL API
+servers:
+- url: https://ws.lemonway.fr/mb/env-name/prod/directkitrest/
+tags:
+- name: MoneyIns | BNPL
+paths:
+  /v2/moneyins/buynowpaylater/init:
+    post:
+      tags:
+      - MoneyIns | BNPL
+      summary: Create New Pending Payment
+      description: Depending on your activated payment plans this call will let you setup a new payment plan.
+      operationId: MoneyIns_CreateBnplPayment
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBnplPaymentInput'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateBnplPaymentInput'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateBnplPaymentInput'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CreateBnplPaymentInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateBnplPaymentInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBnplPaymentOutput'
+              examples:
+                response:
+                  value:
+                    id: 124
+                    redirectUrl: https://webkit.lemonway.fr/mb/recette/prod/?moneyintoken=75b12bd8710840969a6f879459dc0e50
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CreateBnplPaymentOutput'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateBnplPaymentOutput'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/CreateBnplPaymentOutput'
+  /v2/moneyins/buynowpaylater/plans:
+    get:
+      tags:
+      - MoneyIns | BNPL
+      summary: Get all Actived Payment Plans
+      description: 'Activated payment plans are summarized in a list that may consist of one, or more configured plans.
+
+        We offer 15 and 30 day deferment plans, and pay 3x and 4x plans.
+
+        **Note:** Payment plans are typically configured with a member of Lemonway''s Implementation team.'
+      operationId: MoneyIns_GetBnplPaymentPlans
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPaymentPlansOutput'
+              examples:
+                response:
+                  value:
+                    paymentPlans:
+                    - id: 1
+                      provider: pledg
+                      type: deferred
+                      deferredDays: 15
+                      description: The payer bears the fees.
+                    - id: 2
+                      provider: pledg
+                      type: installments
+                      installments: 3
+                      description: The marketplace bears the fees.
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+components:
+  schemas:
+    BnplDelivery:
+      required:
+      - deliveryMode
+      - expressDelivery
+      - deliveryAddress
+      type: object
+      properties:
+        deliveryMode:
+          description: "Possible values:   \n`CollectionOfTheGoodsInTheMerchantStore`\n`CollectionInAThirdPartyPoint`\n`DeliveryToCustomerAddress`"
+          type: string
+        expressDelivery:
+          type: boolean
+        deliveryAddress:
+          $ref: '#/components/schemas/BnplAddress'
+        deliveryPointName:
+          description: 'Pickup name or recipient name.
+
+            Mandatory only if DeliveryMode is not "DeliveryToCustomerAddress".'
+          type: string
+    PaymentPlan:
+      type: object
+      properties:
+        id:
+          format: int64
+          description: Payment plan ID.
+          type: integer
+        provider:
+          description: PSP name.
+          type: string
+        type:
+          description: 'Payment Plan Type.
+
+            ex: Installments or deferrerd.'
+          type: string
+        deferredDays:
+          format: int32
+          description: Number of deferred days.
+          type: integer
+        installments:
+          format: int32
+          description: Number of installments.
+          type: integer
+        description:
+          description: 'Payment plan description.
+
+            ex: The marketplace bears the fees.'
+          type: string
+    CreateBnplPaymentInput:
+      required:
+      - paymentPlanId
+      - delivery
+      - items
+      - customer
+      - returnUrl
+      - errorUrl
+      - cancelUrl
+      - accountId
+      type: object
+      properties:
+        paymentPlanId:
+          format: int64
+          description: Payment Plan ID
+          type: integer
+        captureMode:
+          description: 'Defines if the payment should be captured right away or if the capture should be deferred.
+
+            Possible values: `Automatic` and `Manual`. Default is set to ''Automatic''.'
+          type: string
+        delivery:
+          $ref: '#/components/schemas/BnplDelivery'
+        items:
+          description: "Possible values:  \n`PhysicalGood`  \n`Discount`  \n`ShippingFee`  \n`DigitalGood`  \n`ExternalPayment`  \n`Insurance`"
+          type: array
+          items:
+            $ref: '#/components/schemas/BnplPurchaseItem'
+        customer:
+          $ref: '#/components/schemas/Customer'
+        returnUrl:
+          description: Return success url
+          type: string
+        errorUrl:
+          description: Return error url
+          type: string
+        cancelUrl:
+          description: Return cancel url
+          type: string
+        reference:
+          description: Unique ID of the call, generated by your server. This ID can be used as a search field when looking for operation details
+          maxLength: 50
+          minLength: 0
+          type: string
+        accountId:
+          description: Payment Account ID to Credit
+          maxLength: 256
+          minLength: 0
+          type: string
+        totalAmount:
+          format: int32
+          description: 'Amount to Debit
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your Fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment Regarding the Transaction
+          maxLength: 140
+          minLength: 0
+          type: string
+        autoCommission:
+          description: "If true:\n1. [amountCom] will be ignored and will be replaced with Lemonway's fee  \n2. You will not receive any fee"
+          type: boolean
+      example:
+        paymentPlanId: 1
+        delivery:
+          deliveryMode: DeliveryToCustomerAddress
+          expressDelivery: true
+          deliveryAddress:
+            street: 8 rue du sentier
+            city: Paris
+            postCode: '75003'
+            country: FRA
+        items:
+        - type: PhysicalGood
+          description: Zesty
+          reference: Lemon
+          quantity: 1
+          unitAmount: 200
+          merchantAccountId: fc516a3d-3bca-438b-af45-0f4a6c7ec804
+        - type: PhysicalGood
+          description: Pressé
+          reference: Citron
+          quantity: 2
+          unitAmount: 400
+          merchantAccountId: 57d495c7-b432-449f-9e58-85ebb4477087
+        customer:
+          accountId: AC4531686
+          civility: Mr
+          firstName: Lemon
+          lastName: Way
+          birthDate: '1970-01-01'
+          mobileNumber: 0784177684
+          email: lemon@way.com
+          billingAddress:
+            street: 8 rue du sentier
+            city: Paris
+            postCode: '75003'
+            country: FRA
+        returnUrl: https://www.yoursite.com/thankyou.php
+        errorUrl: https://www.yoursite.com/oops.php
+        cancelUrl: https://www.yoursite.com/seeYouNextTime.php
+        reference: Dze8778
+        accountId: '33612345678'
+        totalAmount: 220
+        commissionAmount: 1
+        comment: Order number 2457765AX2
+        autoCommission: false
+    GetPaymentPlansOutput:
+      type: object
+      properties:
+        paymentPlans:
+          description: List of actived BNPL payment plans
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentPlan'
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        psp:
+          $ref: '#/components/schemas/PSP'
+    Customer:
+      required:
+      - accountId
+      - civility
+      - firstName
+      - lastName
+      - mobileNumber
+      - email
+      - billingAddress
+      type: object
+      properties:
+        accountId:
+          description: Client account Id.
+          type: string
+        civility:
+          description: "Client civility.  \nPossible values: `Mr` and `Ms`"
+          type: string
+        firstName:
+          description: Client first name.
+          type: string
+        lastName:
+          description: Client last name.
+          type: string
+        birthDate:
+          description: Client birth date.
+          type: string
+        mobileNumber:
+          description: Client phone number.
+          type: string
+        email:
+          description: Client email.
+          type: string
+        taxIdentificationNumber:
+          description: Client tax identification number.
+          type: string
+        billingAddress:
+          $ref: '#/components/schemas/BnplAddress'
+    BnplAddress:
+      required:
+      - street
+      - city
+      - postCode
+      - country
+      type: object
+      properties:
+        street:
+          description: ''
+          type: string
+        city:
+          description: ''
+          type: string
+        postCode:
+          description: ''
+          type: string
+        country:
+          description: ''
+          type: string
+    PSP:
+      type: object
+      properties:
+        message:
+          description: Get the Error Message from PSP
+          type: string
+    BnplPurchaseItem:
+      required:
+      - type
+      - description
+      - reference
+      - quantity
+      - unitAmount
+      - merchantAccountId
+      type: object
+      properties:
+        type:
+          type: string
+        description:
+          type: string
+        reference:
+          type: string
+        quantity:
+          format: int32
+          type: integer
+        unitAmount:
+          format: int32
+          type: integer
+        merchantAccountId:
+          type: string
+    CreateBnplPaymentOutput:
+      type: object
+      properties:
+        id:
+          format: int64
+          description: Transaction ID.
+          type: integer
+        redirectUrl:
+          description: Payment page URL.
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accounts_accountsingleget.md
+  - https://documentation.lemonway.com/reference/accounts_addultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_balancesget.md
+  - https://documentation.lemonway.com/reference/accounts_balanceshistoryget.md
+  - https://documentation.lemonway.com/reference/accounts_blockedput.md
+  - https://documentation.lemonway.com/reference/accounts_documentget.md
+  - https://documentation.lemonway.com/reference/accounts_documentssigninitpost.md
+  - https://documentation.lemonway.com/reference/accounts_documentsuploadpost.md
+  - https://documentation.lemonway.com/reference/accounts_enrolmentinit.md
+  - https://documentation.lemonway.com/reference/accounts_getultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_individualpost.md
+  - https://documentation.lemonway.com/reference/accounts_individualput.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusget.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusput.md
+  - https://documentation.lemonway.com/reference/accounts_legalpost.md
+  - https://documentation.lemonway.com/reference/accounts_legalsingleput.md
+  - https://documentation.lemonway.com/reference/accounts_retrievepost.md
+  - https://documentation.lemonway.com/reference/accounts_transactionsget.md
+  - https://documentation.lemonway.com/reference/accounts_updateultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/disputes_disputesget.md
+  - https://documentation.lemonway.com/reference/moneyins_accountcardget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancountget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibandisablepost.md
+  - https://documentation.lemonway.com/reference/moneyins_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardcreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_carddirect3dconfirmput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardget.md
+  - https://documentation.lemonway.com/reference/moneyins_cardpaymentformpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardrebill.md
+  - https://documentation.lemonway.com/reference/moneyins_cardsubscriptionpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardwebinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeget.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_createbnplpayment.md
+  - https://documentation.lemonway.com/reference/moneyins_getbnplpaymentplans.md
+  - https://documentation.lemonway.com/reference/moneyins_getmoneyinbanks.md
+  - https://documentation.lemonway.com/reference/moneyins_mandateget.md
+  - https://documentation.lemonway.com/reference/moneyins_mandategetdocument.md
+  - https://documentation.lemonway.com/reference/moneyins_mbwayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_mobilepayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinapminitasync.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinget.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinpaypalinit.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyintransferinit.md
+  - https://documentation.lemonway.com/reference/moneyins_multibancoinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformcompletedget.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformdisableput.md
+  - https://documentation.lemonway.com/reference/moneyins_paypaltransactionresume.md
+  - https://documentation.lemonway.com/reference/moneyins_payshopinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paytrailinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddget.md
+  - https://documentation.lemonway.com/reference/moneyins_sddinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandateunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_sofortinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_trustlyinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_validateput.md
+  - https://documentation.lemonway.com/reference/moneyouts_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanextendedpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanget.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutget.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutpostasync.md
+  - https://documentation.lemonway.com/reference/p2ps_p2pget.md
+  - https://documentation.lemonway.com/reference/p2ps_p2ppost.md
+  - https://documentation.lemonway.com/reference/refunds_refundcreateput.md
+  - https://documentation.lemonway.com/reference/refunds_refundput.md
+  merge:
+    pages: 71
+    deduped: 281
+    conflicts_kept_first: 0

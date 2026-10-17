@@ -1,0 +1,995 @@
+openapi: 3.2.0
+info:
+  version: v2
+  title: Lemonway DirectKit API 2.0 MoneyIns | Local Payments API
+servers:
+- url: https://ws.lemonway.fr/mb/env-name/prod/directkitrest/
+tags:
+- name: MoneyIns | Local Payments
+paths:
+  /v2/moneyins/mbway/init:
+    post:
+      tags:
+      - MoneyIns | Local Payments
+      summary: Initialize MB WAY Payment
+      description: 'Payment process:
+
+
+        You call the Lemonway DirectKit API, provide a phone number to initialize the payment
+
+
+        The payment order is sent to the customer''s smartphone
+
+
+        The customer pays with their smartphone
+
+
+        You will be notified after the payment is settled'
+      operationId: MoneyIns_MbwayInitPost
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoneyInMbwayInitInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoneyInMbwayInitOutput'
+              examples:
+                response:
+                  value:
+                    euPagoInit:
+                      id: 589
+                      reference: '00000.425'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/moneyins/mobilePay/init:
+    post:
+      tags:
+      - MoneyIns | Local Payments
+      summary: (Deprecated) Initialize MobilePay Payment
+      description: 'You will need two integration points on your code:
+
+
+        One call to Lemonway DirectKit API to init MobilePay payment to credit the payment account
+
+
+        One redirection from your website to the return URL by MobilePay'
+      operationId: MoneyIns_MobilePayInitPost
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoneyInMobilePayInitInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoneyInMobilePayInitOutput'
+              examples:
+                response:
+                  value:
+                    id: 589
+                    actionUrl: https://quickpay.com/payment/9jt1D3SeQYZhirUAKvAgHppxPvJqLGYC1rB7XAj5svkVYeanSydHi7ZTzvMVaRAz
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/moneyins/multibanco/init:
+    post:
+      tags:
+      - MoneyIns | Local Payments
+      summary: Initialize Multibanco Payment
+      description: 'Payment process:
+
+
+        You call the Lemonway DirectKit API to initialize the credit transaction of a payment account and get a payment reference
+
+
+        You give the payment reference to the final customer
+
+
+        The customer uses the reference to pay on an ATM
+
+
+        The will be notified after the payment is settled'
+      operationId: MoneyIns_MultibancoInitPost
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoneyInMultibancoInitInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoneyInMultibancoInitOutput'
+              examples:
+                response:
+                  value:
+                    euPagoInit:
+                      id: 589
+                      reference: '000257.45875687'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/moneyins/payshop/init:
+    post:
+      tags:
+      - MoneyIns | Local Payments
+      summary: (Deprecated) Initialize Payshop Payment
+      description: 'Payment process
+
+
+        Your system will call the Lemonway DirectKit API to initialize the credit transaction of a payment account and get a payment reference
+
+
+        Your system gives the payment reference to the final customer
+
+
+        The customer uses the reference to pay in a shop
+
+
+        Your system will be notified after the payment is settled'
+      operationId: MoneyIns_PayshopInitPost
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoneyInPayshopInitInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoneyInPayshopInitOutput'
+              examples:
+                response:
+                  value:
+                    euPagoInit:
+                      id: 589
+                      reference: '5635208367072'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/moneyins/paytrail/init:
+    post:
+      tags:
+      - MoneyIns | Local Payments
+      summary: (Deprecated) Initialize PayTrail Payment
+      description: 'You will need 2 integration points on your code:
+
+
+        One call to Lemonway DirectKit API to init PayTrail payment to credit the payment account
+
+
+        One redirection from your website to the return URL by PayTrail'
+      operationId: MoneyIns_PayTrailInitPost
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoneyInPayTrailInitInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoneyInPayTrailInitOutput'
+              examples:
+                response:
+                  value:
+                    id: 589
+                    actionUrl: https://payment.paytrail.com/payment/load/token/9jt1D3SeQYZhirUAKvAgHppxPvJqLGYC1rB7XAj5svkVYeanSydHi7ZTzvMVaRAz
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/moneyins/sofort/init:
+    post:
+      tags:
+      - MoneyIns | Local Payments
+      summary: (Deprecated) Initialize Sofort Payment
+      description: 'You will need 2 integration points on your code:
+
+
+        One call to Lemonway DirectKit API to init Sofort payment to credit the payment account
+
+
+        One redirection from your website to the return URL by Sofort'
+      operationId: MoneyIns_SofortInitPost
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoneyInSofortInitInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoneyInSofortInitOutput'
+              examples:
+                response:
+                  value:
+                    id: 589
+                    actionUrl: https%3A%2F%2Fwww.sofort.com%2Fpayment%2Fgo%2Fa47c876018e0ffa51e462aad0793ac10f71ee9e1
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/moneyins/trustly/init:
+    post:
+      tags:
+      - MoneyIns | Local Payments
+      summary: (Deprecated) Initialize Trustly Payment
+      description: Trustly is a Swedish payment method used in 29 European countries. With Trustly you can buy and pay from your bank account.
+      operationId: MoneyIns_TrustlyInitPost
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoneyInTrustlyInitInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoneyInTrustlyInitOutput'
+              examples:
+                response:
+                  value:
+                    id: 589
+                    actionUrl: https://trustly.com/_/orderclient.php?SessionID=eae09003-8fba-4ffa-9f08-b37aa25241a3&OrderID=2057765146&Locale=
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+components:
+  schemas:
+    MoneyInTrustlyInitInput:
+      required:
+      - finalCustomerEmail
+      - finalCustomerFirstName
+      - finalCustomerLastName
+      - returnUrl
+      - accountId
+      type: object
+      properties:
+        finalCustomerEmail:
+          description: End user email
+          pattern: ^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+          type: string
+        finalCustomerFirstName:
+          description: End user first name
+          type: string
+        finalCustomerLastName:
+          description: End user last name
+          type: string
+        returnUrl:
+          description: 'Your site returns the URL, called to terminate the operation and on which the callback will be sent, with data in POST parameters.
+
+            This URL must contain a unique ID so you know which operation is related to the return.'
+          type: string
+        reference:
+          description: Unique ID of the call, generated by your server. This ID can be used as a search field when looking for operation details
+          maxLength: 50
+          minLength: 0
+          type: string
+        accountId:
+          description: Payment Account ID to Credit
+          maxLength: 256
+          minLength: 0
+          type: string
+        totalAmount:
+          format: int32
+          description: 'Amount to Debit
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your Fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment Regarding the Transaction
+          maxLength: 140
+          minLength: 0
+          type: string
+        autoCommission:
+          description: "If true:\n1. [amountCom] will be ignored and will be replaced with Lemonway's fee  \n2. You will not receive any fee"
+          type: boolean
+      example:
+        finalCustomerEmail: wade.winston@email.com
+        finalCustomerFirstName: Wade
+        finalCustomerLastName: Winston
+        returnUrl: https://www.yoursite.com/payment_return.php/?id=367GBD
+        reference: Dze8778
+        accountId: '33612345678'
+        totalAmount: 1500
+        commissionAmount: 100
+        comment: Order number 2457765AX2
+        autoCommission: false
+    MoneyInSofortInitInput:
+      required:
+      - returnUrl
+      - accountId
+      type: object
+      properties:
+        returnUrl:
+          description: 'Your site returns the URL, called to terminate the operation and on which the callback will be sent, with data in POST parameters.
+
+            This URL must contain a unique ID so you know which operation is related to the return.'
+          type: string
+        reference:
+          description: Unique ID of the call, generated by your server. This ID can be used as a search field when looking for operation details
+          maxLength: 50
+          minLength: 0
+          type: string
+        accountId:
+          description: Payment Account ID to Credit
+          maxLength: 256
+          minLength: 0
+          type: string
+        totalAmount:
+          format: int32
+          description: 'Amount to Debit
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your Fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment Regarding the Transaction
+          maxLength: 140
+          minLength: 0
+          type: string
+        autoCommission:
+          description: "If true:\n1. [amountCom] will be ignored and will be replaced with Lemonway's fee  \n2. You will not receive any fee"
+          type: boolean
+      example:
+        returnUrl: https://www.yoursite.com/payment_return.php/?id=367GBD
+        reference: Dze8778
+        accountId: '33612345678'
+        totalAmount: 1500
+        commissionAmount: 100
+        comment: Order number 2457765AX2
+        autoCommission: false
+    EuPagoInit:
+      type: object
+      properties:
+        id:
+          format: int64
+          description: Transaction ID. You require this ID to confirm the transaction
+          type: integer
+        reference:
+          description: 'References in Format: <b>entitades.referencias</b>'
+          type: string
+    MoneyInPayTrailInitInput:
+      required:
+      - returnUrl
+      - accountId
+      type: object
+      properties:
+        returnUrl:
+          description: 'Your site returns the URL, called to terminate the operation and on which the callback will be sent, with data in POST parameters.
+
+            This URL must contain a unique ID so you know which operation is related to the return.'
+          type: string
+        reference:
+          description: Unique ID of the call, generated by your server. This ID can be used as a search field when looking for operation details
+          maxLength: 50
+          minLength: 0
+          type: string
+        accountId:
+          description: Payment Account ID to Credit
+          maxLength: 256
+          minLength: 0
+          type: string
+        totalAmount:
+          format: int32
+          description: 'Amount to Debit
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your Fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment Regarding the Transaction
+          maxLength: 140
+          minLength: 0
+          type: string
+        autoCommission:
+          description: "If true:\n1. [amountCom] will be ignored and will be replaced with Lemonway's fee  \n2. You will not receive any fee"
+          type: boolean
+      example:
+        returnUrl: https://www.yoursite.com/payment_return.php/?id=367GBD
+        reference: Dze8778
+        accountId: '33612345678'
+        totalAmount: 1500
+        commissionAmount: 100
+        comment: Order number 2457765AX2
+        autoCommission: false
+    MoneyInMultibancoInitOutput:
+      type: object
+      properties:
+        euPagoInit:
+          $ref: '#/components/schemas/EuPagoInit'
+        error:
+          $ref: '#/components/schemas/Error'
+    MoneyInMobilePayInitInput:
+      required:
+      - returnUrl
+      - accountId
+      type: object
+      properties:
+        returnUrl:
+          description: 'Your site returns the URL, called to terminate the operation and on which the callback will be sent, with data in POST parameters.
+
+            This URL must contain a unique ID so you know which operation is related to the return.'
+          type: string
+        reference:
+          description: Unique ID of the call, generated by your server. This ID can be used as a search field when looking for operation details
+          maxLength: 50
+          minLength: 0
+          type: string
+        accountId:
+          description: Payment Account ID to Credit
+          maxLength: 256
+          minLength: 0
+          type: string
+        totalAmount:
+          format: int32
+          description: 'Amount to Debit
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your Fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment Regarding the Transaction
+          maxLength: 140
+          minLength: 0
+          type: string
+        autoCommission:
+          description: "If true:\n1. [amountCom] will be ignored and will be replaced with Lemonway's fee  \n2. You will not receive any fee"
+          type: boolean
+      example:
+        returnUrl: https://www.yoursite.com/payment_return.php/?id=367GBD
+        reference: Dze8778
+        accountId: '33612345678'
+        totalAmount: 1500
+        commissionAmount: 100
+        comment: Order number 2457765AX2
+        autoCommission: false
+    MoneyInMbwayInitInput:
+      required:
+      - phone
+      - returnUrl
+      - accountId
+      type: object
+      properties:
+        phone:
+          description: 'Phone
+
+            Final Client Phone Numbers'
+          type: string
+        returnUrl:
+          description: 'Your site returns the URL, called to terminate the operation and on which the callback will be sent, with data in POST parameters.
+
+            This URL must contain a unique ID so you know which operation is related to the return.'
+          type: string
+        reference:
+          description: Unique ID of the call, generated by your server. This ID can be used as a search field when looking for operation details
+          maxLength: 50
+          minLength: 0
+          type: string
+        accountId:
+          description: Payment Account ID to Credit
+          maxLength: 256
+          minLength: 0
+          type: string
+        totalAmount:
+          format: int32
+          description: 'Amount to Debit
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your Fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment Regarding the Transaction
+          maxLength: 140
+          minLength: 0
+          type: string
+        autoCommission:
+          description: "If true:\n1. [amountCom] will be ignored and will be replaced with Lemonway's fee  \n2. You will not receive any fee"
+          type: boolean
+      example:
+        phone: '513212744'
+        returnUrl: https://www.yoursite.com/payment_return.php/?id=367GBD
+        reference: Dze8778
+        accountId: '33612345678'
+        totalAmount: 1500
+        commissionAmount: 100
+        comment: Order number 2457765AX2
+        autoCommission: false
+    MoneyInMobilePayInitOutput:
+      type: object
+      properties:
+        id:
+          format: int64
+          description: Transaction ID. You will this this value to confirm the transaction
+          type: integer
+        actionUrl:
+          description: Redirected URL for the client on the iDeal page payment
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        psp:
+          $ref: '#/components/schemas/PSP'
+    MoneyInMultibancoInitInput:
+      required:
+      - returnUrl
+      - accountId
+      type: object
+      properties:
+        startDate:
+          pattern: ^[12]\d{3}\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$
+          type: string
+        endDate:
+          pattern: ^[12]\d{3}\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$
+          type: string
+        returnUrl:
+          description: 'Your site returns the URL, called to terminate the operation and on which the callback will be sent, with data in POST parameters.
+
+            This URL must contain a unique ID so you know which operation is related to the return.'
+          type: string
+        reference:
+          description: Unique ID of the call, generated by your server. This ID can be used as a search field when looking for operation details
+          maxLength: 50
+          minLength: 0
+          type: string
+        accountId:
+          description: Payment Account ID to Credit
+          maxLength: 256
+          minLength: 0
+          type: string
+        totalAmount:
+          format: int32
+          description: 'Amount to Debit
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your Fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment Regarding the Transaction
+          maxLength: 140
+          minLength: 0
+          type: string
+        autoCommission:
+          description: "If true:\n1. [amountCom] will be ignored and will be replaced with Lemonway's fee  \n2. You will not receive any fee"
+          type: boolean
+      example:
+        returnUrl: https://www.yoursite.com/payment_return.php/?id=367GBD
+        reference: Dze8778
+        accountId: '33612345678'
+        totalAmount: 1500
+        commissionAmount: 100
+        comment: Order number 2457765AX2
+        autoCommission: false
+    MoneyInPayTrailInitOutput:
+      type: object
+      properties:
+        id:
+          format: int64
+          description: Transaction ID. You will this this value to confirm the transaction
+          type: integer
+        actionUrl:
+          description: Redirected URL for the client on the iDeal page payment
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+    PSP:
+      type: object
+      properties:
+        message:
+          description: Get the Error Message from PSP
+          type: string
+    MoneyInPayshopInitInput:
+      required:
+      - returnUrl
+      - accountId
+      type: object
+      properties:
+        returnUrl:
+          description: 'Your site returns the URL, called to terminate the operation and on which the callback will be sent, with data in POST parameters.
+
+            This URL must contain a unique ID so you know which operation is related to the return.'
+          type: string
+        reference:
+          description: Unique ID of the call, generated by your server. This ID can be used as a search field when looking for operation details
+          maxLength: 50
+          minLength: 0
+          type: string
+        accountId:
+          description: Payment Account ID to Credit
+          maxLength: 256
+          minLength: 0
+          type: string
+        totalAmount:
+          format: int32
+          description: 'Amount to Debit
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your Fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment Regarding the Transaction
+          maxLength: 140
+          minLength: 0
+          type: string
+        autoCommission:
+          description: "If true:\n1. [amountCom] will be ignored and will be replaced with Lemonway's fee  \n2. You will not receive any fee"
+          type: boolean
+      example:
+        returnUrl: https://www.yoursite.com/payment_return.php/?id=367GBD
+        reference: Dze8778
+        accountId: '33612345678'
+        totalAmount: 1500
+        commissionAmount: 100
+        comment: Order number 2457765AX2
+        autoCommission: false
+    MoneyInMbwayInitOutput:
+      type: object
+      properties:
+        euPagoInit:
+          $ref: '#/components/schemas/EuPagoInit'
+        error:
+          $ref: '#/components/schemas/Error'
+    MoneyInTrustlyInitOutput:
+      type: object
+      properties:
+        id:
+          format: int64
+          description: Transaction ID. You will this this value to confirm the transaction
+          type: integer
+        actionUrl:
+          description: Redirected URL for the client on the iDeal page payment
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+    MoneyInSofortInitOutput:
+      type: object
+      properties:
+        id:
+          format: int64
+          description: Transaction ID. You will this this value to confirm the transaction
+          type: integer
+        actionUrl:
+          description: Redirected URL for the client on the iDeal page payment
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+    MoneyInPayshopInitOutput:
+      type: object
+      properties:
+        euPagoInit:
+          $ref: '#/components/schemas/EuPagoInit'
+        error:
+          $ref: '#/components/schemas/Error'
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accounts_accountsingleget.md
+  - https://documentation.lemonway.com/reference/accounts_addultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_balancesget.md
+  - https://documentation.lemonway.com/reference/accounts_balanceshistoryget.md
+  - https://documentation.lemonway.com/reference/accounts_blockedput.md
+  - https://documentation.lemonway.com/reference/accounts_documentget.md
+  - https://documentation.lemonway.com/reference/accounts_documentssigninitpost.md
+  - https://documentation.lemonway.com/reference/accounts_documentsuploadpost.md
+  - https://documentation.lemonway.com/reference/accounts_enrolmentinit.md
+  - https://documentation.lemonway.com/reference/accounts_getultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_individualpost.md
+  - https://documentation.lemonway.com/reference/accounts_individualput.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusget.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusput.md
+  - https://documentation.lemonway.com/reference/accounts_legalpost.md
+  - https://documentation.lemonway.com/reference/accounts_legalsingleput.md
+  - https://documentation.lemonway.com/reference/accounts_retrievepost.md
+  - https://documentation.lemonway.com/reference/accounts_transactionsget.md
+  - https://documentation.lemonway.com/reference/accounts_updateultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/disputes_disputesget.md
+  - https://documentation.lemonway.com/reference/moneyins_accountcardget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancountget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibandisablepost.md
+  - https://documentation.lemonway.com/reference/moneyins_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardcreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_carddirect3dconfirmput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardget.md
+  - https://documentation.lemonway.com/reference/moneyins_cardpaymentformpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardrebill.md
+  - https://documentation.lemonway.com/reference/moneyins_cardsubscriptionpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardwebinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeget.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_createbnplpayment.md
+  - https://documentation.lemonway.com/reference/moneyins_getbnplpaymentplans.md
+  - https://documentation.lemonway.com/reference/moneyins_getmoneyinbanks.md
+  - https://documentation.lemonway.com/reference/moneyins_mandateget.md
+  - https://documentation.lemonway.com/reference/moneyins_mandategetdocument.md
+  - https://documentation.lemonway.com/reference/moneyins_mbwayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_mobilepayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinapminitasync.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinget.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinpaypalinit.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyintransferinit.md
+  - https://documentation.lemonway.com/reference/moneyins_multibancoinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformcompletedget.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformdisableput.md
+  - https://documentation.lemonway.com/reference/moneyins_paypaltransactionresume.md
+  - https://documentation.lemonway.com/reference/moneyins_payshopinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paytrailinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddget.md
+  - https://documentation.lemonway.com/reference/moneyins_sddinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandateunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_sofortinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_trustlyinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_validateput.md
+  - https://documentation.lemonway.com/reference/moneyouts_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanextendedpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanget.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutget.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutpostasync.md
+  - https://documentation.lemonway.com/reference/p2ps_p2pget.md
+  - https://documentation.lemonway.com/reference/p2ps_p2ppost.md
+  - https://documentation.lemonway.com/reference/refunds_refundcreateput.md
+  - https://documentation.lemonway.com/reference/refunds_refundput.md
+  merge:
+    pages: 71
+    deduped: 281
+    conflicts_kept_first: 0

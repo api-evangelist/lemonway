@@ -1,0 +1,407 @@
+openapi: 3.2.0
+info:
+  version: v2
+  title: Lemonway DirectKit API 2.0 MoneyIns | Pay by Bank API
+servers:
+- url: https://ws.lemonway.fr/mb/env-name/prod/directkitrest/
+tags:
+- name: MoneyIns | Pay by Bank
+paths:
+  /v2/moneyins/paybybank/transfer/banks:
+    get:
+      tags:
+      - MoneyIns | Pay by Bank
+      summary: Get Pay by Bank List
+      description: 'Returns the list of supported Banks to make Pay By Bank transfers. This method enables you to design, customize and host a bank selection site, or alternatively a bank''s bankid can be retrieved from the bank list.
+
+        id can then be used to send your end-user directly to their bank website.
+
+
+        How does it work?
+
+
+        1. Call the method GET /v2/moneyins/paybybank/transfer/banks. Ensure that you use the bank''s country code in the Query Parameters to retrieve a list of banks.
+
+
+        Note: If you want a comprehensive list of all supported banks do not specify a country code.
+
+        Note: Currently there is not a way to search for a specific bank in a country. Therefore when you create the query FR for example, a list of French banks is displayed in the response. You will be then required to identify the end-user''s bank.
+
+
+        2. If you have your end-user''s bankId, and would like to direct them their bank each time they select Pay by Bank on your website:
+
+
+        Use the method POST v2/moneyins/paybybank/transfer/init using the bankId in the request body. You can then use the redirectURL and id (from the response) to send the end-user directly to their bank without them ever using a bank selection process.'
+      operationId: MoneyIns_GetMoneyInBanks
+      parameters:
+      - name: countryCodes
+        in: query
+        description: "Comma separated string of ISO Alpha-2 country codes.\nAvailable country codes include:  \n- France (FR)   \n- Spain (ES)   \n- Italy (IT)   \n- Germany (DE)   \n- Portugal (PT)"
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMoneyInBanksOutput'
+              examples:
+                response:
+                  value:
+                    banks:
+                      FR:
+                      - countryCode: FR
+                        parentName: BNP Paribas
+                        logoURL: https://cdn.tink.se/provider-images/fr/fr-bnpparibas.png
+                        bankName: BNP Paribas
+                        bankId: fr-bnpparibas-ob
+                        segments:
+                        - PERSONAL
+                      - countryCode: FR
+                        parentName: Crédit Agricole
+                        logoURL: https://cdn.tink.se/provider-images/fr/fr-creditagricole.png
+                        bankName: Banque Chalus
+                        bankId: fr-creditagricolebanquechalus-ob
+                        segments:
+                        - PERSONAL
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/moneyins/paybybank/transfer/init:
+    post:
+      tags:
+      - MoneyIns | Pay by Bank
+      summary: Initiate Pay by Bank
+      description: 'How does it work?
+
+
+        1. Call POST v2/moneyins/paybybank/transfer/init, to receive a redirect URL and the transaction Id.
+
+
+        2. Redirect the end-user to your bank selection page, were they can select their bank from the displayed list.
+
+
+        Note: If you specify the bankId in the request body, the end-user will be directed to their bank.
+
+
+        For further information on how to obtain bankIds, see: /v2/moneyins/ paybybank/transfer/banks
+
+        3. Once the end-user selects their bank they are redirected to the bank webpage to enter their credentials.
+
+
+        Note: If you have previously specified the bankId the end-user only needs to enter their bank credentials at this stage.
+
+
+        4. After successfully entering their credentials, the end-user will go through Strong Customer Authentication (SCA) to confirm their identity (SCA examples include: face recognition or mobile Bank App software). Some bank ask to SCA before entering credentials.
+
+
+        5. Once successfully authenticated the end-user only needs to verify and validate the amount, comments and so forth on the bank website.
+
+
+        6. After submitting the payment, the end-user will be redirected to:
+
+
+        returnUrl in case of success
+
+
+        cancelUrl in case of cancellation
+
+
+        errorUrl in case of error.
+
+
+        These 3 URLs must be publicly accessible for the end-user. It must also be accessible to our WebKit server to send requests to the end-user.'
+      operationId: MoneyIns_MoneyInTransferInit
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoneyInTransferInitInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoneyInTransferInitOutput'
+              examples:
+                response:
+                  value:
+                    redirectUrl: https://lemonway.com/citron/prod/?moneyintoken=0b69cab7c3cc4ac9aff3
+                    id: 123
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+components:
+  schemas:
+    Bank:
+      type: object
+      properties:
+        countryCode:
+          description: 'Country code associated with the payment bank. ISO Alpha-2 codes accepted: (FR) France, (ES), Spain (DE), (IT) Italy, Germany, and (PT) Portugal'
+          type: string
+        parentName:
+          description: 'The bank''s parent company name. Example: Banque Populaire'
+          type: string
+        logoURL:
+          description: A weblink to the bank's logo
+          type: string
+        bankName:
+          description: 'This is the bank name. Example: Banque Populaire Alsace Lorraine'
+          type: string
+        bankId:
+          description: This is the unique `bankId` associated with the bank.
+          type: string
+        segments:
+          description: Personal or Business Acoount
+          type: array
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        psp:
+          $ref: '#/components/schemas/PSP'
+    MoneyInTransferInitInput:
+      required:
+      - returnUrl
+      - cancelUrl
+      - errorUrl
+      - countryCode
+      - accountId
+      type: object
+      properties:
+        returnUrl:
+          description: returnUrl in case of success
+          type: string
+        cancelUrl:
+          description: cancelUrl in case of cancellation
+          type: string
+        errorUrl:
+          description: errorUrl in case of error
+          type: string
+        countryCode:
+          description: 'The country code associated with the payment bank. ISO Alpha-2 codes accepted: (FR) France, (ES) Spain, (IT) Italy, (DE) Germany, and (PT) Portugal'
+          type: string
+        bankId:
+          description: If you use the bankId in the call, the end-user will be redirected to their bank. They will not have to select a bank from a list provided. To get a comprehensive list of `bankIds` call the `GET v2/moneyins/paybybank/transfer/banks` specifying the ISO Alpha-2 Country Code for example FR for France.
+          type: string
+        transferType:
+          format: int32
+          description: "The 'TransferType' can be set to:\n- Instant: Faster SEPA instant transfer.Funds are credited within 15 minutes if supported by the payer's bank.\n- Classic: Standard SEPA credit transfer. Funds are credited in 2–3 business days.\n            \nIf not provided, the default value is 'Classic'.<br/>0 = Undefined.<br/>1 = Instant.<br/>2 = Classic.<br/>"
+          enum:
+          - 0
+          - 1
+          - 2
+          type: integer
+        reference:
+          description: Unique ID of the call, generated by your server. This ID can be used as a search field when looking for operation details
+          maxLength: 50
+          minLength: 0
+          type: string
+        accountId:
+          description: Payment Account ID to Credit
+          maxLength: 256
+          minLength: 0
+          type: string
+        totalAmount:
+          format: int32
+          description: 'Amount to Debit
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your Fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment Regarding the Transaction
+          maxLength: 140
+          minLength: 0
+          type: string
+        autoCommission:
+          description: "If true:\n1. [amountCom] will be ignored and will be replaced with Lemonway's fee  \n2. You will not receive any fee"
+          type: boolean
+      example:
+        returnUrl: https://fr.wikipedia.org/wiki/OK
+        cancelUrl: https://fr.wikipedia.org/wiki/Cancel
+        errorUrl: https://fr.wikipedia.org/wiki/Error
+        countryCode: FR
+        bankId: the-bank-id
+        transferType: 2
+        reference: Dze8778
+        accountId: '1234'
+        totalAmount: 10000
+        commissionAmount: 100
+        comment: Comment the transaction request
+        autoCommission: false
+    PSP:
+      type: object
+      properties:
+        message:
+          description: Get the Error Message from PSP
+          type: string
+    MoneyInTransferInitOutput:
+      type: object
+      properties:
+        redirectUrl:
+          type: string
+        id:
+          format: int64
+          type: integer
+        error:
+          $ref: '#/components/schemas/Error'
+    GetMoneyInBanksOutput:
+      type: object
+      properties:
+        banks:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Bank'
+        error:
+          $ref: '#/components/schemas/Error'
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accounts_accountsingleget.md
+  - https://documentation.lemonway.com/reference/accounts_addultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_balancesget.md
+  - https://documentation.lemonway.com/reference/accounts_balanceshistoryget.md
+  - https://documentation.lemonway.com/reference/accounts_blockedput.md
+  - https://documentation.lemonway.com/reference/accounts_documentget.md
+  - https://documentation.lemonway.com/reference/accounts_documentssigninitpost.md
+  - https://documentation.lemonway.com/reference/accounts_documentsuploadpost.md
+  - https://documentation.lemonway.com/reference/accounts_enrolmentinit.md
+  - https://documentation.lemonway.com/reference/accounts_getultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_individualpost.md
+  - https://documentation.lemonway.com/reference/accounts_individualput.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusget.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusput.md
+  - https://documentation.lemonway.com/reference/accounts_legalpost.md
+  - https://documentation.lemonway.com/reference/accounts_legalsingleput.md
+  - https://documentation.lemonway.com/reference/accounts_retrievepost.md
+  - https://documentation.lemonway.com/reference/accounts_transactionsget.md
+  - https://documentation.lemonway.com/reference/accounts_updateultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/disputes_disputesget.md
+  - https://documentation.lemonway.com/reference/moneyins_accountcardget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancountget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibandisablepost.md
+  - https://documentation.lemonway.com/reference/moneyins_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardcreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_carddirect3dconfirmput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardget.md
+  - https://documentation.lemonway.com/reference/moneyins_cardpaymentformpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardrebill.md
+  - https://documentation.lemonway.com/reference/moneyins_cardsubscriptionpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardwebinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeget.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_createbnplpayment.md
+  - https://documentation.lemonway.com/reference/moneyins_getbnplpaymentplans.md
+  - https://documentation.lemonway.com/reference/moneyins_getmoneyinbanks.md
+  - https://documentation.lemonway.com/reference/moneyins_mandateget.md
+  - https://documentation.lemonway.com/reference/moneyins_mandategetdocument.md
+  - https://documentation.lemonway.com/reference/moneyins_mbwayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_mobilepayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinapminitasync.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinget.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinpaypalinit.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyintransferinit.md
+  - https://documentation.lemonway.com/reference/moneyins_multibancoinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformcompletedget.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformdisableput.md
+  - https://documentation.lemonway.com/reference/moneyins_paypaltransactionresume.md
+  - https://documentation.lemonway.com/reference/moneyins_payshopinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paytrailinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddget.md
+  - https://documentation.lemonway.com/reference/moneyins_sddinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandateunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_sofortinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_trustlyinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_validateput.md
+  - https://documentation.lemonway.com/reference/moneyouts_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanextendedpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanget.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutget.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutpostasync.md
+  - https://documentation.lemonway.com/reference/p2ps_p2pget.md
+  - https://documentation.lemonway.com/reference/p2ps_p2ppost.md
+  - https://documentation.lemonway.com/reference/refunds_refundcreateput.md
+  - https://documentation.lemonway.com/reference/refunds_refundput.md
+  merge:
+    pages: 71
+    deduped: 281
+    conflicts_kept_first: 0

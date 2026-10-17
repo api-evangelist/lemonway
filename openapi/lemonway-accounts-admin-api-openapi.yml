@@ -1,0 +1,1755 @@
+openapi: 3.2.0
+info:
+  version: v2
+  title: Lemonway DirectKit API 2.0 Accounts | Admin API
+servers:
+- url: https://ws.lemonway.fr/mb/env-name/prod/directkitrest/
+tags:
+- name: Accounts | Admin
+paths:
+  /v2/accounts/balances:
+    get:
+      tags:
+      - Accounts | Admin
+      summary: Get all Payment Account Balances
+      description: 'Use `GetBalances` to get all payment accounts where the balance has changed since the input date, or all the balances of payment accounts with internal ID between payment `accountIdStart` and payment `accountIdEnd`.
+
+
+        **Important:** Payment account balances can not be viewed for special accounts SC **11** and LW **4** using the `accountId` parameter.'
+      operationId: Accounts_BalancesGet
+      parameters:
+      - name: updateDate
+        in: query
+        description: 'Date in UTC Seconds
+
+          Leave empty to use payment account IDs.'
+        required: false
+        schema:
+          type: string
+          pattern: ^-?\d{1,12}$
+      - name: internalAccountIdStart
+        in: query
+        description: First payment account internal ID, starting from 12.
+        required: false
+        schema:
+          type: integer
+          format: int64
+          pattern: ^\d{1,19}$
+      - name: internalAccountIdEnd
+        in: query
+        description: Last payment account internal ID, starting from 12.
+        required: false
+        schema:
+          type: integer
+          format: int64
+          pattern: ^\d{1,19}$
+      - name: page
+        in: query
+        description: Index start from 1, let null to get all
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: Default 20, let it null if no pagination
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountBalanceOutput'
+              examples:
+                response:
+                  value:
+                    accounts:
+                    - id: '20'
+                      balance: 26100
+                    - id: '22'
+                      balance: 100
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/accounts/retrieve:
+    post:
+      tags:
+      - Accounts | Admin
+      summary: Get Detailed Payments Accounts Data
+      description: 'Lets your system to get detailed payment account information including:
+
+        payment account balance, account type, if the account is blocked, and account email address.
+
+        Fill at least one search field.'
+      operationId: Accounts_RetrievePost
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountDetailsBatchInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetailsBatchOutput'
+              examples:
+                response:
+                  value:
+                    accounts:
+                    - id: '33612345678'
+                      internalId: 3673
+                      firstname: Jean
+                      lastname: Dupont
+                      balance: 2390
+                      email: jean.dupont@email.com
+                      status: 1
+                      isblocked: true
+                      isRestricted: false
+                      accountType: 0
+                      adresse: null
+                      birth: null
+                      isDebtor: false
+                      payerOrBeneficiary: 1
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/accounts/{accountId}/balances/history:
+    get:
+      tags:
+      - Accounts | Admin
+      summary: Get Payment Account Balance History
+      description: 'Enter an `accountId` and specify the `atDate` parameter to return an account balance.
+
+
+        **Important:** Payment account balances can not be viewed for special accounts SC **11** and LW **4** using the `accountId` parameter.'
+      operationId: Accounts_BalancesHistoryGet
+      parameters:
+      - name: accountId
+        in: path
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - name: atDate
+        in: query
+        description: Request balance at given time in UTC Unix timestamp.
+        required: false
+        schema:
+          type: string
+          pattern: ^-?\d{1,12}$
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceHistoryOutput'
+              examples:
+                response:
+                  value:
+                    balance: 10010
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/accounts/{accountId}/transactions:
+    get:
+      tags:
+      - Accounts | Admin
+      summary: Get list of all Payment Account transactions
+      description: 'Use the `GetWalletTransHistory` to retrieve the list of **Money-In**, **Money-Out** and **P2P (payment between payment account)** of a given payment account.
+
+        The following numbered list corresponds to the payment type specified in the response attribute method:
+
+
+        0 Card
+
+        1 Bank transfer (MoneyIn)
+
+        3 Bank transfer (MoneyOut)
+
+        4 P2P
+
+        13 iDEAL
+
+        14 SEPA DirectDebit
+
+        15 Cheque
+
+        19 Multibanco
+
+        35 PayPal
+
+
+        ---
+
+        **Important:** The following services have been discontinued.
+
+
+        16 Neosurf
+
+        17 Sofort
+
+        18 PFS Physical Card
+
+        20 Payshop
+
+        21 MBWAY
+
+        22 Polish Instant Transfer
+
+        23 Pagare
+
+        24 MobilePay
+
+        25 Paytrail
+
+        26 WeChat
+
+        27 P24
+
+        28 MoneyIn by TPE
+
+        29 Trustly'
+      operationId: Accounts_TransactionsGet
+      parameters:
+      - name: accountId
+        in: path
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        description: 'UTC Unix timestamp
+
+          In order to return transactions initialized after `startDate`.
+
+          If the payment account is a **SC Wallet** then this value is mandatory.'
+        required: false
+        schema:
+          type: string
+          pattern: ^-?\d{1,12}$
+      - name: endDate
+        in: query
+        description: 'UTC Unix timestamp
+
+          In order to return transactions initialized before `endDate`.
+
+          If the payment account is a **SC Wallet** then this value is mandatory and the time span can not exceed 1 week.'
+        required: false
+        schema:
+          type: string
+          pattern: ^-?\d{1,12}$
+      - name: executionDateStart
+        in: query
+        description: 'UTC Unix timestamp
+
+          In order to return transactions Executed after `endDate`.
+
+          If the payment account is a **SC Wallet** then this value is mandatory and the time span can not exceed 1 week.'
+        required: false
+        schema:
+          type: string
+          pattern: ^-?\d{1,12}$
+      - name: executionDateEnd
+        in: query
+        description: 'UTC Unix timestamp
+
+          In order to return transactions Executed before `endDate`
+
+          If the payment account is a **SC Wallet** then this value is mandatory and the time span can not exceed 1 week.'
+        required: false
+        schema:
+          type: string
+          pattern: ^-?\d{1,12}$
+      - name: page
+        in: query
+        description: Index start from 1, let null to get all
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: Default 20, let it null if no pagination
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountKycStatusOutput'
+              examples:
+                response:
+                  value:
+                    transactions:
+                      value:
+                      - transactionIn:
+                          receiverAccountId: pizza
+                          creditAmount: 1500
+                          scheduledDate: 2015/12/31
+                          scheduledNumber: null
+                          PSP:
+                            message: 05-00-05 ERR_PSP_REFUSED
+                          card:
+                            id: 0
+                            is3DS: true
+                            country: FRA
+                            maskedNumber: '455622'
+                            isRegistered: false
+                            holderName: Peter PAN
+                          refundAmount: 1500
+                          bankReference: null
+                          ChequeSendingAddress_CorporateName: null
+                          ChequeSendingAddress_Street: null
+                          ChequeSendingAddress_City: null
+                          ChequeSendingAddress_PostCode: null
+                          id: 255
+                          method: 0
+                          date: 1784563474
+                          commissionAmount: 200
+                          comment: Order number 245776
+                          status: 0
+                          executionDate: 0
+                          reference: null
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/accounts/{accountid}:
+    get:
+      tags:
+      - Accounts | Admin
+      summary: Get Detailed Payment Account Data
+      description: 'Enables your system to get detailed payment account information including:
+
+        * Payment account balance
+
+        * Account type
+
+        * Account status (if blocked or not)
+
+        * Account email address'
+      operationId: Accounts_AccountSingleGet
+      parameters:
+      - name: accountid
+        in: path
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetailsOutput'
+              examples:
+                response:
+                  value:
+                    account:
+                      id: '33612345678'
+                      internalId: 3673
+                      firstname: Jean
+                      lastname: Dupont
+                      balance: 2390
+                      email: jean.dupont@email.com
+                      status: 1
+                      isblocked: true
+                      isRestricted: false
+                      accountType: 0
+                      adresse: null
+                      birth: null
+                      isDebtor: false
+                      payerOrBeneficiary: 1
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/accounts/{accountid}/blocked:
+    put:
+      tags:
+      - Accounts | Admin
+      summary: Block or Unblock an Account
+      operationId: Accounts_BlockedPut
+      parameters:
+      - name: accountid
+        in: path
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountBlockedInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountBlockedOutput'
+              examples:
+                response:
+                  value:
+                    account:
+                      id: ExternalUserId
+                      isBlocked: true
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/accounts/{accountid}/documents:
+    get:
+      tags:
+      - Accounts | Admin
+      summary: Get Documents Associated with a Payment Account
+      description: 'Returns the document ID, document status, and document type of a users account.
+
+
+        **Note:** If you validate your Client''s documentation using Lemonway''s automated KYC, you will not receive a `validityDate` response.'
+      operationId: Accounts_DocumentGet
+      parameters:
+      - name: accountid
+        in: path
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDocumentsOutput'
+              examples:
+                response:
+                  value:
+                    documents:
+                    - id: 843847
+                      status: 0
+                      type: 0
+                      comment: null
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/accounts/{accountid}/documents/{documentid}/signinit:
+    post:
+      tags:
+      - Accounts | Admin
+      summary: Generate an Electronic Signature of a Document
+      description: ''
+      operationId: Accounts_DocumentsSignInitPost
+      parameters:
+      - name: accountid
+        in: path
+        description: Account Id
+        required: true
+        schema:
+          type: string
+      - name: documentid
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignDocumentInitInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignDocumentInitOutput'
+              examples:
+                response:
+                  value:
+                    signDocument: signDocument_Token
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/accounts/{accountid}/enrolment/init:
+    post:
+      tags:
+      - Accounts | Admin
+      summary: (Deprecated) Initialize a Deutsche Post POSTIDENT Identification
+      operationId: Accounts_EnrolmentInit
+      parameters:
+      - name: accountid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrolmentInitInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrolmentInitOutput'
+              examples:
+                response:
+                  value:
+                    redirecturl: https://postident.deutschepost.de/user/start/?caseId=WNRJY93B7NR3
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+components:
+  schemas:
+    Document:
+      type: object
+      properties:
+        id:
+          format: int64
+          description: Document ID
+          type: integer
+        status:
+          format: int32
+          description: Document Status<br/>0 = Document put on hold, waiting for another document.<br/>1 = Received, need manual validation.<br/>2 = Accepted.<br/>3 = Rejected.<br/>4 = Rejected. Unreadable by human (Cropped, blur, glare…).<br/>5 = Rejected. Expired (Expiration Date is passed).<br/>6 = Rejected. Wrong Type (Document not accepted).<br/>7 = Rejected. Wrong Name (Name not matching user information).<br/>8 = Rejected. Duplicated Document.<br/>
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          type: integer
+        type:
+          format: int32
+          description: Document Type<br/>0 = ID card (both sides in one file).<br/>1 = Proof of address.<br/>2 = Scan of a proof of IBAN.<br/>3 = Passport (European Union).<br/>4 = Passport (outside the European Union).<br/>5 = Residence permit (both sides in one file).<br/>6 = Other document type.<br/>7 = Official company registration document (Kbis extract or equivalent).<br/>11 = Driver licence (both sides in one file).<br/>12 = Status.<br/>13 = Selfie.<br/>14 = Other document type.<br/>15 = Other document type.<br/>16 = Other document type.<br/>17 = Other document type.<br/>18 = Other document type.<br/>19 = Other document type.<br/>20 = Other document type.<br/>21 = SDD mandate.<br/>
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+          - 20
+          - 21
+          type: integer
+        validityDate:
+          description: 'Document validity date
+
+            Format: dd/mm/yyyy
+
+            Empty if unknown'
+          type: string
+        comment:
+          type: string
+    AccountBlockedOutput:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountBlock'
+        error:
+          $ref: '#/components/schemas/Error'
+    TransactionAccount:
+      type: object
+      properties:
+        transactionIn:
+          $ref: '#/components/schemas/TransactionInDetails'
+        transactionOut:
+          $ref: '#/components/schemas/TransactionOut'
+        transactionP2P:
+          $ref: '#/components/schemas/TransactionP2P'
+    SignDocumentInitOutput:
+      type: object
+      properties:
+        signDocument:
+          description: "Payment token to use as GET parameter when redirecting your user to the WEBKIT.\nso even if the user comes back to your error page (if the user cancelled for example), \nyou can still submit the same token to the WEBKIT."
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+    EnrolmentInitOutput:
+      type: object
+      properties:
+        redirecturl:
+          description: Redirect URL to Deutsche Post PostIdent
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        psp:
+          $ref: '#/components/schemas/PSP'
+    AccountDetails:
+      type: object
+      properties:
+        id:
+          description: Payment Account ID
+          type: string
+        internalId:
+          format: int64
+          description: Internal ID given by Lemonway (ID displayed on the Dashboard)
+          type: integer
+        clientTitle:
+          description: Client Title
+          type: string
+        firstname:
+          description: Holder's First Name
+          type: string
+        lastname:
+          description: Holder's Last Name
+          type: string
+        balance:
+          format: int32
+          description: Payment Account Balance Amount
+          type: integer
+        email:
+          description: Email
+          type: string
+        status:
+          format: int32
+          description: '| Status Code                                                     | Payment Account Status                                         |
+
+            |-----------------------------------------------------------------|----------------------------------------------------------------|
+
+            | -1                                                              | Wallet SC                                                      |
+
+            | 2                                                               | Registered, not verified: missing document(s)                  |
+
+            | 3                                                               | Registered, not verified: document(s) rejected                 |
+
+            | 5                                                               | Registered, not verified: KYC 1 (status given at registration) |
+
+            | 6                                                               | Registered and verified: KYC 2                                 |
+
+            | 7*                                                              | Registered and verified by previous PSP: KYC 3                 |
+
+            | 8                                                               | Registered, not verified: expired document(s)                  |
+
+            | 10                                                              | Blocked                                                        |
+
+            | 12                                                              | Closed                                                         |
+
+            | 13*                                                             | Registered, status is being updated from KYC 2 to KYC 3        |
+
+            | 14*                                                             | One-time customer                                              |
+
+            | 15*                                                             | Special wallet for crowdlending                                |
+
+            | 16*                                                             | Technical wallet                                               |
+
+            | *these status may or may not be used depending on your business |                                                                |'
+          type: integer
+        isblocked:
+          description: 'Indicates if Account is blocked or not:
+
+            0: Not blocked
+
+            1: Blocked'
+          type: boolean
+        isRestricted:
+          description: 'Indicates if Account is restricted or not:
+
+            false: Not restricted
+
+            true: Restricted'
+          type: boolean
+        accountType:
+          format: int32
+          description: 'Indicates Account type:
+
+            0: Individual
+
+            1: Legal'
+          type: integer
+        company:
+          $ref: '#/components/schemas/Company'
+        adresse:
+          $ref: '#/components/schemas/Address'
+        birth:
+          $ref: '#/components/schemas/Birth'
+        nationality:
+          description: Nationality
+          type: string
+        phoneNumber:
+          description: Phone number with MSISDN format
+          type: string
+        mobileNumber:
+          description: Mobile phone number with MSISDN format
+          type: string
+        isDebtor:
+          description: "For crowdfunding/loan platforms, indicates if the Account is created for a debtor \n0 or empty: no\n1: yes"
+          type: boolean
+        payerOrBeneficiary:
+          format: int32
+          description: 'Indicates if the payment Account is created for a payer or a beneficiary:
+
+            * Empty: unknown status (default)
+
+            * 1 = Payer
+
+            * 2 = Beneficiary'
+          type: integer
+    AccountKycStatusOutput:
+      type: object
+      properties:
+        transactions:
+          $ref: '#/components/schemas/Transactions_TransactionAccount'
+        _links:
+          $ref: '#/components/schemas/Links'
+        error:
+          $ref: '#/components/schemas/Error'
+    TransactionCapturedAuthorization:
+      type: object
+      properties:
+        id:
+          format: int64
+          type: integer
+        status:
+          format: int32
+          type: integer
+        remainingAmount:
+          format: int32
+          type: integer
+    BnplInfo:
+      type: object
+      properties:
+        paymentPlanId:
+          format: int64
+          description: Payment Plan ID
+          type: integer
+        type:
+          description: Payment plan type.
+          type: string
+        secondInstallmentPaymentDate:
+          description: 'Second installment payment date.
+
+            Format: yyyy-MM-dd'
+          type: string
+        deferredPaymentDate:
+          description: 'Deferred payment date.
+
+            Format: yyyy-MM-dd'
+          type: string
+    TransactionP2P:
+      type: object
+      properties:
+        senderAccountId:
+          description: Debited Account
+          type: string
+        receiverAccountId:
+          description: Credited Account
+          type: string
+        debitAmount:
+          format: int32
+          description: 'Debited Amount
+
+            Amounts are represented in cents (Euro)'
+          type: integer
+        creditAmount:
+          format: int32
+          description: 'Credited Amount
+
+            Amounts are represented in cents (Euro)'
+          type: integer
+        privateData:
+          $ref: '#/components/schemas/PrivateData'
+        scheduledDate:
+          description: Request date for a payment or payment date. UTC unix timestamp
+          type: string
+        isFee:
+          description: Returned 1 for a P2P commission transaction
+          type: boolean
+        feeReference:
+          format: int32
+          description: Original transaction ID
+          type: integer
+        id:
+          format: int64
+          description: Transaction ID
+          type: integer
+        method:
+          format: int32
+          description: "Payment Method  \n0 Card    \n1 Bank transfer (MoneyIn)     \n3 Bank transfer (MoneyOut)     \n4 P2P    \n13 iDEAL    \n14 SEPA DirectDebit    \n15 Cheque    \n19 Multibanco    \n21 MBWAY    \n30 BNPL  \n35 PayPal\n\n ---\n **Important:** The following services have been discontinued. \n \n16 Neosurf  \n17 Sofort  \n18 PFS Physical Card  \n20 Payshop  \n22 Polish Instant Transfer  \n23 Pagare  \n24 MobilePay\n25 Paytrail\n26 WeChat  \n27 P24  \n28 MoneyIn by TPE  \n29 Trustly"
+          type: integer
+        methodDetails:
+          format: int32
+          description: 'Payment Method Details
+
+            0 Standard
+
+            1 Pay By Bank<br/>0 = STANDARD.<br/>1 = PAY_BY_BANK.<br/>'
+          enum:
+          - 0
+          - 1
+          type: integer
+        date:
+          format: int32
+          description: Transaction initialization date, UTC Unix timestamp
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment
+          type: string
+        status:
+          format: int32
+          description: "**For the following endpoints uses the below status code**   \n  \n/v2/accounts/{accountId}/transactions\n/v2/moneyins\n/v2/moneyins/card/direct\n/v2/moneyins/card/{cardid}/rebill\n/v2/moneyins/card/{cardid}/subscription\n/v2/moneyins/{transactionid}/validate\n/v2/moneyins/sdd/init\n/v2/moneyins/sdd\n/v2/moneyins/{transactionid}/cancel\n/v2/refund/{transactionid}\n/v2/refundcreate/{transactionId}\n            \n0: Success  \n3: Lemonway Error  \n4: Pending  \n6: PSP error  \n7: Cancelled  \n16: Validation pending  \n\n**For the following endpoints uses the below status code**  \n\n/v2/disputes\n/v2/moneyins/bankwire\n/v2/moneyins/card/direct/3dinit\n/v2/moneyouts\n/v2/p2p\n/v2/p2p/{transactionid?}\n            \n0: Waiting for finalization    \n3: Success    \n4: Lemonway Error"
+          type: integer
+        executionDate:
+          format: int32
+          description: Transaction execution date
+          type: integer
+        lemonWayCommission:
+          $ref: '#/components/schemas/LemonWayCommission'
+        reference:
+          description: Unique ID generated by your server
+          type: string
+    AccountBalanceOutput:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountBalance'
+        _links:
+          $ref: '#/components/schemas/Links'
+        error:
+          $ref: '#/components/schemas/Error'
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+        templated:
+          type: boolean
+          readOnly: true
+        method:
+          type: string
+        type:
+          type: string
+        deprecation:
+          type: string
+        name:
+          type: string
+        profile:
+          type: string
+        title:
+          type: string
+        hreflang:
+          type: string
+    TransactionAuthorizedCapture:
+      type: object
+      properties:
+        id:
+          format: int64
+          description: Transaction ID
+          type: integer
+        date:
+          format: int32
+          description: Transaction initialization date, UTC Unix timestamp
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment
+          type: string
+        lemonWayCommission:
+          $ref: '#/components/schemas/LemonWayCommission'
+        amount:
+          format: int32
+          description: 'Transaction Amount
+
+            Amounts represented in integer (cents)'
+          type: integer
+        refundAmount:
+          format: double
+          type: number
+        executionDate:
+          format: int32
+          description: Transaction execution date
+          type: integer
+        status:
+          format: int32
+          type: integer
+        PSP:
+          $ref: '#/components/schemas/PSP'
+        reference:
+          description: Unique ID generated by your server
+          type: string
+    Transactions_TransactionAccount:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionAccount'
+    Birth:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          description: Client Date of Birth
+          pattern: ^[12]\d{3}\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$
+          type: string
+        city:
+          description: Client City of Birth
+          maxLength: 140
+          minLength: 0
+          type: string
+        Country:
+          description: 'Client Country of Birth, using ISO 3166-1 alpha-3. Three-letter country code, for example: FRA (France), GBR (United Kingdom of Great Britain and Northern Ireland)'
+          maxLength: 3
+          minLength: 3
+          type: string
+    AccountDetailsBatchInput:
+      required:
+      - accounts
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WalletDetailsInput'
+      example:
+        accounts:
+        - accountid: '42'
+          email: myemail@website.com
+    AccountBlockedInput:
+      required:
+      - isBlocked
+      type: object
+      properties:
+        isBlocked:
+          type: boolean
+        comment:
+          maxLength: 256
+          minLength: 0
+          type: string
+      example:
+        isBlocked: true
+        comment: comment
+    TransactionInDetails:
+      type: object
+      properties:
+        receiverAccountId:
+          description: Credited Account
+          type: string
+        creditAmount:
+          format: int32
+          description: 'Credited Amount
+
+            Amounts represented in integer (cents)'
+          type: integer
+        scheduledDate:
+          description: ''
+          type: string
+        scheduledNumber:
+          description: ''
+          type: string
+        maskedLabel:
+          type: string
+        PSP:
+          $ref: '#/components/schemas/PSP'
+        card:
+          $ref: '#/components/schemas/Card'
+        bankStatus:
+          type: string
+        refundAmount:
+          format: double
+          type: number
+        bankReference:
+          description: Bank reference
+          type: string
+        ChequeSendingAddress_CorporateName:
+          description: A specified postal address for the cheque
+          type: string
+        ChequeSendingAddress_Street:
+          description: Cheque sending address street name
+          type: string
+        ChequeSendingAddress_City:
+          description: Cheque sending address city name
+          type: string
+        ChequeSendingAddress_PostCode:
+          description: Cheque sending address post code
+          type: string
+        threeDS:
+          $ref: '#/components/schemas/ThreeDs'
+        buyNowPayLaterInfo:
+          $ref: '#/components/schemas/BnplInfo'
+        id:
+          format: int64
+          description: Transaction ID
+          type: integer
+        method:
+          format: int32
+          description: "Payment Method  \n0 Card    \n1 Bank transfer (MoneyIn)     \n3 Bank transfer (MoneyOut)     \n4 P2P    \n13 iDEAL    \n14 SEPA DirectDebit    \n15 Cheque    \n19 Multibanco    \n21 MBWAY    \n30 BNPL  \n35 PayPal\n\n ---\n **Important:** The following services have been discontinued. \n \n16 Neosurf  \n17 Sofort  \n18 PFS Physical Card  \n20 Payshop  \n22 Polish Instant Transfer  \n23 Pagare  \n24 MobilePay\n25 Paytrail\n26 WeChat  \n27 P24  \n28 MoneyIn by TPE  \n29 Trustly"
+          type: integer
+        methodDetails:
+          format: int32
+          description: 'Payment Method Details
+
+            0 Standard
+
+            1 Pay By Bank<br/>0 = STANDARD.<br/>1 = PAY_BY_BANK.<br/>'
+          enum:
+          - 0
+          - 1
+          type: integer
+        date:
+          format: int32
+          description: Transaction initialization date, UTC Unix timestamp
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment
+          type: string
+        status:
+          format: int32
+          description: "**For the following endpoints uses the below status code**   \n  \n/v2/accounts/{accountId}/transactions\n/v2/moneyins\n/v2/moneyins/card/direct\n/v2/moneyins/card/{cardid}/rebill\n/v2/moneyins/card/{cardid}/subscription\n/v2/moneyins/{transactionid}/validate\n/v2/moneyins/sdd/init\n/v2/moneyins/sdd\n/v2/moneyins/{transactionid}/cancel\n/v2/refund/{transactionid}\n/v2/refundcreate/{transactionId}\n            \n0: Success  \n3: Lemonway Error  \n4: Pending  \n6: PSP error  \n7: Cancelled  \n16: Validation pending  \n\n**For the following endpoints uses the below status code**  \n\n/v2/disputes\n/v2/moneyins/bankwire\n/v2/moneyins/card/direct/3dinit\n/v2/moneyouts\n/v2/p2p\n/v2/p2p/{transactionid?}\n            \n0: Waiting for finalization    \n3: Success    \n4: Lemonway Error"
+          type: integer
+        executionDate:
+          format: int32
+          description: Transaction execution date
+          type: integer
+        lemonWayCommission:
+          $ref: '#/components/schemas/LemonWayCommission'
+        reference:
+          description: Unique ID generated by your server
+          type: string
+        remainingAmount:
+          format: int32
+          type: integer
+        substatus:
+          description: Is Payment token consumed?
+          type: string
+        authorization:
+          $ref: '#/components/schemas/TransactionCapturedAuthorization'
+        childTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionAuthorizedCapture'
+    PrivateData:
+      description: Data with multiple fields that you can associate to a payment and that you can search with GetPaymentDetails.
+      type: object
+      properties:
+        value:
+          description: Up to 20 fields of 256 maximum length
+          type: array
+          items:
+            type: string
+    TransactionOut:
+      type: object
+      properties:
+        senderAccountId:
+          description: Debited Account
+          type: string
+        debitAmount:
+          format: int32
+          description: 'Debited Amount
+
+            Amounts are represented in cents (Euros)'
+          type: integer
+        IbanId:
+          format: int64
+          description: IBAN ID
+          type: integer
+        maskedLabel:
+          type: string
+        bankStatus:
+          type: string
+        PSP:
+          $ref: '#/components/schemas/PSP'
+        originId:
+          format: int64
+          description: Money-In - ID responsible for the chargeback
+          type: integer
+        buyNowPayLaterInfo:
+          $ref: '#/components/schemas/BnplInfo'
+        id:
+          format: int64
+          description: Transaction ID
+          type: integer
+        method:
+          format: int32
+          description: "Payment Method  \n0 Card    \n1 Bank transfer (MoneyIn)     \n3 Bank transfer (MoneyOut)     \n4 P2P    \n13 iDEAL    \n14 SEPA DirectDebit    \n15 Cheque    \n19 Multibanco    \n21 MBWAY    \n30 BNPL  \n35 PayPal\n\n ---\n **Important:** The following services have been discontinued. \n \n16 Neosurf  \n17 Sofort  \n18 PFS Physical Card  \n20 Payshop  \n22 Polish Instant Transfer  \n23 Pagare  \n24 MobilePay\n25 Paytrail\n26 WeChat  \n27 P24  \n28 MoneyIn by TPE  \n29 Trustly"
+          type: integer
+        methodDetails:
+          format: int32
+          description: 'Payment Method Details
+
+            0 Standard
+
+            1 Pay By Bank<br/>0 = STANDARD.<br/>1 = PAY_BY_BANK.<br/>'
+          enum:
+          - 0
+          - 1
+          type: integer
+        date:
+          format: int32
+          description: Transaction initialization date, UTC Unix timestamp
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment
+          type: string
+        status:
+          format: int32
+          description: "**For the following endpoints uses the below status code**   \n  \n/v2/accounts/{accountId}/transactions\n/v2/moneyins\n/v2/moneyins/card/direct\n/v2/moneyins/card/{cardid}/rebill\n/v2/moneyins/card/{cardid}/subscription\n/v2/moneyins/{transactionid}/validate\n/v2/moneyins/sdd/init\n/v2/moneyins/sdd\n/v2/moneyins/{transactionid}/cancel\n/v2/refund/{transactionid}\n/v2/refundcreate/{transactionId}\n            \n0: Success  \n3: Lemonway Error  \n4: Pending  \n6: PSP error  \n7: Cancelled  \n16: Validation pending  \n\n**For the following endpoints uses the below status code**  \n\n/v2/disputes\n/v2/moneyins/bankwire\n/v2/moneyins/card/direct/3dinit\n/v2/moneyouts\n/v2/p2p\n/v2/p2p/{transactionid?}\n            \n0: Waiting for finalization    \n3: Success    \n4: Lemonway Error"
+          type: integer
+        executionDate:
+          format: int32
+          description: Transaction execution date
+          type: integer
+        lemonWayCommission:
+          $ref: '#/components/schemas/LemonWayCommission'
+        reference:
+          description: Unique ID generated by your server
+          type: string
+    AccountDocumentsOutput:
+      type: object
+      properties:
+        documents:
+          description: List of documents that changed since the entry date.
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+        error:
+          $ref: '#/components/schemas/Error'
+    LemonWayCommission:
+      type: object
+      properties:
+        idp2p:
+          type: string
+        amount:
+          format: int32
+          description: 'Amounts are represented as integer in cents (Euro)
+
+            Represented as an integer in cents (Euro)'
+          type: integer
+    SignDocumentInitInput:
+      required:
+      - type
+      - returnUrl
+      - errorUrl
+      type: object
+      properties:
+        mobileNumber:
+          description: 'Required if no mobile number is already assigned to the payment account (using RegisterWallet or UpdateWalletDetails).
+
+            Format must be MSISDN : international number with country code, without "+" and "00".'
+          pattern: ^\d{6,30}$
+          type: string
+        type:
+          format: int32
+          description: Use **21** for SDD mandate
+          type: integer
+        returnUrl:
+          description: Your website will the return URL, called by WEBKIT to terminate the operation.
+          maxLength: 2000
+          minLength: 0
+          type: string
+        errorUrl:
+          description: You site will return the URL, called by WEBKIT in case of an error.
+          maxLength: 2000
+          minLength: 0
+          type: string
+      example:
+        mobileNumber: '33612345878'
+        type: 21
+        returnUrl: https://www.yoursite.com/signature_return.php
+        errorUrl: https://www.yoursite.com/signature_return.php
+    AccountDetailsOutput:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountDetails'
+        error:
+          $ref: '#/components/schemas/Error'
+    BalanceHistoryOutput:
+      type: object
+      properties:
+        balance:
+          format: int32
+          description: Payment account balance.
+          type: integer
+        error:
+          $ref: '#/components/schemas/Error'
+    ThreeDs:
+      type: object
+      properties:
+        threeDSModeRequested:
+          description: "3DS Exemption Request  \nPossible value:  \n\nNO_PREFERENCE: The issuing Bank can choose to activate or not 3DS v2."
+          type: string
+        threeDSResult:
+          description: "3DS Authentication Result  \nPossible values:  \n\n- CHALLENGE: 3DS v2 was activated and the card owner was asked to be strongly authenticated.  \n- FRICTIONLESS: 3DS v2 was not activated.  \n- NONE: We could not get the SCA result."
+          type: string
+    EnrolmentInitInput:
+      required:
+      - Provider
+      type: object
+      properties:
+        Provider:
+          format: int32
+          description: Identification provider<br/>0 = Deutsche Post POSTIDENT.<br/>
+          enum:
+          - 0
+          type: integer
+        successUrl:
+          description: Forwarding URL to which in case of a successful identification should be forwarded
+          maxLength: 255
+          minLength: 0
+          type: string
+        declinedUrl:
+          description: Forwarding URL to which in case of an unsuccessful identification should be forwarded
+          maxLength: 255
+          minLength: 0
+          type: string
+        couponRequestedUrl:
+          description: Forwarding URL to forward to when the coupon has been downloaded
+          maxLength: 255
+          minLength: 0
+          type: string
+        reviewPendingUrl:
+          description: Forwarding URL to forward to when the coupon has been downloaded
+          maxLength: 255
+          minLength: 0
+          type: string
+        incompleteUrl:
+          description: Forwarding URL to which in case of incomplete identification should be forwarded
+          maxLength: 255
+          minLength: 0
+          type: string
+      example:
+        Provider: 0
+        successUrl: http://lemonway.com/postident/success
+        declinedUrl: http://lemonway.com/postident/declined
+        couponRequestedUrl: http://lemonway.com/postident/coupon
+        reviewPendingUrl: http://lemonway.com/postident/pending
+        incompleteUrl: http://lemonway.com/postident/incomplete
+    WalletDetailsInput:
+      type: object
+      properties:
+        accountid:
+          type: string
+        email:
+          type: string
+    Address:
+      required:
+      - country
+      type: object
+      properties:
+        street:
+          description: Client number and street
+          maxLength: 256
+          minLength: 0
+          type: string
+        postCode:
+          description: Client Postcode/ZIP
+          maxLength: 10
+          minLength: 0
+          type: string
+        city:
+          description: Client city
+          maxLength: 140
+          minLength: 0
+          type: string
+        country:
+          description: Client country using ISO 3166-1 alpha-3
+          maxLength: 3
+          minLength: 3
+          type: string
+    Card:
+      type: object
+      properties:
+        id:
+          format: int64
+          description: ''
+          type: integer
+        is3DS:
+          description: Card with 3-DS authentication
+          type: boolean
+        country:
+          description: Card issuing country
+          type: string
+        authorizationNumber:
+          description: Authorization number
+          type: string
+        maskedNumber:
+          description: Masked card number
+          type: string
+        expiration:
+          description: Expiration date (if available)
+          type: string
+        type:
+          description: 'Card type (example: Visa or Mastercard)'
+          type: string
+        isRegistered:
+          description: Card is registered
+          type: boolean
+        holderName:
+          description: Card's holder name
+          type: string
+    AccountBlock:
+      type: object
+      properties:
+        id:
+          description: Updated payment account ID
+          type: string
+        isBlocked:
+          description: 'Status of the payment account
+
+            1: is bocked true
+
+            0: is blocked false'
+          type: boolean
+    AccountDetailsBatchOutput:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountDetails'
+        error:
+          $ref: '#/components/schemas/Error'
+    AccountBalance:
+      type: object
+      properties:
+        id:
+          description: Payment account ID
+          type: string
+        balance:
+          format: int64
+          description: Payment account balance
+          type: integer
+        status:
+          format: int32
+          description: Payment account status<br/>2 = Registered, KYC incomplete.<br/>3 = Registered, rejected KYC.<br/>5 = Registered, KYC 1 (status given at registration).<br/>6 = Registered, KYC 2.<br/>7 = Registered, KYC 3.<br/>8 = Registered, expired KYC.<br/>10 = Blocked.<br/>12 = Closed.<br/>13 = Registered, status is being updated from KYC 2 to KYC 3.<br/>14 = One-time customer.<br/>15 = Special account for crowdlending.<br/>16 = Technical account.<br/>
+          enum:
+          - 2
+          - 3
+          - 5
+          - 6
+          - 7
+          - 8
+          - 10
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          type: integer
+    Links:
+      type: object
+      properties:
+        first:
+          $ref: '#/components/schemas/Link'
+        last:
+          $ref: '#/components/schemas/Link'
+        previous:
+          $ref: '#/components/schemas/Link'
+        next:
+          $ref: '#/components/schemas/Link'
+        self:
+          $ref: '#/components/schemas/Link'
+    PSP:
+      type: object
+      properties:
+        message:
+          description: Get the Error Message from PSP
+          type: string
+    Company:
+      required:
+      - name
+      - description
+      type: object
+      properties:
+        name:
+          description: Company name (at least one alphabethic character is required)
+          maxLength: 256
+          minLength: 1
+          type: string
+        description:
+          description: Company description
+          maxLength: 256
+          minLength: 1
+          type: string
+        websiteUrl:
+          description: Website URL
+          maxLength: 256
+          minLength: 1
+          type: string
+        identificationNumber:
+          description: Company identification number
+          maxLength: 256
+          minLength: 1
+          type: string
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accounts_accountsingleget.md
+  - https://documentation.lemonway.com/reference/accounts_addultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_balancesget.md
+  - https://documentation.lemonway.com/reference/accounts_balanceshistoryget.md
+  - https://documentation.lemonway.com/reference/accounts_blockedput.md
+  - https://documentation.lemonway.com/reference/accounts_documentget.md
+  - https://documentation.lemonway.com/reference/accounts_documentssigninitpost.md
+  - https://documentation.lemonway.com/reference/accounts_documentsuploadpost.md
+  - https://documentation.lemonway.com/reference/accounts_enrolmentinit.md
+  - https://documentation.lemonway.com/reference/accounts_getultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_individualpost.md
+  - https://documentation.lemonway.com/reference/accounts_individualput.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusget.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusput.md
+  - https://documentation.lemonway.com/reference/accounts_legalpost.md
+  - https://documentation.lemonway.com/reference/accounts_legalsingleput.md
+  - https://documentation.lemonway.com/reference/accounts_retrievepost.md
+  - https://documentation.lemonway.com/reference/accounts_transactionsget.md
+  - https://documentation.lemonway.com/reference/accounts_updateultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/disputes_disputesget.md
+  - https://documentation.lemonway.com/reference/moneyins_accountcardget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancountget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibandisablepost.md
+  - https://documentation.lemonway.com/reference/moneyins_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardcreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_carddirect3dconfirmput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardget.md
+  - https://documentation.lemonway.com/reference/moneyins_cardpaymentformpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardrebill.md
+  - https://documentation.lemonway.com/reference/moneyins_cardsubscriptionpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardwebinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeget.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_createbnplpayment.md
+  - https://documentation.lemonway.com/reference/moneyins_getbnplpaymentplans.md
+  - https://documentation.lemonway.com/reference/moneyins_getmoneyinbanks.md
+  - https://documentation.lemonway.com/reference/moneyins_mandateget.md
+  - https://documentation.lemonway.com/reference/moneyins_mandategetdocument.md
+  - https://documentation.lemonway.com/reference/moneyins_mbwayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_mobilepayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinapminitasync.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinget.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinpaypalinit.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyintransferinit.md
+  - https://documentation.lemonway.com/reference/moneyins_multibancoinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformcompletedget.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformdisableput.md
+  - https://documentation.lemonway.com/reference/moneyins_paypaltransactionresume.md
+  - https://documentation.lemonway.com/reference/moneyins_payshopinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paytrailinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddget.md
+  - https://documentation.lemonway.com/reference/moneyins_sddinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandateunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_sofortinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_trustlyinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_validateput.md
+  - https://documentation.lemonway.com/reference/moneyouts_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanextendedpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanget.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutget.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutpostasync.md
+  - https://documentation.lemonway.com/reference/p2ps_p2pget.md
+  - https://documentation.lemonway.com/reference/p2ps_p2ppost.md
+  - https://documentation.lemonway.com/reference/refunds_refundcreateput.md
+  - https://documentation.lemonway.com/reference/refunds_refundput.md
+  merge:
+    pages: 71
+    deduped: 281
+    conflicts_kept_first: 0

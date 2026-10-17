@@ -1,0 +1,5111 @@
+openapi: 3.2.0
+info:
+  title: Account & Onboarding Management Onboardings API
+  description: API Account and Onboarding
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://onboarding-api.lemonway.com/
+  description: Lemonway API
+  variables:
+    env:
+      default: sandbox
+      description: Environment name (sandbox, uat, staging, prod)
+tags:
+- name: Onboardings
+paths:
+  /onboardings/association:
+    post:
+      operationId: OnboardingsController_createAssociationOnboarding
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssociationOnboardingRequest'
+      responses:
+        '201':
+          description: Onboarding session created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOnboardingResponse'
+        '400':
+          description: Missing or invalid request parameters
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: Account not found or does not meet onboarding prerequisites
+          content:
+            application/json:
+              schema: {}
+        '409':
+          description: Onboarding already initiated for this account
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: Unexpected error occurred on the server
+          content:
+            application/json:
+              schema: {}
+      security:
+      - bearer: []
+      tags:
+      - Onboardings
+      description: Initiates the online onboarding process for a legal entity whose profile status is AWAITING_INFORMATION. This call generates a secure onboarding session and returns a redirect URL where the end-user can complete their onboarding (e.g., KYC checks, document uploads).
+      summary: Onboardings controller create association onboarding
+      x-summary-source: derived
+  /onboardings/company:
+    post:
+      operationId: OnboardingsController_createCompanyOnboarding
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOnboardingCompanyRequest'
+      responses:
+        '201':
+          description: Onboarding session created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOnboardingResponse'
+        '400':
+          description: Missing or invalid request parameters
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: Account not found or does not meet onboarding prerequisites
+          content:
+            application/json:
+              schema: {}
+        '409':
+          description: Onboarding already initiated for this account
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: Unexpected error occurred on the server
+          content:
+            application/json:
+              schema: {}
+      security:
+      - bearer: []
+      tags:
+      - Onboardings
+      description: Initiates the online onboarding process for a legal entity whose profile status is AWAITING_INFORMATION. This call generates a secure onboarding session and returns a redirect URL where the end-user can complete their onboarding (e.g., KYC checks, document uploads).
+      summary: Start Legal Entity Online Onboarding
+  /onboardings/individual:
+    post:
+      operationId: OnboardingsController_createOnboarding
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIndividualOnboardingRequest'
+      responses:
+        '201':
+          description: Onboarding session created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOnboardingResponse'
+        '400':
+          description: Missing or invalid request parameters
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: Account not found or does not meet onboarding prerequisites
+          content:
+            application/json:
+              schema: {}
+        '409':
+          description: Onboarding already initiated for this account
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: Unexpected error occurred on the server
+          content:
+            application/json:
+              schema: {}
+      security:
+      - bearer: []
+      tags:
+      - Onboardings
+      description: 'If the account’s profile status is awaiting_information, start the onboarding flow.
+
+        To initiate the Online Onboarding process using the POST/onboardings/individual endpoint, you need to submit the same data you used for account creation, along with the accountId (Id) provided in the response. All other data are optional to initiate an Online Onboarding and will be collected directly from the end-user, ensuring compliance with KYC requirements without additional data input from your side.
+
+
+        Note: Some end-user personal information may be pre-filled when they open onboarding page for the first time, notably the name, email and contact details. We use the initial end-user data you sent us to inject into online onboarding page.
+
+
+        When you submit the payload, the API will:
+
+
+        • Identify the account and link the KYC process to it.
+
+
+        • All mandatory personal, contact, and address data for identity checks.
+
+
+        • Assesses AML/PEP risk via political exposure, financial profile, and source of funds.
+
+
+        • Verifies legal eligibility (age, capacity).
+
+
+        • Understands the user’s business intent (FAREWELL project) and downstream beneficiary.
+
+
+        • Redirects the user back to your specified redirectUrl once all steps succeed (or fail).'
+      summary: Start Individual Online Onboarding
+  /onboardings/sole-trader:
+    post:
+      operationId: OnboardingsController_createSoleTraderOnboarding
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSoleTraderOnboardingRequest'
+      responses:
+        '201':
+          description: Onboarding session created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOnboardingResponse'
+        '400':
+          description: Missing or invalid request parameters
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: Account not found or does not meet onboarding prerequisites
+          content:
+            application/json:
+              schema: {}
+        '409':
+          description: Onboarding already initiated for this account
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: Unexpected error occurred on the server
+          content:
+            application/json:
+              schema: {}
+      security:
+      - bearer: []
+      tags:
+      - Onboardings
+      description: Initiates the online onboarding process for a legal entity whose profile status is AWAITING_INFORMATION. This call generates a secure onboarding session and returns a redirect URL where the end-user can complete their onboarding (e.g., KYC checks, document uploads).
+      summary: Onboardings controller create sole trader onboarding
+      x-summary-source: derived
+  /onboardings/{onboardingId}/resume:
+    get:
+      operationId: OnboardingsController_createUrl
+      parameters:
+      - name: onboardingId
+        required: true
+        in: path
+        description: Unique ID of the onboarding process
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUrlResponse'
+      security:
+      - bearer: []
+      tags:
+      - Onboardings
+      description: 'Retrieves a continuation (resume) URL for a previously-started, in-progress onboarding session.
+
+
+        This allows an end-user to return to their onboarding process after leaving the session without completing it.
+
+
+        Important:
+
+
+        The onboardingId must be taken from the response returned by the onboarding creation endpoint (POST /onboardings/company, /association, /sole_trader, /individual).
+
+
+        This ID is mandatory and must be included in the request path'
+      summary: Onboardings controller create url
+      x-summary-source: derived
+components:
+  schemas:
+    OriginOfFunds:
+      type: object
+      properties:
+        sources:
+          type: array
+          items:
+            type: string
+            enum:
+            - INCOME
+            - REAL_ESTATE_PROPERTIES
+            - SAVINGS_ACCUMULATED_OVER_SEVERAL_YEARS
+            - DONATION_OR_INHERITANCE
+            - SALE_OF_A_STOCK_PORTFOLIO
+            - TRANSFER_OF_COMPANY_SHARES
+            - WINNING_FROM_GAMES_OR_CONTESTS
+            - SURRENDER_OF_A_CAPITALIZATION_CONTRACT_OR_LIFE_INSURANCE_POLICY
+            - SALE_OF_MOVABLE_ASSETS_GOODWILL_INTELLECTUAL_PROPERTY_RIGHTS
+            - SALE_OF_CURRENCY_GOLD_OR_CRYPTOCURRENCIES
+            - FINANCIAL_INVESTMENTS
+            - OTHER_OPERATIONS
+          example: Income (salary, etc.)
+        other:
+          type: string
+          description: Description of other origin of funds
+          example: 'true'
+      required:
+      - sources
+    Ubo:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        otherName:
+          type: string
+        birthDate:
+          type: string
+        birthCity:
+          type: string
+        birthCountry:
+          type: string
+        birthProvince:
+          type: string
+          enum:
+          - AG
+          - AL
+          - AN
+          - AO
+          - AP
+          - AQ
+          - AR
+          - AT
+          - AV
+          - BA
+          - BG
+          - BI
+          - BL
+          - BN
+          - BO
+          - BR
+          - BS
+          - BT
+          - BZ
+          - CA
+          - CB
+          - CE
+          - CH
+          - CI
+          - CL
+          - CN
+          - CO
+          - CR
+          - CS
+          - CT
+          - CZ
+          - EE
+          - EN
+          - FC
+          - FE
+          - FG
+          - FI
+          - FM
+          - FO
+          - FR
+          - FU
+          - GE
+          - GO
+          - GR
+          - IM
+          - IS
+          - KR
+          - LC
+          - LE
+          - LI
+          - LO
+          - LT
+          - LU
+          - MB
+          - MC
+          - ME
+          - MI
+          - MN
+          - MO
+          - MS
+          - MT
+          - MZ
+          - NA
+          - 'NO'
+          - NU
+          - OG
+          - OR
+          - OT
+          - PA
+          - PC
+          - PD
+          - PE
+          - PG
+          - PI
+          - PL
+          - PN
+          - PO
+          - PR
+          - PT
+          - PU
+          - PV
+          - PZ
+          - RA
+          - RC
+          - RE
+          - RG
+          - RI
+          - RM
+          - RN
+          - RO
+          - SA
+          - SI
+          - SO
+          - SP
+          - SR
+          - SS
+          - SU
+          - SV
+          - TA
+          - TE
+          - TN
+          - TO
+          - TP
+          - TR
+          - TS
+          - TV
+          - UD
+          - VA
+          - VB
+          - VC
+          - VE
+          - VI
+          - VR
+          - VS
+          - VT
+          - VV
+        nationalities:
+          type: array
+          items:
+            type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        taxCode:
+          type: string
+        address:
+          $ref: '#/components/schemas/OnboardingAddress'
+        politicalExposure:
+          $ref: '#/components/schemas/PoliticalExposure'
+      required:
+      - firstName
+      - lastName
+      - birthDate
+      - birthCountry
+      - nationalities
+      - address
+    LegalEntityFinancialSituation:
+      type: object
+      properties:
+        expectedActivityVolume:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: ActivityVolume
+        currentTurnover:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: TurnoverRange
+        previousTurnover:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: TurnoverRange
+        financialAsset:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: FinancialAsset
+      description: Financial situation details
+    CreateOnboardingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - url
+      example:
+        id: ff928147-d51e-4f22-b26c-d2c1a2sebd8d
+        url: https://onboarding.sandbox.lemonway.com/d6795611-e957-457f-83fc-dd1c03775c08/welcome
+    CreateSoleTraderOnboardingRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: UUID of the previously created account
+          example: ACC123456789
+        redirectUrl:
+          type: string
+          description: URL to which the user will be redirected after completing onboarding
+          example: https://www.lemonway.com/
+        legalEntity:
+          $ref: '#/components/schemas/SoleTraderLegalEntity'
+        legalRepresentative:
+          $ref: '#/components/schemas/SoleTraderLegalRepresentative'
+      required:
+      - accountId
+      - legalEntity
+      - legalRepresentative
+    CreateIndividualOnboardingRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: UUID of the previously created account
+          example: ACC123456789
+        redirectUrl:
+          type: string
+          description: URL to which the user will be redirected after completing onboarding
+          example: https://www.lemonway.com/
+        individual:
+          $ref: '#/components/schemas/OnboardingIndividual'
+        project:
+          $ref: '#/components/schemas/OnboardingProject'
+        financialSupport:
+          $ref: '#/components/schemas/FinancialSupport'
+      required:
+      - accountId
+      - individual
+    FundsDestinationCountries:
+      type: object
+      properties:
+        sameFundCountryAsCompanyRegistration:
+          type: boolean
+        otherFundsDestinationCountries:
+          $ref: '#/components/schemas/OtherFundsDestinationCountries'
+      required:
+      - sameFundCountryAsCompanyRegistration
+    LegalEntityProject:
+      type: object
+      properties:
+        description:
+          type: string
+        website:
+          type: string
+      description: Project-related details
+    PoliticalExposure:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - 'YES'
+          - 'NO'
+          - CLOSE
+          description: Politically exposed person status
+          example: 'Yes'
+        position:
+          type: string
+          enum:
+          - POLITICAL_LEADER
+          - POLITICAL_REPRESENTATIVE
+          - JUDICIAL_OFFICIAL
+          - FINANCIAL_AUDITOR
+          - BANK_EXECUTIVE
+          - DIPLOMATIC_REPRESENTATIVE
+          - MILITARY_LEADER
+          - ADMINISTRATIVE_OFFICIAL
+          - ORGANIZATIONAL_OFFICIAL
+          - OTHER
+          description: There are 9 identified positions and one option to state another if not on the list
+          example: POLITICAL_LEADER
+        startDate:
+          type: string
+          description: 'Format: YYYY-MM-DD'
+          example: '1980-07-10'
+        endDate:
+          type: string
+          description: 'Format: YYYY-MM-DD. If unknown, not required'
+          example: '2001-07-10'
+        fullName:
+          type: string
+          description: Full legal name of the politically exposed person
+          example: Michael James
+        closeRelationship:
+          type: string
+          enum:
+          - PARTNER
+          - CHILD
+          - PARENT
+          description: CloseRelationshipType
+          example: Child
+        otherPosition:
+          type: string
+          description: State official position if not in provided list
+      required:
+      - status
+      description: Political exposure details (PEP status)
+    CreateUrlResponse:
+      type: object
+      properties:
+        url:
+          type: string
+      required:
+      - url
+    PayerRelationship:
+      type: object
+      properties:
+        link:
+          type: string
+          enum:
+          - MOTHER_FATHER
+          - RELATIVES
+          - SIBLINGS
+          - GRAND_PARENTS
+          - HUSBAND_WIFE
+          - LIFE_PARTNER
+          - OTHER
+        other:
+          type: string
+      required:
+      - link
+    CompanyFinancialSituation:
+      type: object
+      properties:
+        expectedActivityVolume:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: ActivityVolume
+        currentTurnover:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: TurnoverRange
+        previousTurnover:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: TurnoverRange
+        financialAsset:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: FinancialAsset
+        originOfFunds:
+          $ref: '#/components/schemas/OriginOfFunds'
+      description: Financial situation details
+    OnboardingFinancialSituation:
+      type: object
+      properties:
+        annualRevenue:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          description: "6 tiers format in Euro. \n\n•FIRST_TIER: 0 - 100K€\n\n•SECOND_TIER: 100K€ - 200K€\n\n•THIRD_TIER: 500K€ - 1.5M€\n\n•FOURTH_TIER: 1.5M€ - 5M€\n\n•FIFTH_TIER: 5M€ - 20M€ \n\n•SIXTH_TIER: 20M€ - 100M€"
+          example: 0 - 10K €
+        estimatedWealth:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: "7 tiers format in Euro \n\n•FIRST_TIER: 0 - 100K€\n\n•SECOND_TIER: 100K€ - 200K€\n\n•THIRD_TIER: 500K€ - 1.5M€\n\n•FOURTH_TIER: 1.5M€ - 5M€\n\n•FIFTH_TIER: 5M€ - 20M€\n\n•SIXTH_TIER: 20M€ - 100M€\n\n•SEVENTH_TIER: >100M€"
+          example: 0 - 50K €
+        hasIFItax:
+          type: boolean
+          description: Boolean statement
+          example: 'true'
+        originOfFunds:
+          $ref: '#/components/schemas/OriginOfFunds'
+    OnboardingIndividual:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Official first name that appears on the user's legal documents, such as a passport.
+          example: Jonathan
+        lastName:
+          type: string
+          description: Official last name that appears on the user's legal documents.
+          example: Doe
+        otherName:
+          type: string
+          description: Maiden name/married name, used name, ps
+          example: Smith
+        birthDate:
+          type: string
+          description: 'Format: YYYY-MM-DD'
+          example: '1980-07-10'
+        birthCity:
+          type: string
+          description: City of birth
+          example: Paris
+        birthCountry:
+          type: string
+          description: ISO-2 format
+          example: FR
+        birthProvince:
+          type: string
+          enum:
+          - AG
+          - AL
+          - AN
+          - AO
+          - AP
+          - AQ
+          - AR
+          - AT
+          - AV
+          - BA
+          - BG
+          - BI
+          - BL
+          - BN
+          - BO
+          - BR
+          - BS
+          - BT
+          - BZ
+          - CA
+          - CB
+          - CE
+          - CH
+          - CI
+          - CL
+          - CN
+          - CO
+          - CR
+          - CS
+          - CT
+          - CZ
+          - EE
+          - EN
+          - FC
+          - FE
+          - FG
+          - FI
+          - FM
+          - FO
+          - FR
+          - FU
+          - GE
+          - GO
+          - GR
+          - IM
+          - IS
+          - KR
+          - LC
+          - LE
+          - LI
+          - LO
+          - LT
+          - LU
+          - MB
+          - MC
+          - ME
+          - MI
+          - MN
+          - MO
+          - MS
+          - MT
+          - MZ
+          - NA
+          - 'NO'
+          - NU
+          - OG
+          - OR
+          - OT
+          - PA
+          - PC
+          - PD
+          - PE
+          - PG
+          - PI
+          - PL
+          - PN
+          - PO
+          - PR
+          - PT
+          - PU
+          - PV
+          - PZ
+          - RA
+          - RC
+          - RE
+          - RG
+          - RI
+          - RM
+          - RN
+          - RO
+          - SA
+          - SI
+          - SO
+          - SP
+          - SR
+          - SS
+          - SU
+          - SV
+          - TA
+          - TE
+          - TN
+          - TO
+          - TP
+          - TR
+          - TS
+          - TV
+          - UD
+          - VA
+          - VB
+          - VC
+          - VE
+          - VI
+          - VR
+          - VS
+          - VT
+          - VV
+          example: AG
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/9aad552c-8be9-1c6a-4243-4a2f1b643d3e/BirthProvince.pdf
+            description: From this provided list. Only if a born in Italy
+        nationalities:
+          type: array
+          items:
+            type: string
+          description: ISO-2 format. Allows multiple nationalities
+          example: FR, GB
+        email:
+          type: string
+          example: jonathan.doe@gmail.com
+        phoneNumber:
+          type: string
+          description: Must include country code
+          example: '+33689222211'
+        address:
+          $ref: '#/components/schemas/OnboardingAddress'
+        taxCode:
+          type: string
+          description: Specific tax code format. Only if resident of France
+          example: FR
+        politicalExposure:
+          $ref: '#/components/schemas/PoliticalExposure'
+        financialSituation:
+          $ref: '#/components/schemas/OnboardingFinancialSituation'
+        legalCapacity:
+          $ref: '#/components/schemas/LegalCapacity'
+        professionalSituation:
+          $ref: '#/components/schemas/ProfessionalSituation'
+      required:
+      - firstName
+      - lastName
+      - birthDate
+      - birthCountry
+      - nationalities
+      - email
+      - address
+    AssociationLegalRepresentative:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the legal representative
+          example: Johns
+        lastName:
+          type: string
+          description: Last name of the legal representative
+          example: Aimar
+        otherName:
+          type: string
+        birthDate:
+          type: string
+          description: Date of birth (ISO 8601 format)
+          example: '1985-04-12'
+        birthCity:
+          type: string
+        birthCountry:
+          type: string
+          description: Country of birth (ISO 2-letter code)
+          example: IT
+        birthProvince:
+          type: string
+          enum:
+          - AG
+          - AL
+          - AN
+          - AO
+          - AP
+          - AQ
+          - AR
+          - AT
+          - AV
+          - BA
+          - BG
+          - BI
+          - BL
+          - BN
+          - BO
+          - BR
+          - BS
+          - BT
+          - BZ
+          - CA
+          - CB
+          - CE
+          - CH
+          - CI
+          - CL
+          - CN
+          - CO
+          - CR
+          - CS
+          - CT
+          - CZ
+          - EE
+          - EN
+          - FC
+          - FE
+          - FG
+          - FI
+          - FM
+          - FO
+          - FR
+          - FU
+          - GE
+          - GO
+          - GR
+          - IM
+          - IS
+          - KR
+          - LC
+          - LE
+          - LI
+          - LO
+          - LT
+          - LU
+          - MB
+          - MC
+          - ME
+          - MI
+          - MN
+          - MO
+          - MS
+          - MT
+          - MZ
+          - NA
+          - 'NO'
+          - NU
+          - OG
+          - OR
+          - OT
+          - PA
+          - PC
+          - PD
+          - PE
+          - PG
+          - PI
+          - PL
+          - PN
+          - PO
+          - PR
+          - PT
+          - PU
+          - PV
+          - PZ
+          - RA
+          - RC
+          - RE
+          - RG
+          - RI
+          - RM
+          - RN
+          - RO
+          - SA
+          - SI
+          - SO
+          - SP
+          - SR
+          - SS
+          - SU
+          - SV
+          - TA
+          - TE
+          - TN
+          - TO
+          - TP
+          - TR
+          - TS
+          - TV
+          - UD
+          - VA
+          - VB
+          - VC
+          - VE
+          - VI
+          - VR
+          - VS
+          - VT
+          - VV
+        nationalities:
+          type: array
+          items:
+            type: string
+          description: List of nationality codes (ISO 2-letter)
+          example: '["IT"]'
+        email:
+          type: string
+          description: Email address of the representative
+          example: claire.marchesi@example.com
+        phoneNumber:
+          type: string
+          description: Phone number of the representative
+          example: '+336149568'
+        taxCode:
+          type: string
+        address:
+          $ref: '#/components/schemas/OnboardingAddress'
+        politicalExposure:
+          $ref: '#/components/schemas/PoliticalExposure'
+        positions:
+          type: array
+          items:
+            type: string
+      required:
+      - firstName
+      - lastName
+      - birthDate
+      - birthCountry
+      - nationalities
+      - email
+      - address
+      description: Legal representative details (see nested bodyParams below)
+    FinancialSituation:
+      type: object
+      properties:
+        annualRevenue:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          description: AnnualRevenue
+        estimatedWealth:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: EstimatedWealth
+        hasIFItax:
+          type: boolean
+    AssociationActivity:
+      type: object
+      properties:
+        NACEcode:
+          type: string
+          enum:
+          - '1.11'
+          - '1.12'
+          - '1.13'
+          - '1.14'
+          - '1.15'
+          - '1.16'
+          - '1.19'
+          - '1.21'
+          - '1.22'
+          - '1.23'
+          - '1.24'
+          - '1.25'
+          - '1.26'
+          - '1.27'
+          - '1.28'
+          - '1.29'
+          - '1.3'
+          - '1.41'
+          - '1.42'
+          - '1.43'
+          - '1.44'
+          - '1.45'
+          - '1.46'
+          - '1.47'
+          - '1.49'
+          - '1.5'
+          - '1.61'
+          - '1.62'
+          - '1.63'
+          - '1.64'
+          - '1.7'
+          - '2.1'
+          - '2.2'
+          - '2.3'
+          - '2.4'
+          - '3.11'
+          - '3.12'
+          - '3.21'
+          - '3.22'
+          - '5.1'
+          - '5.2'
+          - '6.1'
+          - '6.2'
+          - '7.1'
+          - '7.21'
+          - '7.29'
+          - '8.11'
+          - '8.12'
+          - '8.91'
+          - '8.92'
+          - '8.93'
+          - '8.99'
+          - '9.1'
+          - '9.9'
+          - '10.11'
+          - '10.12'
+          - '10.13'
+          - '10.2'
+          - '10.31'
+          - '10.32'
+          - '10.39'
+          - '10.41'
+          - '10.42'
+          - '10.51'
+          - '10.52'
+          - '10.61'
+          - '10.62'
+          - '10.71'
+          - '10.72'
+          - '10.73'
+          - '10.81'
+          - '10.82'
+          - '10.83'
+          - '10.84'
+          - '10.85'
+          - '10.86'
+          - '10.89'
+          - '10.91'
+          - '10.92'
+          - '11.01'
+          - '11.02'
+          - '11.03'
+          - '11.04'
+          - '11.05'
+          - '11.06'
+          - '11.07'
+          - '12'
+          - '13.1'
+          - '13.2'
+          - '13.3'
+          - '13.91'
+          - '13.92'
+          - '13.93'
+          - '13.94'
+          - '13.95'
+          - '13.96'
+          - '13.99'
+          - '14.11'
+          - '14.12'
+          - '14.13'
+          - '14.14'
+          - '14.19'
+          - '14.2'
+          - '14.31'
+          - '14.39'
+          - '15.11'
+          - '15.12'
+          - '15.2'
+          - '16.1'
+          - '16.21'
+          - '16.22'
+          - '16.23'
+          - '16.24'
+          - '16.29'
+          - '17.11'
+          - '17.12'
+          - '17.21'
+          - '17.22'
+          - '17.23'
+          - '17.24'
+          - '17.29'
+          - '18.11'
+          - '18.12'
+          - '18.13'
+          - '18.14'
+          - '18.2'
+          - '19.1'
+          - '19.2'
+          - '20.11'
+          - '20.12'
+          - '20.13'
+          - '20.14'
+          - '20.15'
+          - '20.16'
+          - '20.17'
+          - '20.2'
+          - '20.3'
+          - '20.41'
+          - '20.42'
+          - '20.51'
+          - '20.52'
+          - '20.53'
+          - '20.59'
+          - '20.6'
+          - '21.1'
+          - '21.2'
+          - '22.11'
+          - '22.19'
+          - '22.21'
+          - '22.22'
+          - '22.23'
+          - '22.29'
+          - '23.11'
+          - '23.12'
+          - '23.13'
+          - '23.14'
+          - '23.19'
+          - '23.2'
+          - '23.31'
+          - '23.32'
+          - '23.41'
+          - '23.42'
+          - '23.43'
+          - '23.44'
+          - '23.49'
+          - '23.51'
+          - '23.52'
+          - '23.61'
+          - '23.62'
+          - '23.63'
+          - '23.64'
+          - '23.65'
+          - '23.69'
+          - '23.7'
+          - '23.91'
+          - '23.99'
+          - '24.1'
+          - '24.2'
+          - '24.31'
+          - '24.32'
+          - '24.33'
+          - '24.34'
+          - '24.41'
+          - '24.42'
+          - '24.43'
+          - '24.44'
+          - '24.45'
+          - '24.46'
+          - '24.51'
+          - '24.52'
+          - '24.53'
+          - '24.54'
+          - '25.11'
+          - '25.12'
+          - '25.21'
+          - '25.29'
+          - '25.3'
+          - '25.4'
+          - '25.5'
+          - '25.61'
+          - '25.62'
+          - '25.71'
+          - '25.72'
+          - '25.73'
+          - '25.91'
+          - '25.92'
+          - '25.93'
+          - '25.94'
+          - '25.99'
+          - '26.11'
+          - '26.12'
+          - '26.2'
+          - '26.3'
+          - '26.4'
+          - '26.51'
+          - '26.52'
+          - '26.6'
+          - '26.7'
+          - '26.8'
+          - '27.11'
+          - '27.12'
+          - '27.2'
+          - '27.31'
+          - '27.32'
+          - '27.33'
+          - '27.4'
+          - '27.51'
+          - '27.52'
+          - '27.9'
+          - '28.11'
+          - '28.12'
+          - '28.13'
+          - '28.14'
+          - '28.15'
+          - '28.21'
+          - '28.22'
+          - '28.23'
+          - '28.24'
+          - '28.25'
+          - '28.29'
+          - '28.3'
+          - '28.41'
+          - '28.49'
+          - '28.91'
+          - '28.92'
+          - '28.93'
+          - '28.94'
+          - '28.95'
+          - '28.96'
+          - '28.99'
+          - '29.1'
+          - '29.2'
+          - '29.31'
+          - '29.32'
+          - '30.11'
+          - '30.12'
+          - '30.2'
+          - '30.3'
+          - '30.4'
+          - '30.91'
+          - '30.92'
+          - '30.99'
+          - '31.01'
+          - '31.02'
+          - '31.03'
+          - '31.09'
+          - '32.11'
+          - '32.12'
+          - '32.13'
+          - '32.2'
+          - '32.3'
+          - '32.4'
+          - '32.5'
+          - '32.91'
+          - '32.99'
+          - '33.11'
+          - '33.12'
+          - '33.13'
+          - '33.14'
+          - '33.15'
+          - '33.16'
+          - '33.17'
+          - '33.19'
+          - '33.2'
+          - '35.11'
+          - '35.12'
+          - '35.13'
+          - '35.14'
+          - '35.21'
+          - '35.22'
+          - '35.23'
+          - '35.3'
+          - '36'
+          - '37'
+          - '38.11'
+          - '38.12'
+          - '38.21'
+          - '38.22'
+          - '38.31'
+          - '38.32'
+          - '39'
+          - '41.1'
+          - '41.2'
+          - '42.11'
+          - '42.12'
+          - '42.13'
+          - '42.21'
+          - '42.22'
+          - '42.91'
+          - '42.99'
+          - '43.11'
+          - '43.12'
+          - '43.13'
+          - '43.21'
+          - '43.22'
+          - '43.29'
+          - '43.31'
+          - '43.32'
+          - '43.33'
+          - '43.34'
+          - '43.39'
+          - '43.91'
+          - '43.99'
+          - '45.11'
+          - '45.19'
+          - '45.2'
+          - '45.31'
+          - '45.32'
+          - '45.4'
+          - '46.11'
+          - '46.12'
+          - '46.13'
+          - '46.14'
+          - '46.15'
+          - '46.16'
+          - '46.17'
+          - '46.18'
+          - '46.19'
+          - '46.21'
+          - '46.22'
+          - '46.23'
+          - '46.24'
+          - '46.31'
+          - '46.32'
+          - '46.33'
+          - '46.34'
+          - '46.35'
+          - '46.36'
+          - '46.37'
+          - '46.38'
+          - '46.39'
+          - '46.41'
+          - '46.42'
+          - '46.43'
+          - '46.44'
+          - '46.45'
+          - '46.46'
+          - '46.47'
+          - '46.48'
+          - '46.49'
+          - '46.51'
+          - '46.52'
+          - '46.61'
+          - '46.62'
+          - '46.63'
+          - '46.64'
+          - '46.65'
+          - '46.66'
+          - '46.69'
+          - '46.71'
+          - '46.72'
+          - '46.73'
+          - '46.74'
+          - '46.75'
+          - '46.76'
+          - '46.77'
+          - '46.9'
+          - '47.11'
+          - '47.19'
+          - '47.21'
+          - '47.22'
+          - '47.23'
+          - '47.24'
+          - '47.25'
+          - '47.26'
+          - '47.29'
+          - '47.3'
+          - '47.41'
+          - '47.42'
+          - '47.43'
+          - '47.51'
+          - '47.52'
+          - '47.53'
+          - '47.54'
+          - '47.59'
+          - '47.61'
+          - '47.62'
+          - '47.63'
+          - '47.64'
+          - '47.65'
+          - '47.71'
+          - '47.72'
+          - '47.73'
+          - '47.74'
+          - '47.75'
+          - '47.76'
+          - '47.77'
+          - '47.78'
+          - '47.79'
+          - '47.81'
+          - '47.82'
+          - '47.89'
+          - '47.91'
+          - '47.99'
+          - '49.1'
+          - '49.2'
+          - '49.31'
+          - '49.32'
+          - '49.39'
+          - '49.41'
+          - '49.42'
+          - '49.5'
+          - '50.1'
+          - '50.2'
+          - '50.3'
+          - '50.4'
+          - '51.1'
+          - '51.21'
+          - '51.22'
+          - '52.1'
+          - '52.21'
+          - '52.22'
+          - '52.23'
+          - '52.24'
+          - '52.29'
+          - '53.1'
+          - '53.2'
+          - '55.1'
+          - '55.2'
+          - '55.3'
+          - '55.9'
+          - '56.1'
+          - '56.21'
+          - '56.29'
+          - '56.3'
+          - '58.11'
+          - '58.12'
+          - '58.13'
+          - '58.14'
+          - '58.19'
+          - '58.21'
+          - '58.29'
+          - '59.11'
+          - '59.12'
+          - '59.13'
+          - '59.14'
+          - '59.2'
+          - '60.1'
+          - '60.2'
+          - '61.1'
+          - '61.2'
+          - '61.3'
+          - '61.9'
+          - '62.01'
+          - '62.02'
+          - '62.03'
+          - '62.09'
+          - '63.11'
+          - '63.12'
+          - '63.9'
+          - '63.91'
+          - '63.99'
+          - '64'
+          - '64.11'
+          - '64.19'
+          - '64.2'
+          - '64.3'
+          - '64.9'
+          - '64.91'
+          - '64.92'
+          - '64.99'
+          - '65.11'
+          - '65.12'
+          - '65.2'
+          - '65.3'
+          - '66.11'
+          - '66.12'
+          - '66.19'
+          - '66.21'
+          - '66.22'
+          - '66.3'
+          - '68.1'
+          - '68.2'
+          - '68.31'
+          - '68.32'
+          - '69.1'
+          - '69.2'
+          - '70.1'
+          - '70.21'
+          - '70.22'
+          - '71.11'
+          - '71.12'
+          - '71.2'
+          - '72.11'
+          - '72.19'
+          - '72.2'
+          - '73.11'
+          - '73.12'
+          - '73.2'
+          - '74.1'
+          - '74.2'
+          - '74.3'
+          - '74.9'
+          - '77.11'
+          - '77.12'
+          - '77.21'
+          - '77.22'
+          - '77.29'
+          - '77.31'
+          - '77.32'
+          - '77.33'
+          - '77.34'
+          - '77.35'
+          - '77.39'
+          - '77.4'
+          - '78.1'
+          - '78.2'
+          - '78.3'
+          - '79.1'
+          - '79.11'
+          - '79.12'
+          - '79.9'
+          - '80'
+          - '80.1'
+          - '80.2'
+          - '80.3'
+          - '81'
+          - '81.1'
+          - '81.2'
+          - '81.21'
+          - '81.22'
+          - '81.29'
+          - '81.3'
+          - '82.1'
+          - '82.11'
+          - '82.19'
+          - '82.2'
+          - '82.3'
+          - '82.91'
+          - '82.92'
+          - '82.99'
+          - '84.11'
+          - '84.12'
+          - '84.13'
+          - '84.21'
+          - '84.22'
+          - '84.23'
+          - '84.24'
+          - '84.25'
+          - '84.3'
+          - '85.1'
+          - '85.2'
+          - '85.31'
+          - '85.32'
+          - '85.51'
+          - '85.52'
+          - '85.53'
+          - '85.59'
+          - '85.6'
+          - '86.1'
+          - '86.21'
+          - '86.22'
+          - '86.23'
+          - '86.9'
+          - '87.1'
+          - '87.2'
+          - '87.3'
+          - '87.9'
+          - '88.1'
+          - '88.91'
+          - '88.99'
+          - '90.01'
+          - '90.02'
+          - '90.03'
+          - '90.04'
+          - '91.01'
+          - '91.02'
+          - '91.03'
+          - '91.04'
+          - '92'
+          - '93.11'
+          - '93.12'
+          - '93.13'
+          - '93.19'
+          - '93.21'
+          - '93.29'
+          - '94.11'
+          - '94.12'
+          - '94.2'
+          - '94.91'
+          - '94.92'
+          - '94.99'
+          - '95.11'
+          - '95.12'
+          - '95.21'
+          - '95.22'
+          - '95.23'
+          - '95.24'
+          - '95.25'
+          - '95.29'
+          - '96.01'
+          - '96.02'
+          - '96.03'
+          - '96.04'
+          - '96.09'
+          - '97'
+          - '98.1'
+          - '98.2'
+          - '99'
+          description: NACEcode
+          example: 62.01Z
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/eed5e2fd-36cc-7973-d5d2-ca1e9dea8909/LegalEntity_NACECode.csv
+            description: From this provided list.
+        ATECOcode:
+          type: string
+          enum:
+          - '011'
+          - '012'
+          - '013'
+          - '014'
+          - '015'
+          - '016'
+          - '017'
+          - '021'
+          - '022'
+          - '023'
+          - '024'
+          - '031'
+          - '032'
+          - '051'
+          - '052'
+          - '061'
+          - '062'
+          - '071'
+          - '072'
+          - 081
+          - 089
+          - 091
+          - 099
+          - '101'
+          - '102'
+          - '103'
+          - '104'
+          - '105'
+          - '106'
+          - '107'
+          - '108'
+          - '109'
+          - '110'
+          - '120'
+          - '131'
+          - '132'
+          - '133'
+          - '139'
+          - '141'
+          - '142'
+          - '143'
+          - '151'
+          - '152'
+          - '161'
+          - '162'
+          - '171'
+          - '172'
+          - '181'
+          - '182'
+          - '191'
+          - '192'
+          - '201'
+          - '202'
+          - '203'
+          - '204'
+          - '205'
+          - '206'
+          - '211'
+          - '212'
+          - '221'
+          - '222'
+          - '231'
+          - '232'
+          - '233'
+          - '234'
+          - '235'
+          - '236'
+          - '237'
+          - '239'
+          - '241'
+          - '242'
+          - '243'
+          - '244'
+          - '245'
+          - '251'
+          - '252'
+          - '253'
+          - '254'
+          - '255'
+          - '256'
+          - '257'
+          - '259'
+          - '261'
+          - '262'
+          - '263'
+          - '264'
+          - '265'
+          - '266'
+          - '267'
+          - '268'
+          - '271'
+          - '272'
+          - '273'
+          - '274'
+          - '275'
+          - '279'
+          - '281'
+          - '282'
+          - '283'
+          - '284'
+          - '289'
+          - '291'
+          - '292'
+          - '293'
+          - '301'
+          - '302'
+          - '303'
+          - '304'
+          - '309'
+          - '310'
+          - '321'
+          - '322'
+          - '323'
+          - '324'
+          - '325'
+          - '329'
+          - '331'
+          - '332'
+          - '351'
+          - '352'
+          - '353'
+          - '360'
+          - '370'
+          - '381'
+          - '382'
+          - '383'
+          - '390'
+          - '411'
+          - '412'
+          - '421'
+          - '422'
+          - '429'
+          - '431'
+          - '432'
+          - '433'
+          - '439'
+          - '451'
+          - '452'
+          - '453'
+          - '454'
+          - '461'
+          - '462'
+          - '463'
+          - '464'
+          - '465'
+          - '466'
+          - '467'
+          - '469'
+          - '471'
+          - '472'
+          - '473'
+          - '474'
+          - '475'
+          - '476'
+          - '477'
+          - '478'
+          - '479'
+          - '491'
+          - '492'
+          - '493'
+          - '494'
+          - '495'
+          - '501'
+          - '502'
+          - '503'
+          - '504'
+          - '511'
+          - '512'
+          - '521'
+          - '522'
+          - '531'
+          - '532'
+          - '551'
+          - '552'
+          - '553'
+          - '559'
+          - '561'
+          - '562'
+          - '563'
+          - '581'
+          - '582'
+          - '591'
+          - '592'
+          - '601'
+          - '602'
+          - '611'
+          - '612'
+          - '613'
+          - '619'
+          - '620'
+          - '631'
+          - '639'
+          - '641'
+          - '642'
+          - '643'
+          - '649'
+          - '651'
+          - '652'
+          - '653'
+          - '661'
+          - '662'
+          - '663'
+          - '681'
+          - '682'
+          - '683'
+          - '691'
+          - '692'
+          - '701'
+          - '702'
+          - '711'
+          - '712'
+          - '721'
+          - '722'
+          - '731'
+          - '732'
+          - '741'
+          - '742'
+          - '743'
+          - '749'
+          - '750'
+          - '771'
+          - '772'
+          - '773'
+          - '774'
+          - '781'
+          - '782'
+          - '783'
+          - '791'
+          - '799'
+          - '801'
+          - '802'
+          - '803'
+          - '811'
+          - '812'
+          - '813'
+          - '821'
+          - '822'
+          - '823'
+          - '829'
+          - '841'
+          - '842'
+          - '843'
+          - '851'
+          - '852'
+          - '853'
+          - '854'
+          - '855'
+          - '856'
+          - '861'
+          - '862'
+          - '869'
+          - '871'
+          - '872'
+          - '873'
+          - '879'
+          - '881'
+          - '889'
+          - '900'
+          - '910'
+          - '920'
+          - '931'
+          - '932'
+          - '941'
+          - '942'
+          - '949'
+          - '951'
+          - '952'
+          - '960'
+          - '970'
+          - '981'
+          - '982'
+          - '990'
+          description: ATECOcode
+          example: 62.01.00
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/6b926f08-3686-7265-371b-c89738cdfde7/LegalEntity_ATECOCode.csv
+            description: From this provided list.
+        description:
+          type: string
+          example: Delivering cutting-edge payment solutions
+        fundsDestinationCountries:
+          $ref: '#/components/schemas/FundsDestinationCountries'
+        location:
+          $ref: '#/components/schemas/Location'
+        entitiesFinancing:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityFinancing'
+      description: Activity and business scope details
+    OnboardingAddress:
+      type: object
+      properties:
+        street:
+          type: string
+          example: 10 Via Roma
+        complementaryStreetInfo:
+          type: string
+        city:
+          type: string
+          example: Milan
+        postalCode:
+          type: string
+          example: '20121'
+        country:
+          type: string
+          description: ISO-2 format
+          example: IT
+        province:
+          type: string
+          enum:
+          - AG
+          - AL
+          - AN
+          - AO
+          - AP
+          - AQ
+          - AR
+          - AT
+          - AV
+          - BA
+          - BG
+          - BI
+          - BL
+          - BN
+          - BO
+          - BR
+          - BS
+          - BT
+          - BZ
+          - CA
+          - CB
+          - CE
+          - CH
+          - CI
+          - CL
+          - CN
+          - CO
+          - CR
+          - CS
+          - CT
+          - CZ
+          - EE
+          - EN
+          - FC
+          - FE
+          - FG
+          - FI
+          - FM
+          - FO
+          - FR
+          - FU
+          - GE
+          - GO
+          - GR
+          - IM
+          - IS
+          - KR
+          - LC
+          - LE
+          - LI
+          - LO
+          - LT
+          - LU
+          - MB
+          - MC
+          - ME
+          - MI
+          - MN
+          - MO
+          - MS
+          - MT
+          - MZ
+          - NA
+          - 'NO'
+          - NU
+          - OG
+          - OR
+          - OT
+          - PA
+          - PC
+          - PD
+          - PE
+          - PG
+          - PI
+          - PL
+          - PN
+          - PO
+          - PR
+          - PT
+          - PU
+          - PV
+          - PZ
+          - RA
+          - RC
+          - RE
+          - RG
+          - RI
+          - RM
+          - RN
+          - RO
+          - SA
+          - SI
+          - SO
+          - SP
+          - SR
+          - SS
+          - SU
+          - SV
+          - TA
+          - TE
+          - TN
+          - TO
+          - TP
+          - TR
+          - TS
+          - TV
+          - UD
+          - VA
+          - VB
+          - VC
+          - VE
+          - VI
+          - VR
+          - VS
+          - VT
+          - VV
+          description: Province
+          example: AG
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/9aad552c-8be9-1c6a-4243-4a2f1b643d3e/BirthProvince.pdf
+            description: From this provided list. Only if a resident of Italy
+      required:
+      - country
+      description: Address of the representative
+    CreateOnboardingCompanyRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: UUID of the previously created account
+          example: ACC123456789
+        redirectUrl:
+          type: string
+          description: URL to which the user will be redirected after completing onboarding
+          example: https://www.lemonway.com/
+        legalEntity:
+          $ref: '#/components/schemas/CompanyLegalEntity'
+        legalRepresentative:
+          $ref: '#/components/schemas/CompanyLegalRepresentative'
+        ubos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ubo'
+      required:
+      - accountId
+      - legalEntity
+      - legalRepresentative
+    SoleTraderLegalEntity:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Full legal name of the entity
+          example: Globex Corporation
+        registrationNumber:
+          type: string
+          description: Official company registration number
+          example: 50JoRegistrationDOUBLON
+        registrationDate:
+          format: date-time
+          type: string
+          description: Date of company registration (ISO 8601)
+          example: '2014-09-25'
+        vatNumber:
+          type: string
+          description: VAT registration number
+          example: X9F7G8H2K1
+        website:
+          type: string
+          description: Company website URL
+          example: alice.biz
+        noWebsiteReason:
+          type: string
+        legalForm:
+          type: string
+          enum:
+          - SOLE_TRADER
+          - SELF_EMPLOYED
+          - LEGAL_ENTITY_UNDER_FOREIGN_LAW_REGISTERED_WITH_THE_RCS
+          - ANSTALT
+          - LEGAL_ENTITY_UNDER_FOREIGN_LAW_NOT_REGISTERED_WITH_THE_RCS
+          - CONDOMINIUM
+          - INDIVISION_CO_OWNERSHIP
+          - DE_FACTO_COMPANY
+          - PARTNERSHIP
+          - TRUSTS
+          - OTHER_PRIVATE_LAW_GROUPING_NOT_ENDOWED_WITH_LEGAL_PERSONALITY
+          - SPECIAL_COMMERCIAL_COOPERATIVE_COMPANY
+          - GENERAL_PARTNERSHIP
+          - LIMITED_PARTNERSHIP
+          - LIMITED_LIABILITY_COMPANY
+          - PROFESSIONAL_LIMITED_LIABILITY_COMPANY
+          - PUBLIC_LIMITED_COMPANY_WITH_BOARD_OF_DIRECTORS
+          - PUBLIC_LIMITED_COMPANY_WITH_MANAGEMENT_BOARD
+          - SIMPLIFIED_JOINT_STOCK_COMPANY
+          - FINANCIAL_PARTICIPATION_COMPANY_OF_LIBERAL_PROFESSIONS
+          - PROFESSIONAL_COMPANY_WITH_SIMPLIFIED_JOINT_STOCK_STRUCTURE
+          - EUROPEAN_COMPANY
+          - SAVINGS_AND_PROVIDENT_FUND
+          - COLLECTIVE_INVESTMENT_SCHEME_IN_SECURITIES_WITHOUT_LEGAL_PERSONALITY
+          - MUTUAL_INSURANCE_COMPANY
+          - ECONOMIC_INTEREST_GROUP
+          - AGRICULTURAL_COOPERATIVE
+          - FOUNDATION_STICHTING
+          - COLLECTIVE_INVESTMENT_SCHEME
+          - AGRICULTURAL_COLLECTIVE_INTEREST_COMPANY
+          - REAL_ESTATE_COMPANY
+          - REAL_ESTATE_CIVIL_COMPANY
+          - REAL_ESTATE_CONSTRUCTION_AND_SALE_CIVIL_COMPANY
+          - ALLOCATION_CIVIL_COMPANY
+          - PROGRESSIVE_PROPERTY_ACCESS_REAL_ESTATE_CIVIL_COMPANY
+          - COOPERATIVE_CIVIL_CONSTRUCTION_COMPANY
+          - COOPERATIVE_CIVIL_CONSUMPTION_COMPANY
+          - COOPERATIVE_CIVIL_MARITIME_INTEREST_COMPANY
+          - COOPERATIVE_CIVIL_COMPANY_AMONG_DOCTORS
+          - OTHER_COOPERATIVE_CIVIL_COMPANY
+          - PROFESSIONAL_CIVIL_COMPANY
+          - PUBLIC_INSTITUTION_OR_INDUSTRIAL_AND_COMMERCIAL_ENTITY
+          - STATE_ADMINISTRATION
+          - TERRITORIAL_AUTHORITY
+          - ADMINISTRATIVE_PUBLIC_INSTITUTION
+          - PUBLIC_OFFICE_FOR_LOW_COST_HOUSING
+          - LOCAL_CULTURAL_PUBLIC_INSTITUTION
+          - ORGANIZATION_MANAGING_COMPULSORY_MEMBERSHIP_SOCIAL_PROTECTION_SYSTEM
+          - MUTUAL_ORGANIZATION
+          - WORKS_COUNCIL
+          - EMPLOYEE_UNION
+          - EMPLOYERS_UNION
+          - PROFESSIONAL_ORDER_OR_EQUIVALENT
+          description: Legal form of the entity (e.g., SAS, SARL)
+          example: SAS
+        taxCode:
+          type: string
+        activity:
+          $ref: '#/components/schemas/Activity'
+        project:
+          $ref: '#/components/schemas/LegalEntityProject'
+      required:
+      - name
+      description: Legal entity details (see nested bodyParams below)
+    ProfessionalSituation:
+      type: object
+      properties:
+        activity:
+          type: string
+          enum:
+          - '1000'
+          - '2000'
+          - '3000'
+          - '4000'
+          - '5000'
+          - '6000'
+          - '0000'
+          - '8100'
+          - '8300'
+          - '8400'
+          - '8500'
+          - '8600'
+          - '1'
+          - '23'
+          - '21'
+          - '22'
+          - '31'
+          - 33A
+          - 33B
+          - 33C
+          - 33D
+          - 33E
+          - '34'
+          - 35A
+          - 35B
+          - 35C
+          - 35D
+          - '37'
+          - 38A
+          - 38B
+          - 38C
+          - 38D
+          - 38E
+          - 38F
+          - 38G
+          - 42A
+          - 42B
+          - 42C
+          - 43A
+          - 43B
+          - 43C
+          - 43D
+          - 44A
+          - '45'
+          - 46A
+          - 46B
+          - 46C
+          - 46D
+          - 46E
+          - 46F
+          - 46G
+          - '47'
+          - '48'
+          - 52A
+          - 52B
+          - 52C
+          - 53A
+          - 53B
+          - 53C
+          - 53D
+          - '54'
+          - '55'
+          - 56A
+          - 56B
+          - 56C
+          - 56D
+          - 56E
+          - 56F
+          - '62'
+          - '63'
+          - '65'
+          - '66'
+          - '67'
+          - '68'
+          - '69'
+          description: ProfessionalActivity
+          example: '85.31'
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/95eaed94-95cf-e025-bf47-36019194b212/IND_ProfessionalSituation.pdf
+            description: 'Categories: Professional activity, Non-professional activity, Retired. Complete list of'
+    AssociationLegalEntity:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Full legal name of the entity
+          example: Globex Corporation
+        registrationNumber:
+          type: string
+          description: Official company registration number
+          example: 50JoRegistrationDOUBLON
+        registrationDate:
+          format: date-time
+          type: string
+          description: Date of company registration (ISO 8601)
+          example: '2014-09-25'
+        vatNumber:
+          type: string
+          description: VAT registration number
+          example: X9F7G8H2K1
+        website:
+          type: string
+          description: Company website URL
+          example: alice.biz
+        noWebsiteReason:
+          type: string
+        legalForm:
+          type: string
+          enum:
+          - NON_PROFIT_ORGANIZATION
+          - ASSOCIATION_UNDER_LOCAL_LAW
+          - FREE_TRADE_ASSOCIATION
+          - CHURCH_CHARITY_CONGREGATION
+          description: Legal form of the entity (e.g., SAS, SARL)
+          example: SAS
+        taxCode:
+          type: string
+        address:
+          $ref: '#/components/schemas/OnboardingAddress'
+        activity:
+          $ref: '#/components/schemas/AssociationActivity'
+        project:
+          $ref: '#/components/schemas/LegalEntityProject'
+        financialSituation:
+          $ref: '#/components/schemas/LegalEntityFinancialSituation'
+      required:
+      - name
+      - registrationDate
+      - address
+      description: Legal entity details (see nested bodyParams below)
+    Location:
+      type: object
+      properties:
+        sameAddressAsCompanyRegistration:
+          type: boolean
+        address:
+          $ref: '#/components/schemas/OnboardingAddress'
+      required:
+      - sameAddressAsCompanyRegistration
+    SoleTraderLegalRepresentative:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the legal representative
+          example: Johns
+        lastName:
+          type: string
+          description: Last name of the legal representative
+          example: Aimar
+        otherName:
+          type: string
+        birthDate:
+          type: string
+          description: Date of birth (ISO 8601 format)
+          example: '1985-04-12'
+        birthCity:
+          type: string
+        birthCountry:
+          type: string
+          description: Country of birth (ISO 2-letter code)
+          example: IT
+        birthProvince:
+          type: string
+          enum:
+          - AG
+          - AL
+          - AN
+          - AO
+          - AP
+          - AQ
+          - AR
+          - AT
+          - AV
+          - BA
+          - BG
+          - BI
+          - BL
+          - BN
+          - BO
+          - BR
+          - BS
+          - BT
+          - BZ
+          - CA
+          - CB
+          - CE
+          - CH
+          - CI
+          - CL
+          - CN
+          - CO
+          - CR
+          - CS
+          - CT
+          - CZ
+          - EE
+          - EN
+          - FC
+          - FE
+          - FG
+          - FI
+          - FM
+          - FO
+          - FR
+          - FU
+          - GE
+          - GO
+          - GR
+          - IM
+          - IS
+          - KR
+          - LC
+          - LE
+          - LI
+          - LO
+          - LT
+          - LU
+          - MB
+          - MC
+          - ME
+          - MI
+          - MN
+          - MO
+          - MS
+          - MT
+          - MZ
+          - NA
+          - 'NO'
+          - NU
+          - OG
+          - OR
+          - OT
+          - PA
+          - PC
+          - PD
+          - PE
+          - PG
+          - PI
+          - PL
+          - PN
+          - PO
+          - PR
+          - PT
+          - PU
+          - PV
+          - PZ
+          - RA
+          - RC
+          - RE
+          - RG
+          - RI
+          - RM
+          - RN
+          - RO
+          - SA
+          - SI
+          - SO
+          - SP
+          - SR
+          - SS
+          - SU
+          - SV
+          - TA
+          - TE
+          - TN
+          - TO
+          - TP
+          - TR
+          - TS
+          - TV
+          - UD
+          - VA
+          - VB
+          - VC
+          - VE
+          - VI
+          - VR
+          - VS
+          - VT
+          - VV
+        nationalities:
+          type: array
+          items:
+            type: string
+          description: List of nationality codes (ISO 2-letter)
+          example: '["IT"]'
+        email:
+          type: string
+          description: Email address of the representative
+          example: claire.marchesi@example.com
+        phoneNumber:
+          type: string
+          description: Phone number of the representative
+          example: '+336149568'
+        taxCode:
+          type: string
+        address:
+          $ref: '#/components/schemas/OnboardingAddress'
+        politicalExposure:
+          $ref: '#/components/schemas/PoliticalExposure'
+        financialSituation:
+          $ref: '#/components/schemas/FinancialSituation'
+      required:
+      - firstName
+      - lastName
+      - birthDate
+      - birthCountry
+      - nationalities
+      - email
+      - address
+      description: Legal representative details (see nested bodyParams below)
+    CompanyActivity:
+      type: object
+      properties:
+        NACEcode:
+          type: string
+          enum:
+          - '1.11'
+          - '1.12'
+          - '1.13'
+          - '1.14'
+          - '1.15'
+          - '1.16'
+          - '1.19'
+          - '1.21'
+          - '1.22'
+          - '1.23'
+          - '1.24'
+          - '1.25'
+          - '1.26'
+          - '1.27'
+          - '1.28'
+          - '1.29'
+          - '1.3'
+          - '1.41'
+          - '1.42'
+          - '1.43'
+          - '1.44'
+          - '1.45'
+          - '1.46'
+          - '1.47'
+          - '1.49'
+          - '1.5'
+          - '1.61'
+          - '1.62'
+          - '1.63'
+          - '1.64'
+          - '1.7'
+          - '2.1'
+          - '2.2'
+          - '2.3'
+          - '2.4'
+          - '3.11'
+          - '3.12'
+          - '3.21'
+          - '3.22'
+          - '5.1'
+          - '5.2'
+          - '6.1'
+          - '6.2'
+          - '7.1'
+          - '7.21'
+          - '7.29'
+          - '8.11'
+          - '8.12'
+          - '8.91'
+          - '8.92'
+          - '8.93'
+          - '8.99'
+          - '9.1'
+          - '9.9'
+          - '10.11'
+          - '10.12'
+          - '10.13'
+          - '10.2'
+          - '10.31'
+          - '10.32'
+          - '10.39'
+          - '10.41'
+          - '10.42'
+          - '10.51'
+          - '10.52'
+          - '10.61'
+          - '10.62'
+          - '10.71'
+          - '10.72'
+          - '10.73'
+          - '10.81'
+          - '10.82'
+          - '10.83'
+          - '10.84'
+          - '10.85'
+          - '10.86'
+          - '10.89'
+          - '10.91'
+          - '10.92'
+          - '11.01'
+          - '11.02'
+          - '11.03'
+          - '11.04'
+          - '11.05'
+          - '11.06'
+          - '11.07'
+          - '12'
+          - '13.1'
+          - '13.2'
+          - '13.3'
+          - '13.91'
+          - '13.92'
+          - '13.93'
+          - '13.94'
+          - '13.95'
+          - '13.96'
+          - '13.99'
+          - '14.11'
+          - '14.12'
+          - '14.13'
+          - '14.14'
+          - '14.19'
+          - '14.2'
+          - '14.31'
+          - '14.39'
+          - '15.11'
+          - '15.12'
+          - '15.2'
+          - '16.1'
+          - '16.21'
+          - '16.22'
+          - '16.23'
+          - '16.24'
+          - '16.29'
+          - '17.11'
+          - '17.12'
+          - '17.21'
+          - '17.22'
+          - '17.23'
+          - '17.24'
+          - '17.29'
+          - '18.11'
+          - '18.12'
+          - '18.13'
+          - '18.14'
+          - '18.2'
+          - '19.1'
+          - '19.2'
+          - '20.11'
+          - '20.12'
+          - '20.13'
+          - '20.14'
+          - '20.15'
+          - '20.16'
+          - '20.17'
+          - '20.2'
+          - '20.3'
+          - '20.41'
+          - '20.42'
+          - '20.51'
+          - '20.52'
+          - '20.53'
+          - '20.59'
+          - '20.6'
+          - '21.1'
+          - '21.2'
+          - '22.11'
+          - '22.19'
+          - '22.21'
+          - '22.22'
+          - '22.23'
+          - '22.29'
+          - '23.11'
+          - '23.12'
+          - '23.13'
+          - '23.14'
+          - '23.19'
+          - '23.2'
+          - '23.31'
+          - '23.32'
+          - '23.41'
+          - '23.42'
+          - '23.43'
+          - '23.44'
+          - '23.49'
+          - '23.51'
+          - '23.52'
+          - '23.61'
+          - '23.62'
+          - '23.63'
+          - '23.64'
+          - '23.65'
+          - '23.69'
+          - '23.7'
+          - '23.91'
+          - '23.99'
+          - '24.1'
+          - '24.2'
+          - '24.31'
+          - '24.32'
+          - '24.33'
+          - '24.34'
+          - '24.41'
+          - '24.42'
+          - '24.43'
+          - '24.44'
+          - '24.45'
+          - '24.46'
+          - '24.51'
+          - '24.52'
+          - '24.53'
+          - '24.54'
+          - '25.11'
+          - '25.12'
+          - '25.21'
+          - '25.29'
+          - '25.3'
+          - '25.4'
+          - '25.5'
+          - '25.61'
+          - '25.62'
+          - '25.71'
+          - '25.72'
+          - '25.73'
+          - '25.91'
+          - '25.92'
+          - '25.93'
+          - '25.94'
+          - '25.99'
+          - '26.11'
+          - '26.12'
+          - '26.2'
+          - '26.3'
+          - '26.4'
+          - '26.51'
+          - '26.52'
+          - '26.6'
+          - '26.7'
+          - '26.8'
+          - '27.11'
+          - '27.12'
+          - '27.2'
+          - '27.31'
+          - '27.32'
+          - '27.33'
+          - '27.4'
+          - '27.51'
+          - '27.52'
+          - '27.9'
+          - '28.11'
+          - '28.12'
+          - '28.13'
+          - '28.14'
+          - '28.15'
+          - '28.21'
+          - '28.22'
+          - '28.23'
+          - '28.24'
+          - '28.25'
+          - '28.29'
+          - '28.3'
+          - '28.41'
+          - '28.49'
+          - '28.91'
+          - '28.92'
+          - '28.93'
+          - '28.94'
+          - '28.95'
+          - '28.96'
+          - '28.99'
+          - '29.1'
+          - '29.2'
+          - '29.31'
+          - '29.32'
+          - '30.11'
+          - '30.12'
+          - '30.2'
+          - '30.3'
+          - '30.4'
+          - '30.91'
+          - '30.92'
+          - '30.99'
+          - '31.01'
+          - '31.02'
+          - '31.03'
+          - '31.09'
+          - '32.11'
+          - '32.12'
+          - '32.13'
+          - '32.2'
+          - '32.3'
+          - '32.4'
+          - '32.5'
+          - '32.91'
+          - '32.99'
+          - '33.11'
+          - '33.12'
+          - '33.13'
+          - '33.14'
+          - '33.15'
+          - '33.16'
+          - '33.17'
+          - '33.19'
+          - '33.2'
+          - '35.11'
+          - '35.12'
+          - '35.13'
+          - '35.14'
+          - '35.21'
+          - '35.22'
+          - '35.23'
+          - '35.3'
+          - '36'
+          - '37'
+          - '38.11'
+          - '38.12'
+          - '38.21'
+          - '38.22'
+          - '38.31'
+          - '38.32'
+          - '39'
+          - '41.1'
+          - '41.2'
+          - '42.11'
+          - '42.12'
+          - '42.13'
+          - '42.21'
+          - '42.22'
+          - '42.91'
+          - '42.99'
+          - '43.11'
+          - '43.12'
+          - '43.13'
+          - '43.21'
+          - '43.22'
+          - '43.29'
+          - '43.31'
+          - '43.32'
+          - '43.33'
+          - '43.34'
+          - '43.39'
+          - '43.91'
+          - '43.99'
+          - '45.11'
+          - '45.19'
+          - '45.2'
+          - '45.31'
+          - '45.32'
+          - '45.4'
+          - '46.11'
+          - '46.12'
+          - '46.13'
+          - '46.14'
+          - '46.15'
+          - '46.16'
+          - '46.17'
+          - '46.18'
+          - '46.19'
+          - '46.21'
+          - '46.22'
+          - '46.23'
+          - '46.24'
+          - '46.31'
+          - '46.32'
+          - '46.33'
+          - '46.34'
+          - '46.35'
+          - '46.36'
+          - '46.37'
+          - '46.38'
+          - '46.39'
+          - '46.41'
+          - '46.42'
+          - '46.43'
+          - '46.44'
+          - '46.45'
+          - '46.46'
+          - '46.47'
+          - '46.48'
+          - '46.49'
+          - '46.51'
+          - '46.52'
+          - '46.61'
+          - '46.62'
+          - '46.63'
+          - '46.64'
+          - '46.65'
+          - '46.66'
+          - '46.69'
+          - '46.71'
+          - '46.72'
+          - '46.73'
+          - '46.74'
+          - '46.75'
+          - '46.76'
+          - '46.77'
+          - '46.9'
+          - '47.11'
+          - '47.19'
+          - '47.21'
+          - '47.22'
+          - '47.23'
+          - '47.24'
+          - '47.25'
+          - '47.26'
+          - '47.29'
+          - '47.3'
+          - '47.41'
+          - '47.42'
+          - '47.43'
+          - '47.51'
+          - '47.52'
+          - '47.53'
+          - '47.54'
+          - '47.59'
+          - '47.61'
+          - '47.62'
+          - '47.63'
+          - '47.64'
+          - '47.65'
+          - '47.71'
+          - '47.72'
+          - '47.73'
+          - '47.74'
+          - '47.75'
+          - '47.76'
+          - '47.77'
+          - '47.78'
+          - '47.79'
+          - '47.81'
+          - '47.82'
+          - '47.89'
+          - '47.91'
+          - '47.99'
+          - '49.1'
+          - '49.2'
+          - '49.31'
+          - '49.32'
+          - '49.39'
+          - '49.41'
+          - '49.42'
+          - '49.5'
+          - '50.1'
+          - '50.2'
+          - '50.3'
+          - '50.4'
+          - '51.1'
+          - '51.21'
+          - '51.22'
+          - '52.1'
+          - '52.21'
+          - '52.22'
+          - '52.23'
+          - '52.24'
+          - '52.29'
+          - '53.1'
+          - '53.2'
+          - '55.1'
+          - '55.2'
+          - '55.3'
+          - '55.9'
+          - '56.1'
+          - '56.21'
+          - '56.29'
+          - '56.3'
+          - '58.11'
+          - '58.12'
+          - '58.13'
+          - '58.14'
+          - '58.19'
+          - '58.21'
+          - '58.29'
+          - '59.11'
+          - '59.12'
+          - '59.13'
+          - '59.14'
+          - '59.2'
+          - '60.1'
+          - '60.2'
+          - '61.1'
+          - '61.2'
+          - '61.3'
+          - '61.9'
+          - '62.01'
+          - '62.02'
+          - '62.03'
+          - '62.09'
+          - '63.11'
+          - '63.12'
+          - '63.9'
+          - '63.91'
+          - '63.99'
+          - '64'
+          - '64.11'
+          - '64.19'
+          - '64.2'
+          - '64.3'
+          - '64.9'
+          - '64.91'
+          - '64.92'
+          - '64.99'
+          - '65.11'
+          - '65.12'
+          - '65.2'
+          - '65.3'
+          - '66.11'
+          - '66.12'
+          - '66.19'
+          - '66.21'
+          - '66.22'
+          - '66.3'
+          - '68.1'
+          - '68.2'
+          - '68.31'
+          - '68.32'
+          - '69.1'
+          - '69.2'
+          - '70.1'
+          - '70.21'
+          - '70.22'
+          - '71.11'
+          - '71.12'
+          - '71.2'
+          - '72.11'
+          - '72.19'
+          - '72.2'
+          - '73.11'
+          - '73.12'
+          - '73.2'
+          - '74.1'
+          - '74.2'
+          - '74.3'
+          - '74.9'
+          - '77.11'
+          - '77.12'
+          - '77.21'
+          - '77.22'
+          - '77.29'
+          - '77.31'
+          - '77.32'
+          - '77.33'
+          - '77.34'
+          - '77.35'
+          - '77.39'
+          - '77.4'
+          - '78.1'
+          - '78.2'
+          - '78.3'
+          - '79.1'
+          - '79.11'
+          - '79.12'
+          - '79.9'
+          - '80'
+          - '80.1'
+          - '80.2'
+          - '80.3'
+          - '81'
+          - '81.1'
+          - '81.2'
+          - '81.21'
+          - '81.22'
+          - '81.29'
+          - '81.3'
+          - '82.1'
+          - '82.11'
+          - '82.19'
+          - '82.2'
+          - '82.3'
+          - '82.91'
+          - '82.92'
+          - '82.99'
+          - '84.11'
+          - '84.12'
+          - '84.13'
+          - '84.21'
+          - '84.22'
+          - '84.23'
+          - '84.24'
+          - '84.25'
+          - '84.3'
+          - '85.1'
+          - '85.2'
+          - '85.31'
+          - '85.32'
+          - '85.51'
+          - '85.52'
+          - '85.53'
+          - '85.59'
+          - '85.6'
+          - '86.1'
+          - '86.21'
+          - '86.22'
+          - '86.23'
+          - '86.9'
+          - '87.1'
+          - '87.2'
+          - '87.3'
+          - '87.9'
+          - '88.1'
+          - '88.91'
+          - '88.99'
+          - '90.01'
+          - '90.02'
+          - '90.03'
+          - '90.04'
+          - '91.01'
+          - '91.02'
+          - '91.03'
+          - '91.04'
+          - '92'
+          - '93.11'
+          - '93.12'
+          - '93.13'
+          - '93.19'
+          - '93.21'
+          - '93.29'
+          - '94.11'
+          - '94.12'
+          - '94.2'
+          - '94.91'
+          - '94.92'
+          - '94.99'
+          - '95.11'
+          - '95.12'
+          - '95.21'
+          - '95.22'
+          - '95.23'
+          - '95.24'
+          - '95.25'
+          - '95.29'
+          - '96.01'
+          - '96.02'
+          - '96.03'
+          - '96.04'
+          - '96.09'
+          - '97'
+          - '98.1'
+          - '98.2'
+          - '99'
+          description: NACEcode
+          example: 62.01Z
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/eed5e2fd-36cc-7973-d5d2-ca1e9dea8909/LegalEntity_NACECode.csv
+            description: From this provided list.
+        ATECOcode:
+          type: string
+          enum:
+          - '011'
+          - '012'
+          - '013'
+          - '014'
+          - '015'
+          - '016'
+          - '017'
+          - '021'
+          - '022'
+          - '023'
+          - '024'
+          - '031'
+          - '032'
+          - '051'
+          - '052'
+          - '061'
+          - '062'
+          - '071'
+          - '072'
+          - 081
+          - 089
+          - 091
+          - 099
+          - '101'
+          - '102'
+          - '103'
+          - '104'
+          - '105'
+          - '106'
+          - '107'
+          - '108'
+          - '109'
+          - '110'
+          - '120'
+          - '131'
+          - '132'
+          - '133'
+          - '139'
+          - '141'
+          - '142'
+          - '143'
+          - '151'
+          - '152'
+          - '161'
+          - '162'
+          - '171'
+          - '172'
+          - '181'
+          - '182'
+          - '191'
+          - '192'
+          - '201'
+          - '202'
+          - '203'
+          - '204'
+          - '205'
+          - '206'
+          - '211'
+          - '212'
+          - '221'
+          - '222'
+          - '231'
+          - '232'
+          - '233'
+          - '234'
+          - '235'
+          - '236'
+          - '237'
+          - '239'
+          - '241'
+          - '242'
+          - '243'
+          - '244'
+          - '245'
+          - '251'
+          - '252'
+          - '253'
+          - '254'
+          - '255'
+          - '256'
+          - '257'
+          - '259'
+          - '261'
+          - '262'
+          - '263'
+          - '264'
+          - '265'
+          - '266'
+          - '267'
+          - '268'
+          - '271'
+          - '272'
+          - '273'
+          - '274'
+          - '275'
+          - '279'
+          - '281'
+          - '282'
+          - '283'
+          - '284'
+          - '289'
+          - '291'
+          - '292'
+          - '293'
+          - '301'
+          - '302'
+          - '303'
+          - '304'
+          - '309'
+          - '310'
+          - '321'
+          - '322'
+          - '323'
+          - '324'
+          - '325'
+          - '329'
+          - '331'
+          - '332'
+          - '351'
+          - '352'
+          - '353'
+          - '360'
+          - '370'
+          - '381'
+          - '382'
+          - '383'
+          - '390'
+          - '411'
+          - '412'
+          - '421'
+          - '422'
+          - '429'
+          - '431'
+          - '432'
+          - '433'
+          - '439'
+          - '451'
+          - '452'
+          - '453'
+          - '454'
+          - '461'
+          - '462'
+          - '463'
+          - '464'
+          - '465'
+          - '466'
+          - '467'
+          - '469'
+          - '471'
+          - '472'
+          - '473'
+          - '474'
+          - '475'
+          - '476'
+          - '477'
+          - '478'
+          - '479'
+          - '491'
+          - '492'
+          - '493'
+          - '494'
+          - '495'
+          - '501'
+          - '502'
+          - '503'
+          - '504'
+          - '511'
+          - '512'
+          - '521'
+          - '522'
+          - '531'
+          - '532'
+          - '551'
+          - '552'
+          - '553'
+          - '559'
+          - '561'
+          - '562'
+          - '563'
+          - '581'
+          - '582'
+          - '591'
+          - '592'
+          - '601'
+          - '602'
+          - '611'
+          - '612'
+          - '613'
+          - '619'
+          - '620'
+          - '631'
+          - '639'
+          - '641'
+          - '642'
+          - '643'
+          - '649'
+          - '651'
+          - '652'
+          - '653'
+          - '661'
+          - '662'
+          - '663'
+          - '681'
+          - '682'
+          - '683'
+          - '691'
+          - '692'
+          - '701'
+          - '702'
+          - '711'
+          - '712'
+          - '721'
+          - '722'
+          - '731'
+          - '732'
+          - '741'
+          - '742'
+          - '743'
+          - '749'
+          - '750'
+          - '771'
+          - '772'
+          - '773'
+          - '774'
+          - '781'
+          - '782'
+          - '783'
+          - '791'
+          - '799'
+          - '801'
+          - '802'
+          - '803'
+          - '811'
+          - '812'
+          - '813'
+          - '821'
+          - '822'
+          - '823'
+          - '829'
+          - '841'
+          - '842'
+          - '843'
+          - '851'
+          - '852'
+          - '853'
+          - '854'
+          - '855'
+          - '856'
+          - '861'
+          - '862'
+          - '869'
+          - '871'
+          - '872'
+          - '873'
+          - '879'
+          - '881'
+          - '889'
+          - '900'
+          - '910'
+          - '920'
+          - '931'
+          - '932'
+          - '941'
+          - '942'
+          - '949'
+          - '951'
+          - '952'
+          - '960'
+          - '970'
+          - '981'
+          - '982'
+          - '990'
+          description: ATECOcode
+          example: 62.01.00
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/6b926f08-3686-7265-371b-c89738cdfde7/LegalEntity_ATECOCode.csv
+            description: From this provided list.
+        description:
+          type: string
+          example: Delivering cutting-edge payment solutions
+        fundsDestinationCountries:
+          $ref: '#/components/schemas/FundsDestinationCountries'
+        location:
+          $ref: '#/components/schemas/Location'
+        SAEcode:
+          type: string
+          enum:
+          - '100'
+          - '101'
+          - '102'
+          - '120'
+          - '121'
+          - '165'
+          - '166'
+          - '167'
+          - '173'
+          - '174'
+          - '175'
+          - '176'
+          - '177'
+          - '178'
+          - '191'
+          - '245'
+          - '247'
+          - '248'
+          - '249'
+          - '250'
+          - '251'
+          - '257'
+          - '258'
+          - '259'
+          - '263'
+          - '264'
+          - '265'
+          - '266'
+          - '267'
+          - '268'
+          - '269'
+          - '270'
+          - '273'
+          - '274'
+          - '278'
+          - '279'
+          - '280'
+          - '283'
+          - '284'
+          - '285'
+          - '289'
+          - '290'
+          - '294'
+          - '295'
+          - '296'
+          - '300'
+          - '329'
+          - '430'
+          - '432'
+          - '450'
+          - '475'
+          - '476'
+          - '477'
+          - '480'
+          - '481'
+          - '482'
+          - '490'
+          - '491'
+          - '492'
+          - '500'
+          - '501'
+          - '551'
+          - '552'
+          - '600'
+          - '614'
+          - '615'
+          - '704'
+          - '705'
+          - '706'
+          - '707'
+          - '708'
+          - '709'
+          - '713'
+          - '714'
+          - '715'
+          - '717'
+          - '718'
+          - '719'
+          - '723'
+          - '724'
+          - '725'
+          - '726'
+          - '727'
+          - '728'
+          - '729'
+          - '753'
+          - '754'
+          - '755'
+          - '756'
+          - '757'
+          - '758'
+          - '759'
+          - '763'
+          - '764'
+          - '765'
+          - '766'
+          - '767'
+          - '768'
+          - '769'
+          - '770'
+          - '771'
+          - '772'
+          - '773'
+          - '774'
+          - '775'
+          - '776'
+          - '778'
+          - '779'
+          - '782'
+          - '783'
+          - '784'
+          - '785'
+          - '790'
+          - '791'
+          - '794'
+          - '800'
+          - '801'
+          - '802'
+          - '803'
+          - '804'
+          - '805'
+          - '806'
+          - '807'
+          - '808'
+          - '809'
+          description: SAEcode
+          example: '6201'
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/01cfc503-8f24-b146-a10a-6e4f40669b32/LegalEntity_SAECode.csv
+            description: From this provided list.
+      description: Activity and business scope details
+    OnboardingProject:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - WEDDING
+          - FAREWELL
+          - NEW_BORN
+          - BIRTHDAY
+          - CHARITY
+          - OTHER
+          - SALARY_ADVANCE
+          description: type
+          example: WEDDING
+        beneficiary:
+          $ref: '#/components/schemas/Beneficiary'
+        website:
+          type: string
+        description:
+          type: string
+        weddingRelation:
+          type: string
+          enum:
+          - BRIDE_GROOM
+          - OTHER
+          description: WeddingRelationType
+          example: BRIDE_GROOM
+        weddingPartnerFirstName:
+          type: string
+          description: Must be official person's name
+          example: Hector
+        weddingPartnerLastName:
+          type: string
+          description: Must be official person's name
+          example: EMPEREUR
+        salaryAdvanceReason:
+          $ref: '#/components/schemas/SalaryAdvanceReason'
+    CreateAssociationOnboardingRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: UUID of the previously created account
+          example: ACC123456789
+        redirectUrl:
+          type: string
+          description: URL to which the user will be redirected after completing onboarding
+          example: https://www.lemonway.com/
+        legalEntity:
+          $ref: '#/components/schemas/AssociationLegalEntity'
+        legalRepresentative:
+          $ref: '#/components/schemas/AssociationLegalRepresentative'
+      required:
+      - accountId
+      - legalEntity
+      - legalRepresentative
+    Activity:
+      type: object
+      properties:
+        NACEcode:
+          type: string
+          enum:
+          - '1.11'
+          - '1.12'
+          - '1.13'
+          - '1.14'
+          - '1.15'
+          - '1.16'
+          - '1.19'
+          - '1.21'
+          - '1.22'
+          - '1.23'
+          - '1.24'
+          - '1.25'
+          - '1.26'
+          - '1.27'
+          - '1.28'
+          - '1.29'
+          - '1.3'
+          - '1.41'
+          - '1.42'
+          - '1.43'
+          - '1.44'
+          - '1.45'
+          - '1.46'
+          - '1.47'
+          - '1.49'
+          - '1.5'
+          - '1.61'
+          - '1.62'
+          - '1.63'
+          - '1.64'
+          - '1.7'
+          - '2.1'
+          - '2.2'
+          - '2.3'
+          - '2.4'
+          - '3.11'
+          - '3.12'
+          - '3.21'
+          - '3.22'
+          - '5.1'
+          - '5.2'
+          - '6.1'
+          - '6.2'
+          - '7.1'
+          - '7.21'
+          - '7.29'
+          - '8.11'
+          - '8.12'
+          - '8.91'
+          - '8.92'
+          - '8.93'
+          - '8.99'
+          - '9.1'
+          - '9.9'
+          - '10.11'
+          - '10.12'
+          - '10.13'
+          - '10.2'
+          - '10.31'
+          - '10.32'
+          - '10.39'
+          - '10.41'
+          - '10.42'
+          - '10.51'
+          - '10.52'
+          - '10.61'
+          - '10.62'
+          - '10.71'
+          - '10.72'
+          - '10.73'
+          - '10.81'
+          - '10.82'
+          - '10.83'
+          - '10.84'
+          - '10.85'
+          - '10.86'
+          - '10.89'
+          - '10.91'
+          - '10.92'
+          - '11.01'
+          - '11.02'
+          - '11.03'
+          - '11.04'
+          - '11.05'
+          - '11.06'
+          - '11.07'
+          - '12'
+          - '13.1'
+          - '13.2'
+          - '13.3'
+          - '13.91'
+          - '13.92'
+          - '13.93'
+          - '13.94'
+          - '13.95'
+          - '13.96'
+          - '13.99'
+          - '14.11'
+          - '14.12'
+          - '14.13'
+          - '14.14'
+          - '14.19'
+          - '14.2'
+          - '14.31'
+          - '14.39'
+          - '15.11'
+          - '15.12'
+          - '15.2'
+          - '16.1'
+          - '16.21'
+          - '16.22'
+          - '16.23'
+          - '16.24'
+          - '16.29'
+          - '17.11'
+          - '17.12'
+          - '17.21'
+          - '17.22'
+          - '17.23'
+          - '17.24'
+          - '17.29'
+          - '18.11'
+          - '18.12'
+          - '18.13'
+          - '18.14'
+          - '18.2'
+          - '19.1'
+          - '19.2'
+          - '20.11'
+          - '20.12'
+          - '20.13'
+          - '20.14'
+          - '20.15'
+          - '20.16'
+          - '20.17'
+          - '20.2'
+          - '20.3'
+          - '20.41'
+          - '20.42'
+          - '20.51'
+          - '20.52'
+          - '20.53'
+          - '20.59'
+          - '20.6'
+          - '21.1'
+          - '21.2'
+          - '22.11'
+          - '22.19'
+          - '22.21'
+          - '22.22'
+          - '22.23'
+          - '22.29'
+          - '23.11'
+          - '23.12'
+          - '23.13'
+          - '23.14'
+          - '23.19'
+          - '23.2'
+          - '23.31'
+          - '23.32'
+          - '23.41'
+          - '23.42'
+          - '23.43'
+          - '23.44'
+          - '23.49'
+          - '23.51'
+          - '23.52'
+          - '23.61'
+          - '23.62'
+          - '23.63'
+          - '23.64'
+          - '23.65'
+          - '23.69'
+          - '23.7'
+          - '23.91'
+          - '23.99'
+          - '24.1'
+          - '24.2'
+          - '24.31'
+          - '24.32'
+          - '24.33'
+          - '24.34'
+          - '24.41'
+          - '24.42'
+          - '24.43'
+          - '24.44'
+          - '24.45'
+          - '24.46'
+          - '24.51'
+          - '24.52'
+          - '24.53'
+          - '24.54'
+          - '25.11'
+          - '25.12'
+          - '25.21'
+          - '25.29'
+          - '25.3'
+          - '25.4'
+          - '25.5'
+          - '25.61'
+          - '25.62'
+          - '25.71'
+          - '25.72'
+          - '25.73'
+          - '25.91'
+          - '25.92'
+          - '25.93'
+          - '25.94'
+          - '25.99'
+          - '26.11'
+          - '26.12'
+          - '26.2'
+          - '26.3'
+          - '26.4'
+          - '26.51'
+          - '26.52'
+          - '26.6'
+          - '26.7'
+          - '26.8'
+          - '27.11'
+          - '27.12'
+          - '27.2'
+          - '27.31'
+          - '27.32'
+          - '27.33'
+          - '27.4'
+          - '27.51'
+          - '27.52'
+          - '27.9'
+          - '28.11'
+          - '28.12'
+          - '28.13'
+          - '28.14'
+          - '28.15'
+          - '28.21'
+          - '28.22'
+          - '28.23'
+          - '28.24'
+          - '28.25'
+          - '28.29'
+          - '28.3'
+          - '28.41'
+          - '28.49'
+          - '28.91'
+          - '28.92'
+          - '28.93'
+          - '28.94'
+          - '28.95'
+          - '28.96'
+          - '28.99'
+          - '29.1'
+          - '29.2'
+          - '29.31'
+          - '29.32'
+          - '30.11'
+          - '30.12'
+          - '30.2'
+          - '30.3'
+          - '30.4'
+          - '30.91'
+          - '30.92'
+          - '30.99'
+          - '31.01'
+          - '31.02'
+          - '31.03'
+          - '31.09'
+          - '32.11'
+          - '32.12'
+          - '32.13'
+          - '32.2'
+          - '32.3'
+          - '32.4'
+          - '32.5'
+          - '32.91'
+          - '32.99'
+          - '33.11'
+          - '33.12'
+          - '33.13'
+          - '33.14'
+          - '33.15'
+          - '33.16'
+          - '33.17'
+          - '33.19'
+          - '33.2'
+          - '35.11'
+          - '35.12'
+          - '35.13'
+          - '35.14'
+          - '35.21'
+          - '35.22'
+          - '35.23'
+          - '35.3'
+          - '36'
+          - '37'
+          - '38.11'
+          - '38.12'
+          - '38.21'
+          - '38.22'
+          - '38.31'
+          - '38.32'
+          - '39'
+          - '41.1'
+          - '41.2'
+          - '42.11'
+          - '42.12'
+          - '42.13'
+          - '42.21'
+          - '42.22'
+          - '42.91'
+          - '42.99'
+          - '43.11'
+          - '43.12'
+          - '43.13'
+          - '43.21'
+          - '43.22'
+          - '43.29'
+          - '43.31'
+          - '43.32'
+          - '43.33'
+          - '43.34'
+          - '43.39'
+          - '43.91'
+          - '43.99'
+          - '45.11'
+          - '45.19'
+          - '45.2'
+          - '45.31'
+          - '45.32'
+          - '45.4'
+          - '46.11'
+          - '46.12'
+          - '46.13'
+          - '46.14'
+          - '46.15'
+          - '46.16'
+          - '46.17'
+          - '46.18'
+          - '46.19'
+          - '46.21'
+          - '46.22'
+          - '46.23'
+          - '46.24'
+          - '46.31'
+          - '46.32'
+          - '46.33'
+          - '46.34'
+          - '46.35'
+          - '46.36'
+          - '46.37'
+          - '46.38'
+          - '46.39'
+          - '46.41'
+          - '46.42'
+          - '46.43'
+          - '46.44'
+          - '46.45'
+          - '46.46'
+          - '46.47'
+          - '46.48'
+          - '46.49'
+          - '46.51'
+          - '46.52'
+          - '46.61'
+          - '46.62'
+          - '46.63'
+          - '46.64'
+          - '46.65'
+          - '46.66'
+          - '46.69'
+          - '46.71'
+          - '46.72'
+          - '46.73'
+          - '46.74'
+          - '46.75'
+          - '46.76'
+          - '46.77'
+          - '46.9'
+          - '47.11'
+          - '47.19'
+          - '47.21'
+          - '47.22'
+          - '47.23'
+          - '47.24'
+          - '47.25'
+          - '47.26'
+          - '47.29'
+          - '47.3'
+          - '47.41'
+          - '47.42'
+          - '47.43'
+          - '47.51'
+          - '47.52'
+          - '47.53'
+          - '47.54'
+          - '47.59'
+          - '47.61'
+          - '47.62'
+          - '47.63'
+          - '47.64'
+          - '47.65'
+          - '47.71'
+          - '47.72'
+          - '47.73'
+          - '47.74'
+          - '47.75'
+          - '47.76'
+          - '47.77'
+          - '47.78'
+          - '47.79'
+          - '47.81'
+          - '47.82'
+          - '47.89'
+          - '47.91'
+          - '47.99'
+          - '49.1'
+          - '49.2'
+          - '49.31'
+          - '49.32'
+          - '49.39'
+          - '49.41'
+          - '49.42'
+          - '49.5'
+          - '50.1'
+          - '50.2'
+          - '50.3'
+          - '50.4'
+          - '51.1'
+          - '51.21'
+          - '51.22'
+          - '52.1'
+          - '52.21'
+          - '52.22'
+          - '52.23'
+          - '52.24'
+          - '52.29'
+          - '53.1'
+          - '53.2'
+          - '55.1'
+          - '55.2'
+          - '55.3'
+          - '55.9'
+          - '56.1'
+          - '56.21'
+          - '56.29'
+          - '56.3'
+          - '58.11'
+          - '58.12'
+          - '58.13'
+          - '58.14'
+          - '58.19'
+          - '58.21'
+          - '58.29'
+          - '59.11'
+          - '59.12'
+          - '59.13'
+          - '59.14'
+          - '59.2'
+          - '60.1'
+          - '60.2'
+          - '61.1'
+          - '61.2'
+          - '61.3'
+          - '61.9'
+          - '62.01'
+          - '62.02'
+          - '62.03'
+          - '62.09'
+          - '63.11'
+          - '63.12'
+          - '63.9'
+          - '63.91'
+          - '63.99'
+          - '64'
+          - '64.11'
+          - '64.19'
+          - '64.2'
+          - '64.3'
+          - '64.9'
+          - '64.91'
+          - '64.92'
+          - '64.99'
+          - '65.11'
+          - '65.12'
+          - '65.2'
+          - '65.3'
+          - '66.11'
+          - '66.12'
+          - '66.19'
+          - '66.21'
+          - '66.22'
+          - '66.3'
+          - '68.1'
+          - '68.2'
+          - '68.31'
+          - '68.32'
+          - '69.1'
+          - '69.2'
+          - '70.1'
+          - '70.21'
+          - '70.22'
+          - '71.11'
+          - '71.12'
+          - '71.2'
+          - '72.11'
+          - '72.19'
+          - '72.2'
+          - '73.11'
+          - '73.12'
+          - '73.2'
+          - '74.1'
+          - '74.2'
+          - '74.3'
+          - '74.9'
+          - '77.11'
+          - '77.12'
+          - '77.21'
+          - '77.22'
+          - '77.29'
+          - '77.31'
+          - '77.32'
+          - '77.33'
+          - '77.34'
+          - '77.35'
+          - '77.39'
+          - '77.4'
+          - '78.1'
+          - '78.2'
+          - '78.3'
+          - '79.1'
+          - '79.11'
+          - '79.12'
+          - '79.9'
+          - '80'
+          - '80.1'
+          - '80.2'
+          - '80.3'
+          - '81'
+          - '81.1'
+          - '81.2'
+          - '81.21'
+          - '81.22'
+          - '81.29'
+          - '81.3'
+          - '82.1'
+          - '82.11'
+          - '82.19'
+          - '82.2'
+          - '82.3'
+          - '82.91'
+          - '82.92'
+          - '82.99'
+          - '84.11'
+          - '84.12'
+          - '84.13'
+          - '84.21'
+          - '84.22'
+          - '84.23'
+          - '84.24'
+          - '84.25'
+          - '84.3'
+          - '85.1'
+          - '85.2'
+          - '85.31'
+          - '85.32'
+          - '85.51'
+          - '85.52'
+          - '85.53'
+          - '85.59'
+          - '85.6'
+          - '86.1'
+          - '86.21'
+          - '86.22'
+          - '86.23'
+          - '86.9'
+          - '87.1'
+          - '87.2'
+          - '87.3'
+          - '87.9'
+          - '88.1'
+          - '88.91'
+          - '88.99'
+          - '90.01'
+          - '90.02'
+          - '90.03'
+          - '90.04'
+          - '91.01'
+          - '91.02'
+          - '91.03'
+          - '91.04'
+          - '92'
+          - '93.11'
+          - '93.12'
+          - '93.13'
+          - '93.19'
+          - '93.21'
+          - '93.29'
+          - '94.11'
+          - '94.12'
+          - '94.2'
+          - '94.91'
+          - '94.92'
+          - '94.99'
+          - '95.11'
+          - '95.12'
+          - '95.21'
+          - '95.22'
+          - '95.23'
+          - '95.24'
+          - '95.25'
+          - '95.29'
+          - '96.01'
+          - '96.02'
+          - '96.03'
+          - '96.04'
+          - '96.09'
+          - '97'
+          - '98.1'
+          - '98.2'
+          - '99'
+          description: NACEcode
+          example: 62.01Z
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/eed5e2fd-36cc-7973-d5d2-ca1e9dea8909/LegalEntity_NACECode.csv
+            description: From this provided list.
+        ATECOcode:
+          type: string
+          enum:
+          - '011'
+          - '012'
+          - '013'
+          - '014'
+          - '015'
+          - '016'
+          - '017'
+          - '021'
+          - '022'
+          - '023'
+          - '024'
+          - '031'
+          - '032'
+          - '051'
+          - '052'
+          - '061'
+          - '062'
+          - '071'
+          - '072'
+          - 081
+          - 089
+          - 091
+          - 099
+          - '101'
+          - '102'
+          - '103'
+          - '104'
+          - '105'
+          - '106'
+          - '107'
+          - '108'
+          - '109'
+          - '110'
+          - '120'
+          - '131'
+          - '132'
+          - '133'
+          - '139'
+          - '141'
+          - '142'
+          - '143'
+          - '151'
+          - '152'
+          - '161'
+          - '162'
+          - '171'
+          - '172'
+          - '181'
+          - '182'
+          - '191'
+          - '192'
+          - '201'
+          - '202'
+          - '203'
+          - '204'
+          - '205'
+          - '206'
+          - '211'
+          - '212'
+          - '221'
+          - '222'
+          - '231'
+          - '232'
+          - '233'
+          - '234'
+          - '235'
+          - '236'
+          - '237'
+          - '239'
+          - '241'
+          - '242'
+          - '243'
+          - '244'
+          - '245'
+          - '251'
+          - '252'
+          - '253'
+          - '254'
+          - '255'
+          - '256'
+          - '257'
+          - '259'
+          - '261'
+          - '262'
+          - '263'
+          - '264'
+          - '265'
+          - '266'
+          - '267'
+          - '268'
+          - '271'
+          - '272'
+          - '273'
+          - '274'
+          - '275'
+          - '279'
+          - '281'
+          - '282'
+          - '283'
+          - '284'
+          - '289'
+          - '291'
+          - '292'
+          - '293'
+          - '301'
+          - '302'
+          - '303'
+          - '304'
+          - '309'
+          - '310'
+          - '321'
+          - '322'
+          - '323'
+          - '324'
+          - '325'
+          - '329'
+          - '331'
+          - '332'
+          - '351'
+          - '352'
+          - '353'
+          - '360'
+          - '370'
+          - '381'
+          - '382'
+          - '383'
+          - '390'
+          - '411'
+          - '412'
+          - '421'
+          - '422'
+          - '429'
+          - '431'
+          - '432'
+          - '433'
+          - '439'
+          - '451'
+          - '452'
+          - '453'
+          - '454'
+          - '461'
+          - '462'
+          - '463'
+          - '464'
+          - '465'
+          - '466'
+          - '467'
+          - '469'
+          - '471'
+          - '472'
+          - '473'
+          - '474'
+          - '475'
+          - '476'
+          - '477'
+          - '478'
+          - '479'
+          - '491'
+          - '492'
+          - '493'
+          - '494'
+          - '495'
+          - '501'
+          - '502'
+          - '503'
+          - '504'
+          - '511'
+          - '512'
+          - '521'
+          - '522'
+          - '531'
+          - '532'
+          - '551'
+          - '552'
+          - '553'
+          - '559'
+          - '561'
+          - '562'
+          - '563'
+          - '581'
+          - '582'
+          - '591'
+          - '592'
+          - '601'
+          - '602'
+          - '611'
+          - '612'
+          - '613'
+          - '619'
+          - '620'
+          - '631'
+          - '639'
+          - '641'
+          - '642'
+          - '643'
+          - '649'
+          - '651'
+          - '652'
+          - '653'
+          - '661'
+          - '662'
+          - '663'
+          - '681'
+          - '682'
+          - '683'
+          - '691'
+          - '692'
+          - '701'
+          - '702'
+          - '711'
+          - '712'
+          - '721'
+          - '722'
+          - '731'
+          - '732'
+          - '741'
+          - '742'
+          - '743'
+          - '749'
+          - '750'
+          - '771'
+          - '772'
+          - '773'
+          - '774'
+          - '781'
+          - '782'
+          - '783'
+          - '791'
+          - '799'
+          - '801'
+          - '802'
+          - '803'
+          - '811'
+          - '812'
+          - '813'
+          - '821'
+          - '822'
+          - '823'
+          - '829'
+          - '841'
+          - '842'
+          - '843'
+          - '851'
+          - '852'
+          - '853'
+          - '854'
+          - '855'
+          - '856'
+          - '861'
+          - '862'
+          - '869'
+          - '871'
+          - '872'
+          - '873'
+          - '879'
+          - '881'
+          - '889'
+          - '900'
+          - '910'
+          - '920'
+          - '931'
+          - '932'
+          - '941'
+          - '942'
+          - '949'
+          - '951'
+          - '952'
+          - '960'
+          - '970'
+          - '981'
+          - '982'
+          - '990'
+          description: ATECOcode
+          example: 62.01.00
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/6b926f08-3686-7265-371b-c89738cdfde7/LegalEntity_ATECOCode.csv
+            description: From this provided list.
+        description:
+          type: string
+          example: Delivering cutting-edge payment solutions
+        fundsDestinationCountries:
+          $ref: '#/components/schemas/FundsDestinationCountries'
+        location:
+          $ref: '#/components/schemas/Location'
+      description: Activity and business scope details
+    CompanyLegalRepresentative:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the legal representative
+          example: Johns
+        lastName:
+          type: string
+          description: Last name of the legal representative
+          example: Aimar
+        otherName:
+          type: string
+        birthDate:
+          type: string
+          description: Date of birth (ISO 8601 format)
+          example: '1985-04-12'
+        birthCity:
+          type: string
+        birthCountry:
+          type: string
+          description: Country of birth (ISO 2-letter code)
+          example: IT
+        birthProvince:
+          type: string
+          enum:
+          - AG
+          - AL
+          - AN
+          - AO
+          - AP
+          - AQ
+          - AR
+          - AT
+          - AV
+          - BA
+          - BG
+          - BI
+          - BL
+          - BN
+          - BO
+          - BR
+          - BS
+          - BT
+          - BZ
+          - CA
+          - CB
+          - CE
+          - CH
+          - CI
+          - CL
+          - CN
+          - CO
+          - CR
+          - CS
+          - CT
+          - CZ
+          - EE
+          - EN
+          - FC
+          - FE
+          - FG
+          - FI
+          - FM
+          - FO
+          - FR
+          - FU
+          - GE
+          - GO
+          - GR
+          - IM
+          - IS
+          - KR
+          - LC
+          - LE
+          - LI
+          - LO
+          - LT
+          - LU
+          - MB
+          - MC
+          - ME
+          - MI
+          - MN
+          - MO
+          - MS
+          - MT
+          - MZ
+          - NA
+          - 'NO'
+          - NU
+          - OG
+          - OR
+          - OT
+          - PA
+          - PC
+          - PD
+          - PE
+          - PG
+          - PI
+          - PL
+          - PN
+          - PO
+          - PR
+          - PT
+          - PU
+          - PV
+          - PZ
+          - RA
+          - RC
+          - RE
+          - RG
+          - RI
+          - RM
+          - RN
+          - RO
+          - SA
+          - SI
+          - SO
+          - SP
+          - SR
+          - SS
+          - SU
+          - SV
+          - TA
+          - TE
+          - TN
+          - TO
+          - TP
+          - TR
+          - TS
+          - TV
+          - UD
+          - VA
+          - VB
+          - VC
+          - VE
+          - VI
+          - VR
+          - VS
+          - VT
+          - VV
+        nationalities:
+          type: array
+          items:
+            type: string
+          description: List of nationality codes (ISO 2-letter)
+          example: '["IT"]'
+        email:
+          type: string
+          description: Email address of the representative
+          example: claire.marchesi@example.com
+        phoneNumber:
+          type: string
+          description: Phone number of the representative
+          example: '+336149568'
+        taxCode:
+          type: string
+        address:
+          $ref: '#/components/schemas/OnboardingAddress'
+        politicalExposure:
+          $ref: '#/components/schemas/PoliticalExposure'
+      required:
+      - firstName
+      - lastName
+      - birthDate
+      - birthCountry
+      - nationalities
+      - email
+      - address
+      description: Legal representative details (see nested bodyParams below)
+    SalaryAdvanceReason:
+      type: object
+      properties:
+        type:
+          type: string
+        other:
+          type: string
+    Shareholding:
+      type: object
+      properties:
+        hasShareholders:
+          type: boolean
+        shareholders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shareholder'
+      required:
+      - hasShareholders
+      description: Shareholding structure details
+    LegalCapacity:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - MINOR_EMANCIPATED
+          - MINOR_NOT_EMANCIPATED
+          - LEGAL_AGE_AND_CAPACITY
+          - PROTECTED_ADULT
+          description: 'Legal capacity options: LEGAL_AGE_AND_CAPACITY, PROTECTED_ADULT, MINOR_EMANCIPATED, MINOR_NOT_EMANCIPATED'
+          example: Protected adult
+        protectionType:
+          type: string
+          enum:
+          - SAFEGUARDING_OF_JUSTICE
+          - CURATORSHIP
+          - GUARDIANSHIP
+          - OTHER
+          example: Family Guardianship
+          externalDocs:
+            url: https://mcusercontent.com/8f160bc4ef7dd164ce6ab6e87/files/3703d8d3-61b8-eed5-06f3-772c7acfb4bb/complete_enum_lists.xlsx
+            description: Enum of protection types
+        otherProtectionType:
+          type: string
+          description: Must specify other protection type
+      required:
+      - type
+    CompanyLegalEntity:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Full legal name of the entity
+          example: Globex Corporation
+        brandName:
+          type: string
+          description: Trading name or brand name
+          example: Alice brand
+        registrationNumber:
+          type: string
+          description: Official company registration number
+          example: 50JoRegistrationDOUBLON
+        registrationDate:
+          format: date-time
+          type: string
+          description: Date of company registration (ISO 8601)
+          example: '2014-09-25'
+        vatNumber:
+          type: string
+          description: VAT registration number
+          example: X9F7G8H2K1
+        website:
+          type: string
+          description: Company website URL
+          example: alice.biz
+        noWebsiteReason:
+          type: string
+        legalForm:
+          type: string
+          enum:
+          - SOLE_TRADER
+          - SELF_EMPLOYED
+          - LEGAL_ENTITY_UNDER_FOREIGN_LAW_REGISTERED_WITH_THE_RCS
+          - ANSTALT
+          - LEGAL_ENTITY_UNDER_FOREIGN_LAW_NOT_REGISTERED_WITH_THE_RCS
+          - CONDOMINIUM
+          - INDIVISION_CO_OWNERSHIP
+          - DE_FACTO_COMPANY
+          - PARTNERSHIP
+          - TRUSTS
+          - OTHER_PRIVATE_LAW_GROUPING_NOT_ENDOWED_WITH_LEGAL_PERSONALITY
+          - SPECIAL_COMMERCIAL_COOPERATIVE_COMPANY
+          - GENERAL_PARTNERSHIP
+          - LIMITED_PARTNERSHIP
+          - LIMITED_LIABILITY_COMPANY
+          - PROFESSIONAL_LIMITED_LIABILITY_COMPANY
+          - PUBLIC_LIMITED_COMPANY_WITH_BOARD_OF_DIRECTORS
+          - PUBLIC_LIMITED_COMPANY_WITH_MANAGEMENT_BOARD
+          - SIMPLIFIED_JOINT_STOCK_COMPANY
+          - FINANCIAL_PARTICIPATION_COMPANY_OF_LIBERAL_PROFESSIONS
+          - PROFESSIONAL_COMPANY_WITH_SIMPLIFIED_JOINT_STOCK_STRUCTURE
+          - EUROPEAN_COMPANY
+          - SAVINGS_AND_PROVIDENT_FUND
+          - COLLECTIVE_INVESTMENT_SCHEME_IN_SECURITIES_WITHOUT_LEGAL_PERSONALITY
+          - MUTUAL_INSURANCE_COMPANY
+          - ECONOMIC_INTEREST_GROUP
+          - AGRICULTURAL_COOPERATIVE
+          - FOUNDATION_STICHTING
+          - COLLECTIVE_INVESTMENT_SCHEME
+          - AGRICULTURAL_COLLECTIVE_INTEREST_COMPANY
+          - REAL_ESTATE_COMPANY
+          - REAL_ESTATE_CIVIL_COMPANY
+          - REAL_ESTATE_CONSTRUCTION_AND_SALE_CIVIL_COMPANY
+          - ALLOCATION_CIVIL_COMPANY
+          - PROGRESSIVE_PROPERTY_ACCESS_REAL_ESTATE_CIVIL_COMPANY
+          - COOPERATIVE_CIVIL_CONSTRUCTION_COMPANY
+          - COOPERATIVE_CIVIL_CONSUMPTION_COMPANY
+          - COOPERATIVE_CIVIL_MARITIME_INTEREST_COMPANY
+          - COOPERATIVE_CIVIL_COMPANY_AMONG_DOCTORS
+          - OTHER_COOPERATIVE_CIVIL_COMPANY
+          - PROFESSIONAL_CIVIL_COMPANY
+          - PUBLIC_INSTITUTION_OR_INDUSTRIAL_AND_COMMERCIAL_ENTITY
+          - STATE_ADMINISTRATION
+          - TERRITORIAL_AUTHORITY
+          - ADMINISTRATIVE_PUBLIC_INSTITUTION
+          - PUBLIC_OFFICE_FOR_LOW_COST_HOUSING
+          - LOCAL_CULTURAL_PUBLIC_INSTITUTION
+          - ORGANIZATION_MANAGING_COMPULSORY_MEMBERSHIP_SOCIAL_PROTECTION_SYSTEM
+          - MUTUAL_ORGANIZATION
+          - WORKS_COUNCIL
+          - EMPLOYEE_UNION
+          - EMPLOYERS_UNION
+          - PROFESSIONAL_ORDER_OR_EQUIVALENT
+          description: Legal form of the entity (e.g., SAS, SARL)
+          example: SAS
+        taxCode:
+          type: string
+        address:
+          $ref: '#/components/schemas/OnboardingAddress'
+        activity:
+          $ref: '#/components/schemas/CompanyActivity'
+        project:
+          $ref: '#/components/schemas/LegalEntityProject'
+        financialSituation:
+          $ref: '#/components/schemas/CompanyFinancialSituation'
+        shareholding:
+          $ref: '#/components/schemas/Shareholding'
+        debtorsInformation:
+          $ref: '#/components/schemas/DebtorsInformation'
+      required:
+      - name
+      - registrationNumber
+      - registrationDate
+      - address
+      description: Legal entity details (see nested bodyParams below)
+    OtherFundsDestinationCountries:
+      type: object
+      properties:
+        countries:
+          type: array
+          items:
+            type: string
+        reason:
+          type: string
+      required:
+      - countries
+      - reason
+    EntityFinancing:
+      type: object
+      properties:
+        by:
+          type: string
+          enum:
+          - DONATION
+          - MEMBERSHIP_FEES
+          - SUBVENTION
+          - OTHER
+          description: FinancingType
+        other:
+          type: string
+    FinancialSupport:
+      type: object
+      properties:
+        visaApplicantRole:
+          type: string
+          enum:
+          - STUDENT
+          - JOB_SEEKER
+        isPayer:
+          type: boolean
+        payerRelationship:
+          $ref: '#/components/schemas/PayerRelationship'
+        financialSituation:
+          $ref: '#/components/schemas/PayerFinancialSituation'
+      required:
+      - visaApplicantRole
+      - isPayer
+      - payerRelationship
+      - financialSituation
+    Beneficiary:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        birthDate:
+          format: date-time
+          type: string
+    Shareholder:
+      type: object
+      properties:
+        name:
+          type: string
+        registrationNumber:
+          type: string
+        registrationCountry:
+          type: string
+      required:
+      - name
+      - registrationNumber
+      - registrationCountry
+    DebtorsInformation:
+      type: object
+      properties:
+        performsProhibitedActivity:
+          type: boolean
+        locatedInHighriskCountry:
+          type: boolean
+      required:
+      - performsProhibitedActivity
+      - locatedInHighriskCountry
+    PayerFinancialSituation:
+      type: object
+      properties:
+        annualRevenue:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          description: "6 tiers format in Euro. \n\n•FIRST_TIER: 0 - 100K€\n\n•SECOND_TIER: 100K€ - 200K€\n\n•THIRD_TIER: 500K€ - 1.5M€\n\n•FOURTH_TIER: 1.5M€ - 5M€\n\n•FIFTH_TIER: 5M€ - 20M€ \n\n•SIXTH_TIER: 20M€ - 100M€"
+          example: 0 - 10K €
+        estimatedWealth:
+          type: string
+          enum:
+          - FIRST_TIER
+          - SECOND_TIER
+          - THIRD_TIER
+          - FOURTH_TIER
+          - FIFTH_TIER
+          - SIXTH_TIER
+          - SEVENTH_TIER
+          description: "7 tiers format in Euro \n\n•FIRST_TIER: 0 - 100K€\n\n•SECOND_TIER: 100K€ - 200K€\n\n•THIRD_TIER: 500K€ - 1.5M€\n\n•FOURTH_TIER: 1.5M€ - 5M€\n\n•FIFTH_TIER: 5M€ - 20M€\n\n•SIXTH_TIER: 20M€ - 100M€\n\n•SEVENTH_TIER: >100M€"
+          example: 0 - 50K €
+        originOfFunds:
+          $ref: '#/components/schemas/OriginOfFunds'
+      required:
+      - annualRevenue
+      - estimatedWealth
+      - originOfFunds
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accountscontroller_createindividual.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createindividualprofile.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createindividualwallet.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createlegalentity.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createlegalentityprofile.md
+  - https://documentation.lemonway.com/reference/accountscontroller_createlegalentitywallet.md
+  - https://documentation.lemonway.com/reference/accountscontroller_find.md
+  - https://documentation.lemonway.com/reference/accountscontroller_get.md
+  - https://documentation.lemonway.com/reference/accountscontroller_getfile.md
+  - https://documentation.lemonway.com/reference/individualonboarding_uploaddocument.md
+  - https://documentation.lemonway.com/reference/legalentityonboarding_uploaddocument.md
+  - https://documentation.lemonway.com/reference/onboardings_createassociationonboarding.md
+  - https://documentation.lemonway.com/reference/onboardings_createcompanyonboarding.md
+  - https://documentation.lemonway.com/reference/onboardings_createonboarding.md
+  - https://documentation.lemonway.com/reference/onboardings_createsoletraderonboarding.md
+  - https://documentation.lemonway.com/reference/onboardingscontroller_createurl-2.md
+  merge:
+    pages: 16
+    deduped: 50
+    conflicts_kept_first: 0

@@ -1,0 +1,442 @@
+openapi: 3.2.0
+info:
+  version: v2
+  title: Lemonway DirectKit API 2.0 Refunds API
+servers:
+- url: https://ws.lemonway.fr/mb/env-name/prod/directkitrest/
+tags:
+- name: Refunds
+paths:
+  /v2/refund/{transactionid}:
+    put:
+      tags:
+      - Refunds
+      summary: Refund a Money-In
+      description: '**General Rules:**
+
+
+        - A refund can **only** be made to the card holder''s original used card, or the bank that made the initial payment.
+
+        - Lemonway reserves the right to retain the payment fee.
+
+        - If no refund amount is specified, the total amount is refunded.
+
+        - The original Client payment account is debited the refund. If insufficient funds are in the **Client Wallet**,
+
+        the outstanding refund amount will be debited from your **SC Wallet**. An ON-US payment is automatically performed from your **SC Wallet** to the **Client Wallet**, prior to the card refund.
+
+        - It is possible to cumulate refunds until the total amount is refunded.
+
+
+        **Card Payments:**
+
+
+        - Card payment refunds are not available from 22:00 and 03:00 (Central European Time - UTC/GMT+1 ).
+
+        - Refunds can only be made upto 12 months after the initial payment.
+
+
+        **iDEAL:** Refunds are only available upto **99 days** after the initial payment.'
+      operationId: Refunds_RefundPut
+      parameters:
+      - name: transactionid
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundMoneyInInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundMoneyInOutput'
+              examples:
+                response:
+                  value:
+                    transaction:
+                      status: 0
+                      senderAccountId: Pizza56
+                      debitAmount: 1500
+                      IbanId: 0
+                      originId: 0
+                      id: 255
+                      method: 0
+                      date: 1784563474
+                      commissionAmount: 100
+                      comment: null
+                      executionDate: 0
+                      reference: null
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+  /v2/refundcreate/{transactionId}:
+    put:
+      tags:
+      - Refunds
+      summary: Refund a transaction without PSP process
+      operationId: Refunds_RefundCreatePut
+      parameters:
+      - name: transactionId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: Authorization
+        in: header
+        description: Authorization bearer (OAuth 2)
+        required: true
+        schema:
+          type: string
+      - name: PSU-Accept-Language
+        in: header
+        description: Response language accepted by final client (PSU). English by default
+        required: false
+        schema:
+          type: string
+      - name: PSU-IP-Address
+        in: header
+        description: IP address of the final client (PSU).
+        required: true
+        schema:
+          type: string
+      - name: PSU-User-Agent
+        in: header
+        description: User-agent of the final client (PSU).
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundMoneyInCreateInput'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundMoneyInOutput'
+              examples:
+                response:
+                  value:
+                    transaction:
+                      status: 0
+                      senderAccountId: Pizza56
+                      debitAmount: 1500
+                      IbanId: 0
+                      originId: 0
+                      id: 255
+                      method: 0
+                      date: 1784563474
+                      commissionAmount: 100
+                      comment: null
+                      executionDate: 0
+                      reference: null
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+components:
+  schemas:
+    RefundMoneyInOutput:
+      type: object
+      properties:
+        transaction:
+          $ref: '#/components/schemas/TransactionRefund'
+        error:
+          $ref: '#/components/schemas/Error'
+    LemonWayCommission:
+      type: object
+      properties:
+        idp2p:
+          type: string
+        amount:
+          format: int32
+          description: 'Amounts are represented as integer in cents (Euro)
+
+            Represented as an integer in cents (Euro)'
+          type: integer
+    Error:
+      type: object
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        psp:
+          $ref: '#/components/schemas/PSP'
+    RefundMoneyInCreateInput:
+      required:
+      - linkedP2pIds
+      type: object
+      properties:
+        linkedP2pIds:
+          description: P2P transactions linked to Money-In refund.
+          type: array
+          items:
+            format: int64
+            type: integer
+        transactionDateTime:
+          description: Transaction DateTime (UTC Unix timestamp)
+          pattern: ^-?\d{1,12}$
+          type: string
+        amountToRefund:
+          format: int32
+          description: Refund Amount. If empty, the total amount of the payment will be refunded.
+          pattern: ^-?[0-9]{1,13}(.[0-9]{2}){0,1}$
+          type: integer
+        comment:
+          description: "Comment on the refund. \n**Explain the reason for the refunded amount** \n**Note:** In the API Response displayed before the comment will appear the refund transaction id. Example: comment\": \"Refund 2763789 Items not wanted\""
+          maxLength: 140
+          minLength: 0
+          type: string
+      example:
+        linkedP2pIds:
+        - 1
+        - 61
+        - 80
+        - 33
+        - 98
+        - 87
+        transactionDateTime: '1787155474'
+        amountToRefund: 1500
+        comment: Never received the PO 12366GG
+    RefundMoneyInInput:
+      type: object
+      properties:
+        amountToRefund:
+          format: int32
+          description: Refund Amount. If empty, the total amount of the payment will be refunded.
+          pattern: ^-?[0-9]{1,13}(.[0-9]{2}){0,1}$
+          type: integer
+        comment:
+          description: "Comment on the refund. \n**Explain the reason for the refunded amount** \n**Note:** In the API Response displayed before the comment will appear the refund transaction id. Example: comment\": \"Refund 2763789 Items not wanted\""
+          maxLength: 140
+          minLength: 0
+          type: string
+      example:
+        amountToRefund: 1500
+        comment: Never received the PO 12366GG
+    BnplInfo:
+      type: object
+      properties:
+        paymentPlanId:
+          format: int64
+          description: Payment Plan ID
+          type: integer
+        type:
+          description: Payment plan type.
+          type: string
+        secondInstallmentPaymentDate:
+          description: 'Second installment payment date.
+
+            Format: yyyy-MM-dd'
+          type: string
+        deferredPaymentDate:
+          description: 'Deferred payment date.
+
+            Format: yyyy-MM-dd'
+          type: string
+    PSP:
+      type: object
+      properties:
+        message:
+          description: Get the Error Message from PSP
+          type: string
+    TransactionRefund:
+      type: object
+      properties:
+        status:
+          format: int32
+          description: '0: Success
+
+            4: Pending
+
+            6: PSP Error'
+          type: integer
+        senderAccountId:
+          description: Debited Account
+          type: string
+        debitAmount:
+          format: int32
+          description: 'Debited Amount
+
+            Amounts are represented in cents (Euros)'
+          type: integer
+        IbanId:
+          format: int64
+          description: IBAN ID
+          type: integer
+        maskedLabel:
+          type: string
+        bankStatus:
+          type: string
+        PSP:
+          $ref: '#/components/schemas/PSP'
+        originId:
+          format: int64
+          description: Money-In - ID responsible for the chargeback
+          type: integer
+        buyNowPayLaterInfo:
+          $ref: '#/components/schemas/BnplInfo'
+        id:
+          format: int64
+          description: Transaction ID
+          type: integer
+        method:
+          format: int32
+          description: "Payment Method  \n0 Card    \n1 Bank transfer (MoneyIn)     \n3 Bank transfer (MoneyOut)     \n4 P2P    \n13 iDEAL    \n14 SEPA DirectDebit    \n15 Cheque    \n19 Multibanco    \n21 MBWAY    \n30 BNPL  \n35 PayPal\n\n ---\n **Important:** The following services have been discontinued. \n \n16 Neosurf  \n17 Sofort  \n18 PFS Physical Card  \n20 Payshop  \n22 Polish Instant Transfer  \n23 Pagare  \n24 MobilePay\n25 Paytrail\n26 WeChat  \n27 P24  \n28 MoneyIn by TPE  \n29 Trustly"
+          type: integer
+        methodDetails:
+          format: int32
+          description: 'Payment Method Details
+
+            0 Standard
+
+            1 Pay By Bank<br/>0 = STANDARD.<br/>1 = PAY_BY_BANK.<br/>'
+          enum:
+          - 0
+          - 1
+          type: integer
+        date:
+          format: int32
+          description: Transaction initialization date, UTC Unix timestamp
+          type: integer
+        commissionAmount:
+          format: int32
+          description: 'Your fee
+
+            Amounts are given as integer numbers in cents'
+          type: integer
+        comment:
+          description: Comment
+          type: string
+        executionDate:
+          format: int32
+          description: Transaction execution date
+          type: integer
+        lemonWayCommission:
+          $ref: '#/components/schemas/LemonWayCommission'
+        reference:
+          description: Unique ID generated by your server
+          type: string
+x-provenance:
+  method: searched
+  source: https://documentation.lemonway.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://documentation.lemonway.com/reference/accounts_accountsingleget.md
+  - https://documentation.lemonway.com/reference/accounts_addultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_balancesget.md
+  - https://documentation.lemonway.com/reference/accounts_balanceshistoryget.md
+  - https://documentation.lemonway.com/reference/accounts_blockedput.md
+  - https://documentation.lemonway.com/reference/accounts_documentget.md
+  - https://documentation.lemonway.com/reference/accounts_documentssigninitpost.md
+  - https://documentation.lemonway.com/reference/accounts_documentsuploadpost.md
+  - https://documentation.lemonway.com/reference/accounts_enrolmentinit.md
+  - https://documentation.lemonway.com/reference/accounts_getultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/accounts_individualpost.md
+  - https://documentation.lemonway.com/reference/accounts_individualput.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusget.md
+  - https://documentation.lemonway.com/reference/accounts_kycstatusput.md
+  - https://documentation.lemonway.com/reference/accounts_legalpost.md
+  - https://documentation.lemonway.com/reference/accounts_legalsingleput.md
+  - https://documentation.lemonway.com/reference/accounts_retrievepost.md
+  - https://documentation.lemonway.com/reference/accounts_transactionsget.md
+  - https://documentation.lemonway.com/reference/accounts_updateultimatebeneficialowner.md
+  - https://documentation.lemonway.com/reference/disputes_disputesget.md
+  - https://documentation.lemonway.com/reference/moneyins_accountcardget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancountget.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibancreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_bankwireibandisablepost.md
+  - https://documentation.lemonway.com/reference/moneyins_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardcreatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_carddirect3dconfirmput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardget.md
+  - https://documentation.lemonway.com/reference/moneyins_cardpaymentformpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardrebill.md
+  - https://documentation.lemonway.com/reference/moneyins_cardsubscriptionpost.md
+  - https://documentation.lemonway.com/reference/moneyins_cardunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_cardwebinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeget.md
+  - https://documentation.lemonway.com/reference/moneyins_chequeinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_createbnplpayment.md
+  - https://documentation.lemonway.com/reference/moneyins_getbnplpaymentplans.md
+  - https://documentation.lemonway.com/reference/moneyins_getmoneyinbanks.md
+  - https://documentation.lemonway.com/reference/moneyins_mandateget.md
+  - https://documentation.lemonway.com/reference/moneyins_mandategetdocument.md
+  - https://documentation.lemonway.com/reference/moneyins_mbwayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_mobilepayinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinapminitasync.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinget.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyinpaypalinit.md
+  - https://documentation.lemonway.com/reference/moneyins_moneyintransferinit.md
+  - https://documentation.lemonway.com/reference/moneyins_multibancoinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformcompletedget.md
+  - https://documentation.lemonway.com/reference/moneyins_paymentformdisableput.md
+  - https://documentation.lemonway.com/reference/moneyins_paypaltransactionresume.md
+  - https://documentation.lemonway.com/reference/moneyins_payshopinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_paytrailinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddget.md
+  - https://documentation.lemonway.com/reference/moneyins_sddinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandatepost.md
+  - https://documentation.lemonway.com/reference/moneyins_sddmandateunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyins_sofortinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_trustlyinitpost.md
+  - https://documentation.lemonway.com/reference/moneyins_validateput.md
+  - https://documentation.lemonway.com/reference/moneyouts_cancelput.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanextendedpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanget.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanpost.md
+  - https://documentation.lemonway.com/reference/moneyouts_ibanunregisterput.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutget.md
+  - https://documentation.lemonway.com/reference/moneyouts_moneyoutpostasync.md
+  - https://documentation.lemonway.com/reference/p2ps_p2pget.md
+  - https://documentation.lemonway.com/reference/p2ps_p2ppost.md
+  - https://documentation.lemonway.com/reference/refunds_refundcreateput.md
+  - https://documentation.lemonway.com/reference/refunds_refundput.md
+  merge:
+    pages: 71
+    deduped: 281
+    conflicts_kept_first: 0
