@@ -213,6 +213,8 @@ apis:
   humanURL: https://documentation.lemonway.com/reference/lemonway-api
   baseURL: https://api.lemonway.com
   tags:
+  - Account
+  tags_raw:
   - accounts
   properties:
   - type: OpenAPI
@@ -1122,6 +1124,8 @@ apis:
   humanURL: https://documentation.lemonway.com/reference/lemonway-api
   baseURL: https://api.lemonway.com
   tags:
+  - Onboarding
+  tags_raw:
   - onboarding
   properties:
   - type: OpenAPI
@@ -1175,6 +1179,8 @@ apis:
   humanURL: https://documentation.lemonway.com/reference/lemonway-api
   baseURL: https://api.lemonway.com
   tags:
+  - Onboardings
+  tags_raw:
   - onboardings
   properties:
   - type: OpenAPI
