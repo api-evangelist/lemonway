@@ -64,57 +64,176 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Lemonway is a European payment institution regulated by the French ACPR (registration 16568) since 2012, providing REST APIs for marketplace payments. The platform is trusted by over 1,400 marketplaces and 200 crowdfunding platforms across Europe.
+Lemonway is a European payment institution regulated by the French ACPR (registration 16568) since 2012, providing REST APIs for marketplace payments including IBAN wallet creation, bank transfers, card payments, KYC/KYB verification, P2P transfers, and crowdfunding platform payment flows. Trusted by over 1,400 marketplaces across Europe.
 
-## Overview
+**Areas:** Payments · Marketplace · IBAN · KYC · Wallets · Bank Transfers · Card Payments · Crowdfunding · European · PSD2
 
-Lemonway provides a modular, feature-rich payment infrastructure API enabling marketplace operators to offer pay-in, wallet management, KYC/KYB onboarding, P2P transfers, and pay-out capabilities—all under a single regulated payment institution umbrella.
+## Lemonway on APIs.io
 
-**Key metrics:** 99.9% uptime, 150 million API calls/month capacity, 678 ms average response time, PCI-DSS certified.
+Everything profiled for Lemonway is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lemonway/](https://apis.io/providers/lemonway/)** — or go straight to one of the APIs or properties below.
 
-## APIs
+### APIs (23)
 
-- **Lemonway API** — Core REST API for payments, wallets, KYC, transfers, and payouts
-- **Lemonway Onboarding API** — Online KYC/KYB onboarding flows for individual and legal entity account holders
+- [Lemonway Onboarding API](https://apis.io/apis/lemonway/lemonway-onboarding-api/) — REST API for online KYC/KYB onboarding flows, enabling marketplace operators to collect identity verification, document uploads, and account creation for…
+- [Lemonway Accounts | Admin API](https://apis.io/apis/lemonway/lemonway-accounts-admin-api/) — The Accounts | Admin API from Lemonway — 9 operation(s) for accounts | admin.
+- [Lemonway Accounts API](https://apis.io/apis/lemonway/lemonway-accounts-api/) — The accounts API from Lemonway — 9 operation(s) for accounts.
+- [Lemonway Accounts | Create & KYC API](https://apis.io/apis/lemonway/lemonway-accounts-create-kyc-api/) — The Accounts | Create & KYC API from Lemonway — 7 operation(s) for accounts | create & kyc.
+- [Lemonway Accounts | Update API](https://apis.io/apis/lemonway/lemonway-accounts-update-api/) — The Accounts | Update API from Lemonway — 3 operation(s) for accounts | update.
+- [Lemonway Disputes API](https://apis.io/apis/lemonway/lemonway-disputes-api/) — The Disputes API from Lemonway — 1 operation(s) for disputes.
+- [Lemonway Legal Entity Onboarding API](https://apis.io/apis/lemonway/lemonway-legal-entity-onboarding-api/) — The legal-entity-onboarding API from Lemonway — 1 operation(s) for legal-entity-onboarding.
+- [Lemonway MoneyIns | APM API](https://apis.io/apis/lemonway/lemonway-moneyins-apm-api/) — The MoneyIns | APM API from Lemonway — 1 operation(s) for moneyins | apm.
+- [Lemonway MoneyIns | BNPL API](https://apis.io/apis/lemonway/lemonway-moneyins-bnpl-api/) — The MoneyIns | BNPL API from Lemonway — 2 operation(s) for moneyins | bnpl.
+- [Lemonway MoneyIns | Cards API](https://apis.io/apis/lemonway/lemonway-moneyins-cards-api/) — The MoneyIns | Cards API from Lemonway — 11 operation(s) for moneyins | cards.
+- [Lemonway MoneyIns | Cheque API](https://apis.io/apis/lemonway/lemonway-moneyins-cheque-api/) — The MoneyIns | Cheque API from Lemonway — 2 operation(s) for moneyins | cheque.
+- [Lemonway MoneyIns | Direct Debits API](https://apis.io/apis/lemonway/lemonway-moneyins-direct-debits-api/) — The MoneyIns | Direct Debits API from Lemonway — 7 operation(s) for moneyins | direct debits.
+- [Lemonway MoneyIns | Local Payments API](https://apis.io/apis/lemonway/lemonway-moneyins-local-payments-api/) — The MoneyIns | Local Payments API from Lemonway — 7 operation(s) for moneyins | local payments.
+- [Lemonway MoneyIns | Pay by Bank API](https://apis.io/apis/lemonway/lemonway-moneyins-pay-by-bank-api/) — The MoneyIns | Pay by Bank API from Lemonway — 2 operation(s) for moneyins | pay by bank.
+- [Lemonway MoneyIns | Pay by Link API](https://apis.io/apis/lemonway/lemonway-moneyins-pay-by-link-api/) — The MoneyIns | Pay by Link API from Lemonway — 3 operation(s) for moneyins | pay by link.
+- [Lemonway MoneyIns | PayPal API](https://apis.io/apis/lemonway/lemonway-moneyins-paypal-api/) — The MoneyIns | PayPal API from Lemonway — 2 operation(s) for moneyins | paypal.
+- [Lemonway MoneyIns | Transfers In API](https://apis.io/apis/lemonway/lemonway-moneyins-transfers-in-api/) — The MoneyIns | Transfers In API from Lemonway — 1 operation(s) for moneyins | transfers in.
+- [Lemonway MoneyIns | Virtual IBAN API](https://apis.io/apis/lemonway/lemonway-moneyins-virtual-iban-api/) — The MoneyIns | Virtual IBAN API from Lemonway — 3 operation(s) for moneyins | virtual iban.
+- [Lemonway Money Outs API](https://apis.io/apis/lemonway/lemonway-moneyouts-api/) — The MoneyOuts API from Lemonway — 6 operation(s) for moneyouts.
+- [Lemonway Onboarding API](https://apis.io/apis/lemonway/lemonway-onboarding-api/) — The onboarding API from Lemonway — 1 operation(s) for onboarding.
+- [Lemonway Onboardings API](https://apis.io/apis/lemonway/lemonway-onboardings-api/) — The onboardings API from Lemonway — 5 operation(s) for onboardings.
+- [Lemonway P2Ps API](https://apis.io/apis/lemonway/lemonway-p2ps-api/) — The P2Ps API from Lemonway — 1 operation(s) for p2ps.
+- [Lemonway Refunds API](https://apis.io/apis/lemonway/lemonway-refunds-api/) — The Refunds API from Lemonway — 2 operation(s) for refunds.
 
-## Supported Payment Methods
+### Published properties
 
-- Card payments (Visa, Mastercard, CB) with 3D Secure v2
-- SEPA bank transfers and direct debit
-- Virtual IBAN
-- PayPal
-- Apple Pay and Google Pay
-- Buy Now Pay Later (BNPL)
-- Pay by Bank and Pay by Link
-- Multibanco and MBWay
-- Cheques
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Key Capabilities
+#### MCP servers (1)
 
-- IBAN wallet creation and management
-- KYC/KYB identity verification and document upload
-- P2P wallet-to-wallet transfers
-- Pre-authorization, multi-capture, and recurring payments
-- Refunds and dispute management
-- Webhook notifications
-- Magento and Mirakl connectors
-- Hosted card payment fields (React, Vue.js, Angular SDKs)
+Model Context Protocol servers that expose the API to agents.
 
-## Marketplace Models
+- [lemonway-mcp.yml](https://apis.io/servers/lemonway/lemonway-mcp-yml/)
 
-Lemonway supports B2B, B2C, and C2C marketplace payment flows.
+#### Agentic access (1)
 
-## Developer Resources
+Which operations an agent can call, which act, and which need a human in the loop.
 
+- [Lemonway Agentic Access](https://apis.io/agentic-access/lemonway/lemonway-agentic-access/)
+
+#### JSON Schema (12)
+
+The data models the API reads and writes.
+
+- [CreateAccountResponse](https://apis.io/schemas/lemonway/lemonway-create-account-response/)
+- [CreateBnplPaymentInput](https://apis.io/schemas/lemonway/lemonway-create-bnpl-payment-input/)
+- [CreateIndividualAccountRequest](https://apis.io/schemas/lemonway/lemonway-create-individual-account-request/)
+- [CreateLegalEntityAccountRequest](https://apis.io/schemas/lemonway/lemonway-create-legal-entity-account-request/)
+- [CreateOnboardingCompanyRequest](https://apis.io/schemas/lemonway/lemonway-create-onboarding-company-request/)
+- [CreatePaymentFormInput](https://apis.io/schemas/lemonway/lemonway-create-payment-form-input/)
+- [CreateProfileRequest](https://apis.io/schemas/lemonway/lemonway-create-profile-request/)
+- [GetAccountResponse](https://apis.io/schemas/lemonway/lemonway-get-account-response/)
+- [MoneyInWebInitInput](https://apis.io/schemas/lemonway/lemonway-money-in-web-init-input/)
+- [RegisterIndividualAccountInput](https://apis.io/schemas/lemonway/lemonway-register-individual-account-input/)
+- [RegisterLegalAccountInput](https://apis.io/schemas/lemonway/lemonway-register-legal-account-input/)
+- [UploadDocumentInput](https://apis.io/schemas/lemonway/lemonway-upload-document-input/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Lemonway Context](https://apis.io/jsonld/lemonway/lemonway-context/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Lemonway API Rules](https://apis.io/rules/lemonway/lemonway-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Lemonway Authentication](https://apis.io/security/lemonway/lemonway-authentication/)
+- [Lemonway Domain Security](https://apis.io/security/lemonway/lemonway-domain-security/)
+- [Lemonway Vulnerability Disclosure](https://apis.io/security/lemonway/lemonway-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Plans](https://apis.io/plans/lemonway/plans/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Rate Limits](https://apis.io/rate-limits/lemonway/rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Finops](https://apis.io/finops/lemonway/finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.lemonway.com/en)
 - [Documentation](https://documentation.lemonway.com/)
-- [API Reference](https://documentation.lemonway.com/reference/lemonway-api)
-- [Developer Hub](https://www.lemonway.com/en/developers)
-- [Sandbox Access](https://documentation.lemonway.com/docs/how-to-access-lemonway-tools-and-services)
-- [API Status](https://documentation.lemonway.com/page/api-status)
-- [Support](https://support.lemonway.com/hc/en-us)
 - [Pricing](https://www.lemonway.com/en/pricing)
-- [GitHub (official SDKs)](https://github.com/lemonwaysas)
+- [Support](https://support.lemonway.com/hc/en-us)
+- [Changelog](https://documentation.lemonway.com/page/changelog)
+- [Blog](https://www.lemonway.com/en/blog)
+- [Terms of service](https://www.lemonway.com/en/legal-notice)
+- [Privacy policy](https://www.lemonway.com/en/privacy-policy)
+- [Status](https://status.lemonway.com/)
 
-## Regulatory
+## API Evangelist rating
 
-Regulated European Payment Institution under French ACPR supervision since 2012 (registration 16568). Compliant with PSD2/PSD3 and AML/CFT requirements.
+**Kin Score 46.2** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.4 |
+| Contract quality | 56.5 |
+| Contract governance | 22.0 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 41.7 |
+| Access clarity | 36.8 |
+
+**Agent readiness 33.7** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | verified |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 27.7** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lemonway/](https://apis.io/providers/lemonway/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Lemonway: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lemonway/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
